@@ -16,23 +16,14 @@ class Renewal extends Component
 {
     use WithFileUploads;
 
-    public $data_contract, $error, $contract, $wallet, $coin, $amount, $name, $alias, $description, $deposit, $time, $ticket, $file, $information;
+    public $data_contract, $error, $contract, $wallet, $coin, $amount, $name, $alias, $description, $deposit, $time, $ticket, $file, $information, $payment_amount;
 
     public function mount()
     {
-        // if (auth()->user()->due_date) {
-            // if (auth()->user()->renewal_waiting_fund->count() > 0) {
-            //     $data = auth()->user()->renewal_waiting_fund->first();
-            //     $this->name = $data->coin_name;
-            //     $this->wallet = $data->wallet;
-            //     $this->amount = $data->amount;
-            //     $this->time = $data->created_at;
-            //     return;
-            // }
-
-            $this->wallet = config('constants.wallet');
-            $this->data_contract = Contract::all();
-        // }
+        if (auth()->user()->invalid_at <= date('Y-m-d H:m:s')) {
+            $this->deposit = auth()->user()->enrollment_waiting_fund;
+        }
+        $this->data_contract = Contract::where('value', '>=', auth()->user()->contract->value)->get();
     }
 
     public function updated()
@@ -54,18 +45,18 @@ class Renewal extends Component
         ]);
 
         $file = null;
-        if($this->file){
+        if ($this->file) {
             $image = $this->file;
-            $file_name = auth()->user()->username.date('-Ymd-').time().uniqid();
+            $file_name = auth()->user()->username . date('-Ymd-') . time() . uniqid();
             $img = Image::make($image->getRealPath())->encode('png', 100)->fit(760, null, function ($c) {
                 $c->aspectRatio();
                 $c->upsize();
             });;
             $img->stream();
-            Storage::disk('public')->put('deposit/'.$file_name.'.png', $img);
+            Storage::disk('public')->put('deposit/' . $file_name . '.png', $img);
             $img->destroy();
 
-            $file = 'deposit/'.$file_name.'.png';
+            $file = 'deposit/' . $file_name . '.png';
         }
 
         $deposit = Deposit::findOrFail(auth()->user()->renewal_waiting_fund->first()->id);
@@ -78,33 +69,37 @@ class Renewal extends Component
     public function submit()
     {
         $this->validate([
-            'contract' => 'required',
-            'wallet' => 'required',
-            'amount' => 'required'
+            'contract' => 'required'
         ]);
+
+        try {
+            $data_ticket = Ticket::where('date', date('Y-m-d'))->where('id_contract', $this->contract)->orderBy('created_at', 'desc')->get();
+            if ($data_ticket->count() > 0) {
+                $this->ticket = $data_ticket->first()->kode;
+            } else {
+                $this->ticket = 1;
+            }
+
+            $indodax = Http::get('https://indodax.com/api/summaries')->collect()->first();
+            $payment_idr = (float)$indodax[strtolower('usdt_idr')]['last'];
+            $this->payment_amount = (float)round(collect($this->data_contract)->where('id', $this->contract)->first()->value * 15000 / $payment_idr, 3) + ($this->ticket * 1 / 1000);
+        } catch (\Throwable $th) {
+            return;
+        }
 
         if (auth()->user()->renewal_waiting_fund->count() == 0) {
             DB::transaction(function () {
-
-                $ticket = Ticket::where('date', date('Y-m-d'))->where('contract_price', auth()->user()->contract_price)->orderBy('created_at', 'desc')->get();
-                if($ticket->count() > 0){
-                    $this->ticket = $ticket->first()->kode;
-                }else{
-                    $this->ticket = 1;
-                }
-
-                $this->amount = $this->amount + $this->ticket;
                 $ticket = new Ticket();
-                $ticket->contract_price = auth()->user()->contract_price;
+                $ticket->id_contract = $this->contract;
                 $ticket->kode = $this->ticket;
                 $ticket->date = now();
                 $ticket->save();
 
                 $deposit = new Deposit();
-                $deposit->id_member = auth()->id();
-                $deposit->coin_name = $this->name;
-                $deposit->wallet = $this->wallet;
-                $deposit->amount = $this->amount;
+                $deposit->id_owner = auth()->id();
+                $deposit->id_user = auth()->id();
+                $deposit->wallet = config('constants.wallet');
+                $deposit->amount = $this->payment_amount;
                 $deposit->requisite = 'Renewal';
                 $deposit->save();
             });

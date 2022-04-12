@@ -31,7 +31,9 @@ class Enrollment extends Component
     public function mount()
     {
         $this->upline = auth()->id();
-        $this->deposit = auth()->user()->enrollment_waiting_fund;
+        if (auth()->user()->invalid_at >= date('Y-m-d H:m:s')) {
+            $this->deposit = auth()->user()->enrollment_waiting_fund;
+        }
         $this->data_contract = Contract::all();
     }
 
@@ -92,27 +94,26 @@ class Enrollment extends Component
             $this->error .= "Username already exist";
         }
 
-        if($this->error){
+        if ($this->error) {
             return;
         }
 
         try {
             $data_ticket = Ticket::where('date', date('Y-m-d'))->where('id_contract', $this->contract)->orderBy('created_at', 'desc')->get();
-            if($data_ticket->count() > 0){
+            if ($data_ticket->count() > 0) {
                 $this->ticket = $data_ticket->first()->kode;
-            }else{
+            } else {
                 $this->ticket = 1;
             }
 
             $indodax = Http::get('https://indodax.com/api/summaries')->collect()->first();
             $payment_idr = (float)$indodax[strtolower('usdt_idr')]['last'];
-            $this->payment_amount = (float)round(collect($this->data_contract)->where('id', $this->contract)->first()->value * 15000 / $payment_idr, 3) + ($this->ticket * 1/1000);
+            $this->payment_amount = (float)round(collect($this->data_contract)->where('id', $this->contract)->first()->value * 15000 / $payment_idr, 3) + ($this->ticket * 1 / 1000);
         } catch (\Throwable $th) {
             return;
         }
 
         DB::transaction(function () {
-            $referral = date('Ymd');
             $upline = User::where('id', $this->upline)->first();
 
             $user = new User();
@@ -122,7 +123,7 @@ class Enrollment extends Component
             $user->email = $this->email;
             $user->id_contract = $this->contract;
             $user->id_upline = $this->upline;
-            $user->network = trim($upline->network).$upline->id.'.';
+            $user->network = trim($upline->network) . $upline->id . '.';
             $user->referral = md5($this->username);
             $user->deleted_at = now();
             $user->save();

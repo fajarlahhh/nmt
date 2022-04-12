@@ -14,7 +14,7 @@ class Subordinate extends Component
 
     public function mount()
     {
-        $this->key = $this->key?:auth()->id();
+        $this->key = $this->key ?: auth()->id();
     }
 
     public function setKey($key)
@@ -26,8 +26,8 @@ class Subordinate extends Component
     public function render()
     {
         $this->emit('reinitialize');
-        $user = User::findOrFail($this->key)->network.User::findOrFail($this->key)->id.'.';
-        $data = User::select(DB::raw("*, LENGTH(REPLACE(network, '".$user."', '')) - LENGTH(REPLACE(REPLACE(network, '".auth()->id().".', ''), '.', '')) + 2 level"))->where('network', 'like', $user.'%')->whereRaw("LENGTH(REPLACE(network, '".$user."', '')) - LENGTH(REPLACE(REPLACE(network, '".$user."', ''), '.', '')) < 5")->get();
+        $user = User::findOrFail($this->key)->network . User::findOrFail($this->key)->id . '.';
+        $data = User::select(DB::raw("*, LENGTH(REPLACE(network, '" . $user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $user . "', ''), '.', '')) + 1 level"))->where('network', 'like', $user . '%')->whereRaw("LENGTH(REPLACE(network, '" . $user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $user . "', ''), '.', '')) < 4")->get();
 
         return view('livewire.member.subordinate', [
             'data' => $data
