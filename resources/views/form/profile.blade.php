@@ -1,5 +1,5 @@
 <div class="modal fade" wire:ignore.self id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profilModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
             <form>
                 <div class="modal-header">
@@ -48,7 +48,7 @@
                         <input id="referralProfile" type="text" class="form-control" value="{{ auth()->user()->upline->username }}"
                             placeholder="Upline" readonly>
                     </div>
-                    @if (auth()->user()->google2fa_secret)
+                    @if (auth()->user()->googleAuthSecret)
                         <hr class="mb-1">
                         <div class="form-group mb-2">
                             <label for="pin" class="form-label">Google Auth PIN</label>

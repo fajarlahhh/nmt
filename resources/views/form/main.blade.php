@@ -42,7 +42,7 @@
                                         <line x1="18" y1="6" x2="6" y2="18"></line>
                                         <line x1="6" y1="6" x2="18" y2="18"></line>
                                     </svg></button>
-                                {{ session('message') }}
+                                {!! session('message') !!}
                             </div>
                         @endif
                         @if (session()->has('error'))
@@ -55,7 +55,7 @@
                                         <line x1="18" y1="6" x2="6" y2="18"></line>
                                         <line x1="6" y1="6" x2="18" y2="18"></line>
                                     </svg></button>
-                                {{ session('error') }}
+                                {!! session('error') !!}
                             </div>
                         @endif
                     </div>
@@ -98,7 +98,8 @@
                                         </svg></span>
                                     <p>{{ number_format($active->sum('credit') - $active->sum('debit')) }}
                                     </p>
-                                    <small class="text-center"><a href="/active">Claim Here</a></small>
+                                    <small class="text-center"><a data-toggle="modal" wire:click="activeMount" data-target="#activeModal"
+                                        href="javascript:;">Claim Here</a></small>
                                 </div>
 
                                 <div class="w-a-info funds-received">
@@ -113,7 +114,8 @@
                                         </svg></span>
                                     <p>{{ number_format($passive) }}
                                     </p>
-                                    <small class="text-center"><a href="/passive">Claim Here</a></small>
+                                    <small class="text-center"><a data-toggle="modal" wire:click="passiveMount" data-target="#passiveModal"
+                                        href="javascript:;">Claim Here</a></small>
                                 </div>
                             </div>
 
@@ -168,10 +170,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="inv-action">
+                                    {{-- <div class="inv-action">
                                         <a href="/enrollment" class="btn btn-outline-primary view-details">+
                                             Enrollment</a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 

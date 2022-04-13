@@ -8,6 +8,8 @@
 
     @include('form.main')
     @include('form.profile')
+    @include('form.passive')
+    @include('form.active')
     @include('form.password')
     @push('scripts')
         <script>
@@ -20,12 +22,30 @@
                 input.parentNode.removeChild(input);
                 alert('Referral Copied');
             }
+
             window.livewire.on('profileModalClose', () => {
                 $('#profileModal').modal('hide');
             });
+
             window.livewire.on('passwordModalClose', () => {
                 $('#passwordModal').modal('hide');
             });
+
+
+            window.livewire.on('activeModalClose', (next) => {
+                $('#activeModal').modal('hide');
+                if (next === true) {
+                    $('#activeSubmit').modal('show');
+                }
+            });
+
+            window.livewire.on('activeSubmitClose', () => {
+                $('#activeSubmit').modal('hide');
+            });
+
+            // $("#amountActive").on('change keyup', function (e) {
+            //     window.livewire.emit('set:activeupdate', this.value);
+            // })
         </script>
     @endpush
 </div>

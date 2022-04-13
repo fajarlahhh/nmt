@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" wire:click.prevent="passwordSubmit" class="mt-4 btn btn-primary " value="Update">
+                    <input type="submit" wire:click.prevent="submitPassword" class="mt-4 btn btn-primary " value="Update">
                 </div>
             </form>
         </div>
