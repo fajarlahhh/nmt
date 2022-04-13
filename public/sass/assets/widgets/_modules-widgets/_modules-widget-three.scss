@@ -6,29 +6,23 @@
 
 .widget-three {
   position: relative;
-  background: #fff;
+  background: $white;
   padding: 20px;
-  border-radius: 6px;
+  border-radius: 8px;
   height: 100%;
-
-  border: 1px solid $m-color_3;
-  box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06);
+  -webkit-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
+  -moz-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
 
   .widget-heading {
-    display: flex;
-    margin-bottom: 25px;
-    justify-content: space-between;
+    margin-bottom: 54px;
 
-    .task-action {
-      .dropdown-toggle svg {
-        color: $m-color_6;
-        width: 19px;
-        height: 19px;
-      }
-
-      .dropdown-menu {
-        transform: translate3d(-141px, 0, 0px);
-      }
+    h5 {
+      font-size: 19px;
+      display: block;
+      color: $m-color_10;
+      font-weight: 600;
+      margin-bottom: 0;
     }
   }
 
@@ -36,64 +30,53 @@
     font-size: 17px;
 
     .summary-list {
-      position: relative;
-      padding: 15px;
-      background: rgba(224, 230, 237, 40%);
-      border-radius: 6px;
-
-      &.summary-income {
-        background: rgba(220, 207, 247, 0.34);
-      }
-
-      &.summary-profit {
-        background: rgba(186, 231, 255, 0.34);
-      }
-
-      &.summary-expenses {
-        background: rgba(255, 236, 203, 0.34);
-      }
-
-      .summery-info {
-        display: flex;
-        margin-bottom: 0;
-      }
+      display: flex;
 
       &:not(:last-child) {
-        margin-bottom: 9px;
+        margin-bottom: 30px;
       }
     }
 
     .w-icon {
-      border-radius: 12px;
+      display: inline-block;
+      padding: 8px 8px;
+      border-radius: 50%;
       display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 35px;
-      width: 35px;
+      align-self: center;
+      height: 34px;
+      width: 34px;
       margin-right: 12px;
 
       svg {
         display: block;
-        width: 22px;
-        height: 22px;
-        stroke-width: 1px;
+        width: 17px;
+        height: 17px;
       }
     }
 
     .summary-list {
+      &:nth-child(1) .w-icon {
+        background: $l-secondary;
+      }
+
+      &:nth-child(2) .w-icon {
+        background: $l-success;
+      }
+
+      &:nth-child(3) .w-icon {
+        background: $l-warning;
+      }
+
       &:nth-child(1) .w-icon svg {
         color: $secondary;
-        fill: rgba(92, 26, 195, 0.16);
       }
 
       &:nth-child(2) .w-icon svg {
-        color: $info;
-        fill: rgba(33, 150, 243, 0.16);
+        color: $m-color_14;
       }
 
       &:nth-child(3) .w-icon svg {
         color: $warning;
-        fill: rgba(226, 160, 63, 0.16);
       }
     }
 
@@ -114,34 +97,19 @@
         color: $m-color_6;
       }
 
-      .summary-count {
-        display: block;
-        font-size: 16px;
-        margin-top: 4px;
+      p {
+        font-size: 12px;
         font-weight: 600;
-        color: $m-color_9;
-      }
-
-      .summary-average {
-        font-size: 14px;
-        font-weight: 500;
         margin-bottom: 0;
         color: $m-color_6;
       }
     }
 
-    .summary-list {
-      &.summary-income .w-summary-info .summary-average {
-        color: $secondary;
-      }
-
-      &.summary-profit .w-summary-info .summary-average {
-        color: $info;
-      }
-
-      &.summary-expenses .w-summary-info .summary-average {
-        color: $warning;
-      }
+    .w-summary-stats .progress {
+      margin-bottom: 0;
+      height: 6px;
+      border-radius: 20px;
+      box-shadow: 0 2px 2px rgba(224, 230, 237, 0.4588235294), 1px 6px 7px rgba(224, 230, 237, 0.4588235294);
     }
   }
 }

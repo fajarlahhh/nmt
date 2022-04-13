@@ -31,7 +31,7 @@
 }
 
 /*
-    Group section 
+    Group section
 */
 
 .group-section {
@@ -90,14 +90,14 @@
 
   .nav-pills {
     .nav-link.active, .show > .nav-link {
-      background-color: $l-success;
+      background-color: $m-color_4;
       color: $dark;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     a.nav-link {
       position: relative;
-      font-weight: 600;
+      font-weight: 700;
       color: $m-color_9;
       padding: 9px 20px;
       cursor: pointer;
@@ -127,7 +127,7 @@
     &.group-list .nav-item a {
       position: relative;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
       padding: 9px 15px 9px 50px;
       color: $dark;
       letter-spacing: 1px;
@@ -177,7 +177,7 @@
       padding: 8px 18px;
 
       &:hover {
-        background-color: #fff;
+        background-color: $white;
         color: $primary;
       }
     }
@@ -201,9 +201,7 @@
 */
 
 .note-container {
-  padding: 0 0 0 15px;
-  display: flex;
-  flex-wrap: wrap;
+  padding: 0 15px;
   width: 100%;
 
   .switch {
@@ -217,7 +215,7 @@
 
     .view-list, .view-grid {
       padding: 10px;
-      background: #fff;
+      background: $white;
       border-radius: 5px;
       cursor: pointer;
       color: $m-color_9;
@@ -227,251 +225,229 @@
       fill: rgba(0, 23, 55, 0.08);
     }
   }
+
+  &.note-grid .note-item {
+    position: relative;
+    padding: 16px 16px;
+    margin-right: 0;
+    margin-left: 5px;
+    margin-bottom: 18px;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 6px;
+    display: inline-flex;
+    background: $m-color_3;
+
+    &.note-personal {
+      background: $l-info;
+    }
+
+    &.note-work {
+      background: $l-warning;
+    }
+
+    &.note-important {
+      background: $l-danger;
+    }
+
+    &.note-social {
+      background: $l-secondary;
+    }
+
+    .note-inner-content {
+      border-radius: 4px;
+      width: 100%;
+      min-height: 163px;
+
+      .note-title {
+        font-size: 19px;
+        font-weight: 600;
+        color: $dark;
+        margin-bottom: 11px;
+        letter-spacing: 0px;
+      }
+
+      .meta-time {
+        font-weight: 600;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: $m-color_9;
+        display: inline-block;
+        border-radius: 4px;
+      }
+
+      .note-description {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 18px;
+        letter-spacing: 0px;
+        word-wrap: break-word;
+      }
+
+      .note-action {
+        display: inline-block;
+
+        .fav-note, .delete-note {
+          padding: 4px;
+          border-radius: 5px;
+          cursor: pointer;
+          color: $m-color_9;
+          width: 28px;
+          height: 28px;
+          fill: rgba(0, 23, 55, 0.08);
+        }
+      }
+    }
+
+    &.note-fav .note-inner-content .note-action .fav-note {
+      fill: $warning;
+    }
+
+    .note-inner-content {
+      .note-action {
+        .fav-note:hover {
+          fill: $warning;
+        }
+
+        .delete-note:hover {
+          color: $danger;
+        }
+      }
+
+      .note-footer {
+        display: inline-block;
+        float: right;
+
+        .tags {
+          display: inline-block;
+          position: relative;
+          padding: 4px 6px;
+          border-radius: 4px;
+
+          [class*="g-dot-"] {
+            content: '';
+            background: transparent;
+            border-radius: 50%;
+            border: 2px solid $l-dark;
+            display: inline-block;
+            height: 11px;
+            width: 11px;
+            vertical-align: middle;
+            display: none;
+          }
+
+          .g-dot-personal {
+            background: $l-info;
+            border: 2px solid $info;
+          }
+
+          .g-dot-work {
+            background: $l-warning;
+            border: 2px solid $warning;
+          }
+
+          .g-dot-social {
+            background: $l-secondary;
+            border: 2px solid $secondary;
+          }
+
+          .g-dot-important {
+            background: $l-danger;
+            border: 2px solid $danger;
+          }
+        }
+      }
+    }
+
+    &.note-personal .note-inner-content .note-footer .tags .g-dot-personal, &.note-work .note-inner-content .note-footer .tags .g-dot-work, &.note-social .note-inner-content .note-footer .tags .g-dot-social, &.note-important .note-inner-content .note-footer .tags .g-dot-important {
+      display: inline-block;
+    }
+
+    .note-inner-content .note-footer {
+      .tags-selector {
+        display: inline-block;
+
+        .dropdown-menu {
+          min-width: 8rem;
+
+          a {
+            font-size: 14px;
+            padding: 3px 35px;
+            font-weight: 600;
+            letter-spacing: 0px;
+            color: $dark;
+          }
+
+          .dropdown-item {
+            &.active, &:active {
+              background: transparent;
+            }
+          }
+
+          [class*="g-dot-"]:before {
+            content: '';
+            position: absolute;
+            padding: 4px;
+            border-radius: 50%;
+            top: 9px;
+            left: 10px;
+            border: 2px solid $m-color_9;
+          }
+
+          a {
+            &.g-dot-important:before {
+              background: $l-danger;
+              border: 1px solid $danger;
+            }
+
+            &.g-dot-personal:before {
+              background: $l-info;
+              border: 1px solid $info;
+            }
+
+            &.g-dot-work:before {
+              background: $l-warning;
+              border: 1px solid $warning;
+            }
+
+            &.g-dot-social:before {
+              background: $l-secondary;
+              border: 1px solid $secondary;
+            }
+          }
+        }
+      }
+
+      .nav-link {
+        padding: 0;
+
+        span {
+          display: block;
+        }
+
+        .feather-more-vertical {
+          border-radius: 5px;
+          cursor: pointer;
+          color: $m-color_9;
+          width: 20px;
+          height: 20px;
+
+          &:hover {
+            color: $m-color_10;
+          }
+        }
+      }
+    }
+
+    &.note-personal .note-inner-content .note-footer .nav-link .feather-more-vertical, &.note-work .note-inner-content .note-footer .nav-link .feather-more-vertical, &.note-social .note-inner-content .note-footer .nav-link .feather-more-vertical, &.note-important .note-inner-content .note-footer .nav-link .feather-more-vertical {
+      display: none;
+    }
+  }
 }
 
 /* 
     Note Container
 */
-
-.note-content {
-  min-height: 135px;
-  margin-bottom: 15px;
-}
-
-.note-container.note-grid .note-item {
-  padding-right: 15px;
-  padding-left: 15px;
-
-  &.note-personal .note-inner-content {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-bottom: 3px solid #4461ed;
-    background: $l-primary;
-  }
-
-  &.note-work .note-inner-content {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-bottom: 3px solid $warning;
-    background: $l-warning;
-  }
-
-  &.note-important .note-inner-content {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-bottom: 3px solid $danger;
-    background: $l-danger;
-  }
-
-  &.note-social .note-inner-content {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-bottom: 3px solid $secondary;
-    background: $l-secondary;
-  }
-
-  .note-inner-content {
-    border-radius: 4px;
-    width: 100%;
-    position: relative;
-    padding: 16px 16px 6px 16px;
-    margin-right: 0;
-    margin-bottom: 18px;
-    border-radius: 6px;
-    background: #ffffff;
-    border: 1px solid $m-color_2;
-    box-shadow: 18px 20px 10.3px -23px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-bottom: 3px solid $m-color_6;
-
-    .note-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: $dark;
-      margin-bottom: 0px;
-      letter-spacing: 0px;
-    }
-
-    .meta-time {
-      font-weight: 600;
-      margin-bottom: 10px;
-      font-size: 14px;
-      color: $m-color_9;
-      display: inline-block;
-      border-radius: 4px;
-    }
-
-    .note-description {
-      font-size: 15px;
-      font-weight: 500;
-      margin-bottom: 0;
-      letter-spacing: 0px;
-      word-wrap: break-word;
-      color: $m-color_6;
-    }
-
-    .note-action {
-      display: inline-block;
-
-      .fav-note, .delete-note {
-        padding: 4px;
-        border-radius: 5px;
-        cursor: pointer;
-        color: $m-color_11;
-        width: 28px;
-        height: 28px;
-        fill: $m-color_1;
-        stroke-width: 1.6;
-      }
-    }
-  }
-
-  &.note-fav .note-inner-content .note-action .fav-note {
-    fill: $m-color_15;
-  }
-
-  .note-inner-content {
-    .note-action {
-      .fav-note:hover {
-        fill: $warning;
-      }
-
-      .delete-note:hover {
-        color: $danger;
-      }
-    }
-
-    .note-footer {
-      display: inline-block;
-      float: right;
-
-      .tags {
-        display: inline-block;
-        position: relative;
-        padding: 4px 6px;
-        border-radius: 4px;
-
-        [class*="g-dot-"] {
-          content: '';
-          background: transparent;
-          border-radius: 50%;
-          border: 2px solid $l-dark;
-          display: inline-block;
-          height: 11px;
-          width: 11px;
-          vertical-align: middle;
-          display: none;
-        }
-
-        .g-dot-personal {
-          background: $l-info;
-          border: 2px solid $info;
-        }
-
-        .g-dot-work {
-          background: $l-warning;
-          border: 2px solid $warning;
-        }
-
-        .g-dot-social {
-          background: $l-secondary;
-          border: 2px solid $secondary;
-        }
-
-        .g-dot-important {
-          background: $l-danger;
-          border: 2px solid $danger;
-        }
-      }
-    }
-  }
-
-  &.note-personal .note-inner-content .note-footer .tags .g-dot-personal, &.note-work .note-inner-content .note-footer .tags .g-dot-work, &.note-social .note-inner-content .note-footer .tags .g-dot-social, &.note-important .note-inner-content .note-footer .tags .g-dot-important {
-    display: inline-block;
-  }
-
-  .note-inner-content .note-footer {
-    .tags-selector {
-      display: inline-block;
-
-      .dropdown-menu {
-        min-width: 8rem;
-
-        a {
-          font-size: 14px;
-          padding: 3px 35px;
-          font-weight: 600;
-          letter-spacing: 0px;
-          color: $dark;
-        }
-
-        .dropdown-item {
-          &.active, &:active {
-            background: transparent;
-          }
-        }
-
-        [class*="g-dot-"]:before {
-          content: '';
-          position: absolute;
-          padding: 4px;
-          border-radius: 50%;
-          top: 9px;
-          left: 10px;
-          border: 2px solid $m-color_9;
-        }
-
-        a {
-          &.g-dot-important:before {
-            background: $l-danger;
-            border: 1px solid $danger;
-          }
-
-          &.g-dot-personal:before {
-            background: $l-info;
-            border: 1px solid $info;
-          }
-
-          &.g-dot-work:before {
-            background: $l-warning;
-            border: 1px solid $warning;
-          }
-
-          &.g-dot-social:before {
-            background: $l-secondary;
-            border: 1px solid $secondary;
-          }
-        }
-      }
-    }
-
-    .nav-link {
-      padding: 0;
-
-      span {
-        display: block;
-      }
-
-      .feather-more-vertical {
-        border-radius: 5px;
-        cursor: pointer;
-        color: $m-color_9;
-        width: 20px;
-        height: 20px;
-
-        &:hover {
-          color: $m-color_10;
-        }
-      }
-    }
-  }
-
-  &.note-personal .note-inner-content .note-footer .nav-link .feather-more-vertical, &.note-work .note-inner-content .note-footer .nav-link .feather-more-vertical, &.note-social .note-inner-content .note-footer .nav-link .feather-more-vertical, &.note-important .note-inner-content .note-footer .nav-link .feather-more-vertical {
-    display: none;
-  }
-}
 
 /*
 =====================
@@ -489,7 +465,7 @@
     border-top: none;
 
     [data-dismiss="modal"] {
-      background-color: #fff;
+      background-color: $white;
       color: $primary;
       font-weight: 700;
       border: 1px solid #e8e8e8;
@@ -504,7 +480,7 @@
 
     #btn-n-add {
       background-color: $primary;
-      color: #fff;
+      color: $white;
       font-weight: 600;
       border: 1px solid $primary;
       padding: 10px 25px;
@@ -528,7 +504,7 @@
   font-size: 12px;
   font-weight: 600;
   padding: 3px;
-  background: #fff;
+  background: $white;
   border-radius: 5px;
   opacity: 1;
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
@@ -542,9 +518,13 @@
     padding-top: 20px;
   }
 
+  input {}
+
   .note-description {
     padding-top: 40px;
   }
+
+  textarea {}
 }
 
 /*
@@ -561,31 +541,15 @@
     Media Query
 */
 
-@media (min-width: 1200px) {
+@media (max-width: 2132px) {
   .note-container.note-grid .note-item {
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 25%;
-  }
-}
-
-@media (min-width: 1920px) {
-  .note-container.note-grid .note-item {
-    -ms-flex: 0 0 16.666667%;
-    flex: 0 0 16.666667%;
-    max-width: 16.666667%;
+    max-width: 32%;
   }
 }
 
 @media (max-width: 1199px) {
-  .note-container {
-    &.note-grid .note-item {
-      -ms-flex: 0 0 33.333333%;
-      flex: 0 0 33.333333%;
-      max-width: 33.333333%;
-    }
-
-    padding: 0;
+  .note-container.note-grid .note-item {
+    max-width: 48%;
   }
 }
 
@@ -609,7 +573,7 @@
     border-radius: 0;
     border-bottom-right-radius: 6px;
     padding: 11px;
-    background: #fff;
+    background: $white;
   }
 
   .note-sidebar-scroll {
@@ -625,7 +589,7 @@
     top: -13px;
     padding: 6px 9px 6px 9px;
     font-size: 20px;
-    color: #fff;
+    color: $white;
     align-self: center;
     display: inline-block;
     background-color: $m-color_9;
@@ -633,16 +597,15 @@
   }
 }
 
-@media (max-width: 575px) {
-  .note-container {
-    &.note-grid .note-item {
-      -ms-flex: 0 0 100%;
-      flex: 0 0 100%;
-      max-width: 100%;
-    }
+@media (max-width: 767px) {
+  .note-container.note-grid .note-item {
+    max-width: 47%;
+  }
+}
 
-    -webkit-column-count: 1;
-    -moz-column-count: 1;
-    column-count: 1;
+@media (max-width: 575px) {
+  .note-container.note-grid .note-item {
+    max-width: 100%;
+    margin-left: 0;
   }
 }

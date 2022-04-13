@@ -27,11 +27,10 @@
     vertical-align: middle;
     width: 33px;
     height: 33px;
-    stroke-width: 1.5;
   }
 
   .close {
-    color: #fff;
+    color: $white;
     opacity: 1;
     width: 18px;
   }
@@ -40,37 +39,37 @@
 /*Default Alerts*/
 
 .alert-primary {
-  color: #fff;
+  color: $white;
   background-color: $primary;
   border-color: $primary;
 }
 
 .alert-warning {
-  color: #fff;
+  color: $white;
   background-color: $warning;
   border-color: $warning;
 }
 
 .alert-success {
-  color: #fff;
+  color: $white;
   background-color: $success;
   border-color: $success;
 }
 
 .alert-info {
-  color: #fff;
+  color: $white;
   background-color: $info;
   border-color: $info;
 }
 
 .alert-danger {
-  color: #fff;
+  color: $white;
   background-color: $danger;
   border-color: $danger;
 }
 
 .alert-dark {
-  color: #fff;
+  color: $white;
   background-color: $dark;
   border-color: $dark;
 }
@@ -113,7 +112,7 @@
   }
 
   &.solid-alert-3 .close, &.solid-alert-4 .close {
-    color: #000;
+    color: $black;
   }
 }
 
@@ -186,7 +185,7 @@
 /*  Background Alerts      */
 
 .alert-background {
-  color: #fff;
+  color: $white;
   background: #fff url(../../img/ab-1.jpeg) no-repeat center center;
   background-size: cover;
 }
@@ -194,7 +193,7 @@
 /*  Gradient Alerts      */
 
 .alert-gradient {
-  color: #fff;
+  color: $white;
   border: none;
   background-size: cover;
   background-image: linear-gradient(135deg, #bc1a4e 0%, #004fe6 100%);
@@ -205,10 +204,10 @@
 /* Default */
 
 .custom-alert-1 {
-  background-color: $m-color_25;
-  border-color: $m-color_25;
+  background-color: $secondary;
+  border-color: $secondary;
   border-radius: 5px;
-  color: #fff;
+  color: $white;
 
   .alert-icon {
     margin-right: 25px;
@@ -234,7 +233,7 @@
   border-left: 64px solid;
 
   svg:not(.close) {
-    color: #FFF;
+    color: $white;
     width: 4rem;
     left: -4rem;
     text-align: center;
@@ -253,7 +252,7 @@
   border-right: 64px solid;
 
   svg:not(.close) {
-    color: #FFF;
+    color: $white;
     width: 4rem;
     right: -4rem;
     text-align: center;

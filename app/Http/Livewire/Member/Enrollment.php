@@ -53,12 +53,9 @@ class Enrollment extends Component
         redirect('/enrollment');
     }
 
-    public function cancel()
+    public function cancel($id)
     {
-        DB::transaction(function () {
-            User::where('id_user_waiting', auth()->id())->whereNull('actived_at')->forceDelete();
-        });
-        redirect('/enrollment');
+        User::where('id', $id)->whereNull('activated_at')->forceDelete();
     }
 
     public function showHide($type)

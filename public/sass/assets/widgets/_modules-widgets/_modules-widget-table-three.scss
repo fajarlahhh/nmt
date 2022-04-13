@@ -8,7 +8,9 @@
   position: relative;
 
   h5 {
+    font-weight: 700;
     font-size: 19px;
+    letter-spacing: 1px;
     margin-bottom: 20px;
   }
 
@@ -28,17 +30,14 @@
         }
 
         &:last-child .th-content {
-          padding: 0 15px 0 0;
-          width: 84%;
-          margin: 0 auto;
+          text-align: right;
+          margin-right: 10px;
         }
 
         text-transform: initial;
         font-weight: 600;
         border-top: none;
-        background: rgba(186, 231, 255, 0.34);
-        border-right: none;
-        border-left: none;
+        background: $m-color_3;
         padding-top: 0;
         padding-bottom: 0;
         padding-right: 0;
@@ -54,12 +53,11 @@
 
         &:last-child {
           border-bottom-right-radius: 6px;
-          padding-left: 0;
           border-top-right-radius: 6px;
         }
 
         .th-content {
-          color: $m-color_9;
+          color: $primary;
           font-weight: 600;
           font-size: 14px;
           letter-spacing: 1px;
@@ -77,25 +75,31 @@
           padding-left: 0;
           -webkit-transition: all 0.1s ease;
           transition: all 0.1s ease;
+        }
 
-          .td-content {
-            cursor: pointer;
-            font-weight: 500;
-            letter-spacing: 1px;
-            color: $m-color_9;
+        &:hover {
+          > td {
+            transform: translateY(-1px) scale(1.01);
+          }
+
+          > td .td-content {
+            color: $dark;
           }
         }
 
         background: transparent;
 
-        &:hover > td .td-content {
-          color: $dark;
+        > td .td-content {
+          cursor: pointer;
+          font-weight: 600;
+          letter-spacing: 1px;
+          color: $m-color_6;
         }
 
         > td {
           &:first-child {
             border-top-left-radius: 6px;
-            padding: 12px 0px 12px 15px;
+            padding: 10px 0px 10px 15px;
             border-bottom-left-radius: 6px;
           }
 
@@ -104,9 +108,8 @@
             border-bottom-right-radius: 6px;
 
             .td-content {
+              text-align: right;
               padding: 0 15px 0 0;
-              width: 50%;
-              margin: 0 auto;
             }
           }
         }
@@ -114,9 +117,7 @@
     }
 
     tr > td:nth-last-child(2) .td-content {
-      padding: 0 0 0 0;
-      width: 50%;
-      margin: 0 auto;
+      padding: 10px 0 10px 15px;
     }
 
     .td-content {
@@ -127,38 +128,13 @@
       &.product-name {
         color: $m-color_9;
         letter-spacing: 1px;
-        display: flex;
-
-        .prd-name {
-          font-weight: 700;
-          margin-bottom: 0;
-          font-size: 13px;
-        }
-      }
-    }
-
-    tr:hover .td-content.product-name .prd-name {
-      color: $m-color_6;
-    }
-
-    .td-content {
-      &.product-name .prd-category {
-        margin-bottom: 0;
-        font-size: 12px;
-        font-weight: 600;
-        text-shadow: 1px 1px 7px rgba(0, 0, 0, 0.26);
       }
 
       img {
         width: 35px;
         height: 35px;
-        width: 42px;
-        height: 42px;
-        border-radius: 6px;
+        border-radius: 50%;
         margin-right: 10px;
-        padding: 2px;
-        box-shadow: 1px 1px 16px 0px rgba(0, 0, 0, 0.18);
-        align-self: center;
       }
 
       .pricing {
@@ -193,20 +169,12 @@
       }
 
       a {
-        position: relative;
         padding: 0;
         font-size: 13px;
         background: transparent;
         transform: none;
         letter-spacing: 1px;
-
-        svg.feather-chevrons-right {
-          width: 15px;
-          height: 15px;
-          position: absolute;
-          left: -20px;
-          top: 1px;
-        }
+        border-bottom: 1px dashed $m-color_4;
       }
     }
   }

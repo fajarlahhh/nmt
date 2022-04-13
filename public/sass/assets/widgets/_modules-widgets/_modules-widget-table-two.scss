@@ -8,7 +8,9 @@
   position: relative;
 
   h5 {
+    font-weight: 700;
     font-size: 19px;
+    letter-spacing: 1px;
     margin-bottom: 20px;
   }
 
@@ -26,16 +28,14 @@
         text-transform: initial;
         font-weight: 600;
         border-top: none;
-        background: rgba(186, 231, 255, 0.34);
-        border-right: none;
-        border-left: none;
+        background: $m-color_3;
         padding-top: 0;
         padding-bottom: 0;
         padding-right: 0;
         padding-left: 0;
         -webkit-transition: all 0.1s ease;
         transition: all 0.1s ease;
-        padding: 10px 0 10px 15px;
+        padding: 10px 0 10px 5px;
 
         &:first-child {
           border-bottom-left-radius: 6px;
@@ -48,7 +48,7 @@
         }
 
         .th-content {
-          color: $m-color_9;
+          color: $primary;
           font-weight: 600;
           font-size: 14px;
           letter-spacing: 1px;
@@ -59,6 +59,7 @@
         }
 
         &:last-child .th-content {
+          text-align: right;
           margin-right: 10px;
         }
 
@@ -106,7 +107,8 @@
 
           &:last-child {
             border-top-right-radius: 6px;
-            padding: 15.5px 0 15.5px 15px;
+            padding: 15.5px 15px 15.5px 0;
+            text-align: right;
             border-bottom-right-radius: 6px;
           }
         }
@@ -116,10 +118,6 @@
     .td-content {
       &.customer-name {
         color: $m-color_9;
-        font-weight: 600;
-        margin-bottom: 0;
-        font-size: 13px;
-        display: flex;
       }
 
       &.product-brand {
@@ -128,15 +126,9 @@
 
       img {
         width: 35px;
-        height: 34px;
-        border-radius: 6px;
-        margin-right: 10px;
-        padding: 2px;
-        align-self: center;
-      }
-
-      &.customer-name span {
-        align-self: center;
+        height: 35px;
+        border-radius: 50%;
+        margin-right: 13px;
       }
     }
 

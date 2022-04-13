@@ -104,7 +104,7 @@ $('.snackbar-bg-primary').click(function() {
     Snackbar.show({
         text: 'Primary',
         actionTextColor: '#fff',
-        backgroundColor: '#4361ee'
+        backgroundColor: '#1b55e2'
     });
 });
 
@@ -120,7 +120,7 @@ $('.snackbar-bg-success').click(function() {
     Snackbar.show({
         text: 'Success',
         actionTextColor: '#fff',
-        backgroundColor: '#1abc9c'
+        backgroundColor: '#8dbf42'
     });
 });
 

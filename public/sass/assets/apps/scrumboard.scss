@@ -4,7 +4,21 @@
 
 @import '../../base/base';    // Base Variables
 
-
+.action-btn p {
+    display: inline-block;
+    margin-right: 16px;
+    margin-bottom: 0;
+    font-size: 14px;
+    letter-spacing: 0px;
+    color: #3b3f5c;
+    font-weight: 700;
+}
+.action-btn svg {
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-right: 3px;
+}
 .modal-backdrop {
   background-color: $m-color_6;
 
@@ -50,7 +64,7 @@
         box-shadow: 2px 5px 17px 0 rgba(31, 45, 61, 0.1);
 
         &::-webkit-input-placeholder, &::-ms-input-placeholder, &::-moz-placeholder {
-          color: $m-color_4;
+          color: $l-dark;
           font-weight: 600;
         }
       }
@@ -63,7 +77,7 @@
     padding: 23px 20px;
 
     .btn[data-dismiss="modal"] {
-      background-color: #fff;
+      background-color: $white;
       color: $primary;
       font-weight: 700;
       border: 1px solid $m-color_3;
@@ -72,7 +86,7 @@
 
     .edit-list {
       background-color: $m-color_14;
-      color: #fff;
+      color: $white;
       font-weight: 600;
       border: 1px solid $m-color_3;
       padding: 10px 25px;
@@ -80,7 +94,7 @@
 
     .btn.add-list {
       background-color: $primary;
-      color: #fff;
+      color: $white;
       font-weight: 600;
       border: 1px solid $m-color_3;
       padding: 10px 25px;
@@ -106,9 +120,10 @@
   .modal-content {
     .card {
       border: 1px solid $m-color_3;
+      margin-bottom: 26px;
       border-radius: 6px;
       cursor: pointer;
-      background-color: #fff;
+      background-color: $white;
     }
 
     .card-header {
@@ -138,6 +153,67 @@
 
     input {
       padding: 10px 16px;
+
+      &[type="range"] {
+        box-shadow: none;
+        padding: 0;
+
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          background: $primary;
+          cursor: pointer;
+          -webkit-transition: all 0.35s ease;
+          transition: all 0.35s ease;
+        }
+
+        &:active::-webkit-slider-thumb {
+          -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+          box-shadow: none;
+        }
+
+        &:focus::-webkit-slider-thumb {
+          box-shadow: none;
+        }
+      }
+    }
+
+    .range-count {
+      display: inline-block;
+      margin-left: 6px;
+      font-size: 16px;
+      font-weight: 700;
+      color: $dark;
+    }
+
+    .img-preview {
+      text-align: center;
+
+      img {
+        width: 280px;
+        height: 280px;
+        margin: 0 auto;
+      }
+    }
+
+    .custom-file .custom-file-label {
+      margin-bottom: 0;
+    }
+
+    .input-group .input-group-append {
+      height: 40px;
+    }
+
+    .custom-file .custom-file-label:after {
+      height: auto;
+      display: none;
+    }
+
+    .input-group-append .input-group-text {
+      border: none;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
     }
   }
 
@@ -155,7 +231,7 @@
     padding-top: 0;
 
     .btn[data-dismiss="modal"] {
-      background-color: #fff;
+      background-color: $white;
       color: $primary;
       font-weight: 700;
       border: 1px solid #e8e8e8;
@@ -164,7 +240,7 @@
 
     [data-btnfn="addTask"] {
       background-color: $primary;
-      color: #fff;
+      color: $white;
       font-weight: 600;
       border: 1px solid $primary;
       padding: 10px 25px;
@@ -172,7 +248,7 @@
 
     [data-btnfn="editTask"] {
       background-color: $m-color_14;
-      color: #fff;
+      color: $white;
       font-weight: 600;
       border: 1px solid $m-color_3;
       padding: 10px 25px;
@@ -230,7 +306,7 @@
     border: none;
 
     [data-dismiss="modal"] {
-      background-color: #fff;
+      background-color: $white;
       color: $danger;
       font-weight: 700;
       border: 1px solid #e8e8e8;
@@ -238,7 +314,7 @@
     }
 
     [data-remove="task"] {
-      color: #fff;
+      color: $white;
       font-weight: 600;
       padding: 10px 25px;
     }
@@ -256,7 +332,7 @@
 .task-list-container {
   min-width: 309px;
   padding: 0 15px;
-  width: 320px;
+  width: 467px;
 
   &:first-child {
     padding-left: 0;
@@ -273,8 +349,11 @@
 
 .connect-sorting {
   padding: 15px;
+  background: $m-color_3;
   border-radius: 10px;
-  border: 1px solid $m-color_3;
+  -webkit-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
+  -moz-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
 
   .task-container-header {
     display: flex;
@@ -306,9 +385,9 @@
   }
 
   .add-s-task {
+    cursor: pointer;
     transition: all 0.3s ease-out;
     -webkit-transition: all 0.3s ease-out;
-    text-align: center;
 
     &:hover {
       -webkit-transform: translateY(-3px);
@@ -317,21 +396,21 @@
 
     .addTask {
       display: block;
-      color: $dark;
-      font-size: 13px;
-      font-weight: 700;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
       text-align: center;
-      display: inline-block;
-      cursor: pointer;
+      padding: 13px 11px;
+      border-radius: 4px;
+      background: $primary;
 
       &:hover {
-        color: $primary;
+        color: $white;
       }
 
       svg {
-        width: 16px;
-        height: 16px;
-        vertical-align: text-top;
+        width: 18px;
+        vertical-align: bottom;
       }
     }
   }
@@ -339,8 +418,7 @@
 
 .scrumboard {
   .task-header {
-    /* margin-bottom: 25px; */
-    margin-bottom: 0;
+    margin-bottom: 25px;
     display: flex;
     justify-content: space-between;
     padding: 20px 20px 0 20px;
@@ -388,7 +466,8 @@
     border: none;
     border-radius: 4px;
     margin-bottom: 30px;
-    border: 1px solid $m-color_3;
+    -webkit-box-shadow: 2px 5px 17px 0 rgba(31, 45, 61, 0.1);
+    box-shadow: 2px 5px 17px 0 rgba(31, 45, 61, 0.1);
 
     .card-body {
       padding: 0;
@@ -514,8 +593,6 @@
     }
 
     &.task-text-progress .card-body .task-content {
-      margin-top: 20px;
-
       p {
         padding: 5px 20px 5px 20px;
       }
@@ -546,27 +623,27 @@
 
       .task-header {
         span {
-          color: #fff;
+          color: $white;
 
           svg {
-            color: #fff;
+            color: $white;
           }
         }
 
         svg {
           &.feather-edit-2, &.feather-trash-2 {
-            color: #fff;
+            color: $white;
           }
         }
 
         h4 {
-          color: #fff;
+          color: $white;
         }
       }
 
       &.task-text-progress .card-body .task-content {
         p {
-          color: #fff;
+          color: $white;
         }
 
         .progress .progress-bar {
@@ -575,21 +652,21 @@
       }
 
       .task-header svg.feather-user {
-        color: #fff;
+        color: $white;
       }
 
       .card-body {
         .task-body .task-bottom div {
           &.tb-section-1 {
-            color: #fff;
+            color: $white;
 
             svg {
-              color: #fff;
+              color: $white;
             }
           }
 
           &.tb-section-2 svg {
-            color: #fff;
+            color: $white;
           }
         }
 
@@ -640,7 +717,7 @@
 }
 
 .connect-sorting-content {
-  min-height: 60px;
+  min-height: 80px;
 }
 
 @keyframes progress-bar-stripes {

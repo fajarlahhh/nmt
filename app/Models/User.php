@@ -95,7 +95,7 @@ class User extends Authenticatable
 
     public function withdrawal_active_today()
     {
-        return $this->hasOne('App\Models\Withdrawal', 'id_user', 'id')->whereRaw('SUBSTRING(created_at, 1, 10) = "'.date('Y-m-d').'"');
+        return $this->hasOne('App\Models\Withdrawal', 'id_user', 'id')->whereRaw('SUBSTRING(created_at, 1, 10) = "' . date('Y-m-d') . '"');
     }
 
     public function withdrawal_all()
