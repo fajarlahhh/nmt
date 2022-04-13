@@ -1,6 +1,5 @@
 <div>
     @push('css')
-        <link href="/assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
     @endpush
     <!--  BEGIN CONTENT AREA  -->
     <div id="content" class="main-content">
@@ -84,7 +83,7 @@
                                     </div>
                                 @endif
                                 <div class="text-center">
-                                    <input type="submit" class="mt-4 btn btn-primary ">
+                                    <input type="submit" class="mt-4 btn btn-primary " value="Update">
                                     <a href="/" class="mt-4 btn btn-danger">Cancel</a>
                                 </div>
                             </form>
