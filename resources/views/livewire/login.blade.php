@@ -1,43 +1,41 @@
 <div>
-    <div class="block xl:grid grid-cols-2 gap-4">
-        <!-- BEGIN: Login Info -->
-        <div class="hidden xl:flex flex-col min-h-screen">
-            <div class="my-auto">
-                <img alt="{{ config('app.name') }}" class="-intro-x w-1/2 -mt-16" src="/images/logo-full.png">
+    <form wire:submit.prevent="login" class="text-left">
+        <div class="form">
+
+            <div id="username-field" class="field-wrapper input">
+                <label for="username">USERNAME</label>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <input id="username" name="username" type="text" class="form-control" wire:model.defer="username" required placeholder="Username">
+
+                @error('username')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-        </div>
-        <!-- END: Login Info -->
-        <!-- BEGIN: Login Form -->
-        <div class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
-            <div class="my-auto mx-auto xl:ml-20 bg-white dark:bg-dark-1 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
-                <form wire:submit.prevent="login">
-                    @csrf
-                    <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
-                        Sign In
-                    </h2>
-                    <div class="intro-x mt-8">
-                        <input type="text" class="intro-x login__input form-control py-3 px-4 border-gray-300 block" placeholder="Username" wire:model.defer="username" required>
-                        <div class="input-group mt-4">
-                            <input type="{{ $type }}" class="intro-x login__input form-control py-3 px-4 border-gray-300 block" wire:model.defer="password" placeholder="Password" autocomplete="off">
-                            <a href="javascript:;" id="input-group-1" wire:click="showHide('{{ $show }}')" class="input-group-text">{{ $show }}</a>
-                        </div>
-                    </div>
-                    <div class="intro-x flex text-gray-700 dark:text-gray-600 text-xs sm:text-sm mt-4">
-                        <div class="flex items-center mr-auto">
-                            <input id="remember-me" type="checkbox" class="form-check-input border mr-2" wire:model="remember">
-                            <label class="cursor-pointer select-none" for="remember-me">Remember me</label>
-                        </div>
-                    </div>
-                    <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
-                        <button class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">Login</button>
-                    </div>
-                    @if ($error)
-                        {!! $error !!}
-                    @endif
-                </form>
-                @include('includes.footer')
+
+            <div id="password-field" class="field-wrapper input mb-2">
+                <div class="d-flex justify-content-between">
+                    <label for="password">PASSWORD</label>
+                    <a href="auth_pass_recovery_boxed.html" class="forgot-pass-link">Forgot Password?</a>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <input id="password" name="password" type="password" class="form-control" autocomplete="off" wire:model.defer="password" required placeholder="Password">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="toggle-password" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+
+                @error('username')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
+            <div class="d-sm-flex justify-content-between">
+                <div class="field-wrapper">
+                    <button type="submit" class="btn btn-primary" value="">Log In</button>
+                </div>
+            </div>
+
+            <p class="signup-link">Not registered ? <a href="auth_register_boxed.html">Create an account</a></p>
         </div>
-        <!-- END: Login Form -->
-    </div>
+    </form>
 </div>

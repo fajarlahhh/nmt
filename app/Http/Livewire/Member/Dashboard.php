@@ -26,6 +26,11 @@ class Dashboard extends Component
     {
         return view('livewire.member.dashboard', [
             'menu' => 'dashboard'
-        ])->extends('layouts.dashboard');
+        ])->extends('layouts.dashboard', [
+            'category_name' => 'dashboard',
+            'page_name' => 'analytics',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ]);
     }
 }

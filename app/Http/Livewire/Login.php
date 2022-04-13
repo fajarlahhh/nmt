@@ -18,17 +18,6 @@ class Login extends Component
         'password' => 'required',
     ];
 
-    public function showHide($type)
-    {
-        if ($type == 'Show') {
-            $this->show = "Hide";
-            $this->type = "text";
-        } else {
-            $this->show = "Show";
-            $this->type = "password";
-        }
-    }
-
     public function login()
     {
         $this->reset('error');

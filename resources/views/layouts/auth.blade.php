@@ -1,45 +1,33 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="#">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="keywords" content="{{ config('app.name') }}">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }}</title>
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" href="/images/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/css/app.css" />
-    {{-- <script type="text/javascript">
-        function callbackThen(response){
-            // read HTTP status
-            console.log(response.status);
+    <link rel="icon" href="{{asset('assets/favicon.svg')}}" type="image/x-icon">
 
-            // read Promise object
-            response.json().then(function(data){
-                console.log(data);
-            });
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="{{asset('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+
+    <link href="{{asset('assets/css/main.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/authentication/form-2.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/forms/theme-checkbox-radio.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/forms/switches.css')}}">
+    <style>
+        .form-form .form-form-wrap form .field-wrapper svg.feather-eye {
+            top: 46px;
         }
-        function callbackCatch(error){
-            console.error('Error:', error)
-        }
-    </script>
-    {!! htmlScriptTagJsApi([
-        'action' => 'homepage',
-        'callback_then' => 'callbackThen',
-        'callback_catch' => 'callbackCatch'
-    ]) !!} --}}
+    </style>
     @livewireStyles
 </head>
-<body class="login">
-    <div class="container sm:px-10">
-        @yield('content')
-    </div>
-
+<body>
+    @yield('content')
     @livewireScripts
-    <script src="/js/app.js"></script>
-    @stack('scripts')
+    <script src="{{asset('assets/js/libs/jquery-3.1.1.min.js')}}"></script>
+    <script src="{{asset('bootstrap/js/popper.min.js')}}"></script>
+    <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js/authentication/form-2.js')}}"></script>
 </body>
 </html>
