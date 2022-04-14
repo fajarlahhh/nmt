@@ -88,6 +88,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\PassiveIncome', 'id_user', 'id')->where('type', 'benefit')->whereNull('id_withdrawal');
     }
 
+    public function passive_income()
+    {
+        return $this->hasMany('App\Models\PassiveIncome', 'id_user', 'id')->where('type', 'benefit');
+    }
+
     public function active_income()
     {
         return $this->hasMany('App\Models\Income', 'id_user', 'id')->where('created_at', '<=', auth()->user()->invalid_at);

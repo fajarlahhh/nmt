@@ -1,4 +1,4 @@
-<div class="form-group mb-2">
+<div>
     @push('css')
         <link href="/assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
     @endpush
@@ -7,7 +7,7 @@
         <div class="layout-px-spacing">
             <div class="page-header">
                 <div class="page-title">
-                    <h5>Profile</h5>
+                    <h5>Enrollment</h5>
                 </div>
             </div>
             @if ($error)

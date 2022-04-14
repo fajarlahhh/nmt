@@ -22,7 +22,9 @@ class Dashboard extends Component
 
     public $qr_image, $googleAuthSecret, $pinGoogle, $newPassword, $oldPassword;
 
-    public $availableActive = 0, $amountActive = 0, $usdtWd = 0, $usdtPrice = 0;
+    public $availableActive = 0, $amountActive = 0, $usdtWd = 0, $usdtPrice = 0, $activeData;
+
+    public $passiveData;
 
     public function profileMount()
     {
@@ -30,7 +32,7 @@ class Dashboard extends Component
         $this->nameProfile = $this->dataProfile->name;
         $this->emailProfile = $this->dataProfile->email;
         $this->walletProfile = $this->dataProfile->wallet;
-        $this->referralProfile = URL::to('/registration?ref='.$this->dataProfile->referral);
+        $this->referralProfile = URL::to('/registration?ref=' . $this->dataProfile->referral);
     }
 
     protected $listeners = [
@@ -43,45 +45,53 @@ class Dashboard extends Component
         $this->amountActive = '';
         $this->usdtWd = '';
         $this->usdtPrice = '';
+        $this->activeData = auth()->user()->active_income;
+    }
+
+    public function passiveMount()
+    {
+        $this->passiveData = auth()->user()->passive_income;
     }
 
     public function activeCount()
     {
-        if ($this->amountActive > 0) {
-            $error = '';
-            $max = 0.5;
-            $min = 0.1;
+        $this->validate([
+            'amountActive' => 'required'
+        ]);
+        $this->amountActive = $this->amountActive ?: 0;
+        $error = '';
+        $max = 0.5;
+        $min = 0.1;
 
-            if ($this->availableActive < $min * auth()->user()->contract->value) {
-                $error .= "Your available income is less then $ ".number_format($min * auth()->user()->contract->value, 2)."<br>";
-            }
-
-            if (!auth()->user()->wallet) {
-                $error .= "You haven't entered your wallet address yet<br>";
-            }
-
-            if (Withdrawal::where('id_user', auth()->id())->whereRaw('SUBSTRING(created_at, 1, 10) = "'.date('Y-m-d').'"')->get()->count() > 0) {
-                $error .= "Withdrawals can only be done once a day<br>";
-            }
-
-            if ($this->amountActive < $min * auth()->user()->contract->value) {
-                $error .= "Minimum withdrawal amount is $ ".number_format($min * auth()->user()->contract->value, 2)."<br>";
-            }
-
-            if ($this->amountActive > $max * auth()->user()->contract->value) {
-                $error .= "Maximum withdrawal amount is $ ".number_format($max * auth()->user()->contract->value, 2)."<br>";
-            }
-
-            if($error){
-                session()->flash('error', $error);
-                $this->emit('activeModalClose', false);
-                return;
-            }
-            $indodax = Http::get('https://indodax.com/api/summaries')->collect()->first();
-            $this->usdtPrice = (float)$indodax[strtolower('usdt_idr')]['last'];
-            $this->usdtWd = round((($this->amountActive?:0) - (($this->amountActive?:0) * 0.1)) * 14000 / $this->usdtPrice,3);
-            $this->emit('activeModalClose', true);
+        if ($this->availableActive < $min * auth()->user()->contract->value) {
+            $error .= "Your available income is less then $ " . number_format($min * auth()->user()->contract->value, 2) . "<br>";
         }
+
+        if (!auth()->user()->wallet) {
+            $error .= "You haven't entered your wallet address yet<br>";
+        }
+
+        if (auth()->user()->withdrawal_active_today->count() > 0) {
+            $error .= "Withdrawals can only be done once a day<br>";
+        }
+
+        if ($this->amountActive < $min * auth()->user()->contract->value) {
+            $error .= "Minimum withdrawal amount is $ " . number_format($min * auth()->user()->contract->value, 2) . "<br>";
+        }
+
+        if ($this->amountActive > $max * auth()->user()->contract->value) {
+            $error .= "Maximum withdrawal amount is $ " . number_format($max * auth()->user()->contract->value, 2) . "<br>";
+        }
+
+        if ($error) {
+            session()->flash('error', $error);
+            $this->emit('activeModalClose', false);
+            return;
+        }
+        $indodax = Http::get('https://indodax.com/api/summaries')->collect()->first();
+        $this->usdtPrice = (float)$indodax[strtolower('usdt_idr')]['last'];
+        $this->usdtWd = round((($this->amountActive ?: 0) - (($this->amountActive ?: 0) * 0.1)) * 14000 / $this->usdtPrice, 3);
+        $this->emit('activeModalClose', true);
     }
 
     public function activeSubmit()
@@ -100,7 +110,7 @@ class Dashboard extends Component
                 $this->emit('activeModalClose');
                 return;
             }
-        }else{
+        } else {
             $this->validate([
                 'availableActive' => 'required',
                 'usdtWd' => 'required',
@@ -112,21 +122,22 @@ class Dashboard extends Component
             $withdrawal = new Withdrawal();
             $withdrawal->wallet = auth()->user()->wallet;
             $withdrawal->amount = $this->amountActive;
-            $withdrawal->fee = ($this->amountActive?:0) * 0.1;
-            $withdrawal->usdtPrice = $this->usdtPrice;
+            $withdrawal->fee = ($this->amountActive ?: 0) * 0.1;
+            $withdrawal->usdt_price = $this->usdtPrice;
             $withdrawal->usdt_amount = $this->usdtWd;
             $withdrawal->id_user = auth()->id();
             $withdrawal->save();
 
             $income = new \App\Models\Income();
-            $income->description = "Withdrawal ".$this->usdtWd." USDT";
+            $income->description = "Withdrawal $ " . number_format($this->amountActive) . " = " . number_format($this->usdtWd) . " USDT";
             $income->debit = $this->amountActive;
             $income->credit = 0;
             $income->id_user = auth()->id();
             $income->id_withdrawal = $withdrawal->id;
             $income->save();
+            session()->flash('message', 'Successfully claim active income');
         });
-        redirect('/income');
+        $this->emit('activeSubmitClose', true);
     }
 
     public function passwordSubmit()
@@ -166,10 +177,10 @@ class Dashboard extends Component
 
             $google2fa = app('pragmarx.google2fa');
             if ($google2fa->verifyKey(auth()->user()->googleAuthSecret, $this->pin) === false) {
-                $error .= "Invalid Google Authenticator PIN";
+                session()->flash('error', 'Invalid Google Authenticator PIN');
                 return;
             }
-        }else{
+        } else {
             $this->validate([
                 'nameProfile' => 'required',
                 'emailProfile' => 'required',
@@ -193,6 +204,7 @@ class Dashboard extends Component
 
     public function render()
     {
+        $this->availableActive = auth()->user()->active_income ? auth()->user()->active_income->sum('credit') - auth()->user()->active_income->sum('debit') : 0;
         return view('livewire.member.dashboard', [
             'entrant' => User::select(DB::raw("*, LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) + 1 level"))->with('contract')->where('network', 'like', $this->user . '%')->whereRaw("LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) < 4")->get(),
             'passive' => auth()->user()->benefit_available ? auth()->user()->benefit_available->sum('amount') : 0,

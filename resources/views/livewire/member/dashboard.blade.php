@@ -8,9 +8,10 @@
 
     @include('form.main')
     @include('form.profile')
+    @include('form.password')
     @include('form.passive')
     @include('form.active')
-    @include('form.password')
+    @include('form.active-history')
     @push('scripts')
         <script>
             function copyToClipboard(text) {

@@ -15,11 +15,11 @@ class Income extends Model
 
     public function withdrawal()
     {
-        return $this->belongsTo('App\Models\Withdrawal', 'id_withdrawal', 'id');
+        return $this->belongsTo('App\Models\Withdrawal', 'id', 'id_withdrawal');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'id', 'id_user');
+        return $this->belongsTo('App\Models\User', 'id_user', 'id');
     }
 }
