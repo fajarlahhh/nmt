@@ -4,15 +4,12 @@ namespace App\Http\Livewire\Member;
 
 use App\Models\Ticket;
 use App\Models\Deposit;
-use App\Models\Payment;
-use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Member\Main;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
 
-class Activation extends Component
+class Activation extends Main
 {
     use WithFileUploads;
 
