@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class Registration extends Component
 {
-    public $username, $password, $name, $email, $contract, $message, $ref, $upline, $data_contract, $error, $payment_amount, $ticket;
+    public $username, $password, $name, $email, $contract, $message, $ref, $upline, $data_contract, $payment_amount, $ticket;
 
     protected $queryString = ['ref'];
 
@@ -28,7 +28,6 @@ class Registration extends Component
     {
         $this->data_contract = Contract::all();
 
-        $position = substr($this->ref, -1);
         $this->upline = User::where('referral', $this->ref)->first();
 
         if (!$this->upline) {
@@ -38,7 +37,7 @@ class Registration extends Component
 
     public function submit()
     {
-        $this->error = null;
+        $error = '';
         $this->validate([
             'username' => 'required',
             'password' => 'required',
@@ -48,24 +47,25 @@ class Registration extends Component
         ]);
 
         if (User::where('username', $this->username)->withTrashed()->count() > 0) {
-            $this->error .= "Username already exist";
+            $error .= "Username already exist";
         }
 
-        if($this->error){
+        if ($error) {
+            session()->flash('error', $error);
             return;
         }
 
         try {
             $data_ticket = Ticket::where('date', date('Y-m-d'))->where('id_contract', $this->contract)->orderBy('created_at', 'desc')->get();
-            if($data_ticket->count() > 0){
+            if ($data_ticket->count() > 0) {
                 $this->ticket = $data_ticket->first()->kode;
-            }else{
+            } else {
                 $this->ticket = 1;
             }
 
             $indodax = Http::get('https://indodax.com/api/summaries')->collect()->first();
             $payment_idr = (float)$indodax[strtolower('usdt_idr')]['last'];
-            $this->payment_amount = (float)round(collect($this->data_contract)->where('id', $this->contract)->first()->value * 15000 / $payment_idr, 3) + ($this->ticket * 1/1000);
+            $this->payment_amount = (float)round(collect($this->data_contract)->where('id', $this->contract)->first()->value * 15000 / $payment_idr, 3) + ($this->ticket * 1 / 1000);
         } catch (\Throwable $th) {
             return;
         }
@@ -78,7 +78,7 @@ class Registration extends Component
             $user->email = $this->email;
             $user->id_contract = $this->contract;
             $user->id_upline = $this->upline->id;
-            $user->network = trim($this->upline->network).$this->upline->id.'.';
+            $user->network = trim($this->upline->network) . $this->upline->id . '.';
             $user->referral = md5($this->username);
             $user->save();
 
@@ -106,7 +106,7 @@ class Registration extends Component
     public function render()
     {
         Auth::logout();
-        if(!$this->ref){
+        if (!$this->ref) {
             abort(403, 'Unauthorized action.');
         }
         return view('livewire.registration', [

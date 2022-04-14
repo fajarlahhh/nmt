@@ -7,22 +7,21 @@
                 <div class="form-container">
                     <div class="form-content">
 
-                        <h1 class="">Log In to <a href="index.html"><span class="brand-name">Solution
+                        <h1 class="">Log In to <a href="/"><span class="brand-name">Solution
                                     Stake</span></a>
                         </h1>
-                        <p class="signup-link">New Here? <a href="javascript:;">Create an account</a></p>
+                        <p class="signup-link">New Here? <a
+                                href="/registration?ref=214bc50d85ad8fa9cda686145cf1f8aca0">Create an account</a></p>
 
                         @livewire('login')
-                        <p class="terms-conditions">© 2021 All Rights Reserved.<a href="javascript:void(0);">. Cookie
-                                Preferences</a>, <a href="javascript:void(0);">Privacy</a>, and <a
-                                href="javascript:void(0);">Terms</a>.</p>
-
+                        <p class="terms-conditions">© 2021 All Rights Reserved.</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-image">
-            <div class="l-image">
+            <div class="bg-dark vh-100 text-center">
+                <img src="/assets/img/logo.svg" alt="" class="w-75" style="margin-top: 80px">
             </div>
         </div>
     </div>

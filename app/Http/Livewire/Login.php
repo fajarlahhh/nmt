@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class Login extends Component
 {
 
-    public $error, $username, $password, $referral_token, $remember = false, $type = 'password', $show = 'Show';
+    public $error, $username, $password, $referral_token, $remember = false;
     public $message;
 
     protected $rules = [
@@ -20,7 +20,6 @@ class Login extends Component
 
     public function login()
     {
-        $this->reset('error');
         $this->validate();
 
         $remember = $this->remember == 'on';
@@ -33,7 +32,7 @@ class Login extends Component
                 return redirect('/admin-area');
             }
         }
-        $this->error = "Wrong username or password!!!<br>";
+        session()->flash('error', 'Wrong username or password!!!');
         return;
     }
 

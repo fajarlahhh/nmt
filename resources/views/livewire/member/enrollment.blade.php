@@ -10,11 +10,6 @@
                     <h5>Enrollment</h5>
                 </div>
             </div>
-            @if ($error)
-                <div class="alert alert-danger show col-span-12 lg:col-span-6 mt-2" role="alert">
-                    {!! $error !!}
-                </div>
-            @endif
             <div class="row layout-top-spacing">
                 <div class="col-lg-12 col-12 layout-spacing">
                     <div class="statbox widget box box-shadow">

@@ -48,9 +48,9 @@ class Activation extends Component
                 $payment_idr = (float)$indodax[strtolower($payment->alias)]['last'];
                 $this->amount = (float)ceil(auth()->user()->contract_price * 15000 / $payment_idr);
                 $data_ticket = Ticket::where('date', date('Y-m-d'))->where('contract_price', auth()->user()->contract_price)->orderBy('created_at', 'desc')->get();
-                if($data_ticket->count() > 0){
+                if ($data_ticket->count() > 0) {
                     $this->ticket = $data_ticket->first()->kode;
-                }else{
+                } else {
                     $this->ticket = 1;
                 }
 
@@ -77,6 +77,6 @@ class Activation extends Component
     {
         return view('livewire.member.activation', [
             'menu' => 'activation'
-        ])->extends('layouts.dashboard');
+        ])->extends('layouts.default');
     }
 }

@@ -1,6 +1,6 @@
 <div>
-    <form wire:submit.prevent="login" class="text-left">
-        <div class="form">
+    <div class="form">
+        <form wire:submit.prevent="login" class="text-left">
 
             <div id="username-field" class="field-wrapper input">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -42,6 +42,9 @@
                 </div>
 
             </div>
+            @if (session()->has('error'))
+                <div class="text-danger">{!! session('error') !!}</div>
+            @endif
 
             <div class="field-wrapper text-center keep-logged-in">
                 <div class="n-chk new-checkbox checkbox-outline-primary">
@@ -51,12 +54,11 @@
                     </label>
                 </div>
             </div>
+        </form>
 
-            <div class="field-wrapper">
-                <a href="auth_pass_recovery.html" class="forgot-pass-link">Forgot Password?</a>
-            </div>
-
+        <div class="field-wrapper">
+            <a href="auth_pass_recovery.html" class="forgot-pass-link">Forgot Password?</a>
         </div>
-    </form>
-    <div class="text-danger">{!! $error !!}</div>
+
+    </div>
 </div>

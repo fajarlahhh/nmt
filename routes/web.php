@@ -16,17 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['member']], function () {
         Route::group(['middleware' => ['active']], function () {
-            Route::get('/', function ()
-            {
+            Route::get('/', function () {
                 return redirect('/dashboard');
             });
             Route::get('/dashboard', \App\Http\Livewire\Member\Dashboard::class);
-            Route::get('/profile', \App\Http\Livewire\Member\Profile::class);
-            Route::get('/subordinate', \App\Http\Livewire\Member\Subordinate::class);
-            Route::get('/income', \App\Http\Livewire\Member\Income::class);
-            Route::get('/contractbenefit', \App\Http\Livewire\Member\Contractbenefit::class);
-            Route::get('/renewal', \App\Http\Livewire\Member\Renewal::class);
-            Route::get('/security', \App\Http\Livewire\Member\Security::class);
             Route::get('/enrollment', \App\Http\Livewire\Member\Enrollment::class);
         });
         Route::group(['middleware' => ['inactive']], function () {
@@ -35,9 +28,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['middleware' => ['admin']], function () {
-        Route::prefix('admin-area')->group(function (){
-            Route::get('/', function ()
-            {
+        Route::prefix('admin-area')->group(function () {
+            Route::get('/', function () {
                 return redirect('/admin-area/dashboard');
             });
             Route::get('/dashboard', \App\Http\Livewire\Administrator\Dashboard::class);
