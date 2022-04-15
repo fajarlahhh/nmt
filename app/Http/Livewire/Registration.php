@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class Registration extends Component
 {
-    public $username, $password, $name, $email, $contract, $message, $ref, $upline, $data_contract, $payment_amount, $ticket;
+    public $username, $password, $name, $email, $contract, $referral, $message, $ref, $upline, $data_contract, $payment_amount, $ticket;
 
     protected $queryString = ['ref'];
 
@@ -28,10 +28,8 @@ class Registration extends Component
     {
         $this->data_contract = Contract::all();
 
-        $this->upline = User::where('referral', $this->ref)->first();
-
-        if (!$this->upline) {
-            return abort(404);
+        if ($this->ref) {
+            $this->upline = User::where('referral', $this->ref)->first();
         }
     }
 
@@ -41,10 +39,17 @@ class Registration extends Component
         $this->validate([
             'username' => 'required',
             'password' => 'required',
+            'referral' => 'required',
             'name' => 'required',
             'email' => 'required|email',
             'contract' => 'required'
         ]);
+
+        $this->upline = User::where('username', $this->referral)->first();
+
+        if (!$this->upline) {
+            $error .= "Referral not found";
+        }
 
         if (User::where('username', $this->username)->withTrashed()->count() > 0) {
             $error .= "Username already exist";
@@ -106,9 +111,6 @@ class Registration extends Component
     public function render()
     {
         Auth::logout();
-        if (!$this->ref) {
-            abort(403, 'Unauthorized action.');
-        }
         return view('livewire.registration', [
             'menu' => 'registration'
         ])->extends('layouts.auth');

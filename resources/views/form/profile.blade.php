@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group mb-2">
                         <label for="referralProfile" class="form-label">Upline</label>
-                        <input id="referralProfile" type="text" class="form-control" value="{{ auth()->user()->upline->username }}"
+                        <input id="referralProfile" type="text" class="form-control" value="{{ auth()->user()->upline? auth()->user()->upline->username: '' }}"
                             placeholder="Upline" readonly>
                     </div>
                     @if (auth()->user()->googleAuthSecret)

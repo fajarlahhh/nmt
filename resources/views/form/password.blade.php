@@ -10,16 +10,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group mb-2">
-                        <label for="old_password" class="form-label">Old Password</label>
-                        <input id="old_password" type="password" class="form-control" wire:model.defer="old_password" placeholder="Old Password" autocomplete="off">
-                        @error('old_password')
+                        <label for="oldPassword" class="form-label">Old Password</label>
+                        <input id="oldPassword" type="password" class="form-control" wire:model.defer="oldPassword" placeholder="Old Password" autocomplete="off">
+                        @error('oldPassword')
                         <span class="text-danger">This field is required</span>
                         @enderror
                     </div>
                     <div class="form-group mb-2">
-                        <label for="new_password" class="form-label">New Password</label>
-                        <input id="new_password" type="password" class="form-control" wire:model.defer="new_password" placeholder="New Password" autocomplete="off">
-                        @error('new_password')
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <input id="newPassword" type="password" class="form-control" wire:model.defer="newPassword" placeholder="New Password" autocomplete="off">
+                        @error('newPassword')
                         <span class="text-danger">This field is required</span>
                         @enderror
                     </div>
