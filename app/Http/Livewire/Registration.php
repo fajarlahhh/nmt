@@ -36,16 +36,29 @@ class Registration extends Component
     public function submit()
     {
         $error = '';
-        $this->validate([
-            'username' => 'required',
-            'password' => 'required',
-            'referral' => 'required',
-            'name' => 'required',
-            'email' => 'required|email',
-            'contract' => 'required'
-        ]);
+        if ($this->ref) {
+            $this->validate([
+                'username' => 'required',
+                'password' => 'required',
+                'name' => 'required',
+                'email' => 'required|email',
+                'contract' => 'required'
+            ]);
+        } else {
+            $this->validate([
+                'username' => 'required',
+                'password' => 'required',
+                'referral' => 'required',
+                'name' => 'required',
+                'email' => 'required|email',
+                'contract' => 'required'
+            ]);
+        }
 
-        $this->upline = User::where('username', $this->referral)->first();
+
+        if (!$this->ref) {
+            $this->upline = User::where('username', $this->referral)->first();
+        }
 
         if (!$this->upline) {
             $error .= "Referral not found";
