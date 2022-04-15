@@ -1,4 +1,4 @@
-<div>
+{{-- <div>
     @include('includes.mobile-menu')
     <div class="flex">
         @include('includes.side-menu')
@@ -96,4 +96,23 @@
         </div>
         <!-- END: Content -->
     </div>
+</div> --}}
+<div>
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+
+            <div class="row layout-top-spacing">
+
+            </div>
+
+            <div class="footer-wrapper text-center">
+                <div class="footer-section f-section-1">
+                    <p class="">Copyright © 2021 <a target="_blank"
+                            href="https://solutionstake.com">SolutionStake</a>, All rights reserved.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>

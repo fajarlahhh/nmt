@@ -5,11 +5,11 @@
         <div class="form-form">
             <div class="form-form-wrap">
                 <div class="form-container">
-                    <div class="form-content">
-
-                        <h1 class="">Log In to <a href="/"><span class="brand-name">Solution
-                                    Stake</span></a>
-                        </h1>
+                    <div class="form-content text-center">
+                        <img src="/assets/img/logo.svg" alt="" class="w-25">
+                        <h4 class=""><span class="brand-name">Solution
+                                    Stake</span>
+                        </h4>
                         <p class="signup-link">New Here? <a
                                 href="/registration?ref=214bc50d85ad8fa9cda686145cf1f8aca0">Create an account</a></p>
 

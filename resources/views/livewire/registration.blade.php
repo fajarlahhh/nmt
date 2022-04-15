@@ -3,9 +3,10 @@
         <div class="form-form">
             <div class="form-form-wrap">
                 <div class="form-container">
-                    <div class="form-content">
+                    <div class="form-content text-center">
 
-                        <h1 class="">Get started</h1>
+                        <img src="/assets/img/logo.svg" alt="" class="w-25">
+                        <h4 class="">Registration</h4>
                         <p class="signup-link">Already have an account? <a href="/login">Log in</a></p>
                         <form class="text-left" wire:submit.prevent="submit">
                             <div class="form">

@@ -98,7 +98,7 @@ class Deposit extends Component
                 if ($data->requisite == 'Enrollment' || $data->requisite == 'Registration') {
                     if($user->upline){
                         array_push($active_income,[
-                            'description' => "Refferral income 8% of $ ".number_format($user->contract->value)." by ".$user->username,
+                            'description' => "Ref. 8% of $ ".number_format($user->contract->value)." by ".$user->username,
                             'debit' => 0,
                             'credit' => $user->contract->sponsorship_benefits,
                             'id_user' => $user->upline->id,
@@ -107,7 +107,7 @@ class Deposit extends Component
                         ]);
                         if($user->upline->upline){
                             array_push($active_income,[
-                                'description' => "Level 1 income 3% of $ ".number_format($user->contract->value)." by ".$user->username,
+                                'description' => "Lvl. 1 3% of $ ".number_format($user->contract->value)." by ".$user->username,
                                 'debit' => 0,
                                 'credit' => $user->contract->first_level_benefits,
                                 'id_user' => $user->upline->upline->id,
@@ -116,7 +116,7 @@ class Deposit extends Component
                             ]);
                             if($user->upline->upline->upline){
                                 array_push($active_income,[
-                                    'description' => "Level 2 income 2% of $ ".number_format($user->contract->value)." by ".$user->username,
+                                    'description' => "Lvl. 2 2% of $ ".number_format($user->contract->value)." by ".$user->username,
                                     'debit' => 0,
                                     'credit' => $user->contract->second_level_benefits,
                                     'id_user' => $user->upline->upline->upline->id,
@@ -125,7 +125,7 @@ class Deposit extends Component
                                 ]);
                                 if($user->upline->upline->upline->upline){
                                     array_push($active_income,[
-                                        'description' => "Level 3 income 1% of $ ".number_format($user->contract->value)." by ".$user->username,
+                                        'description' => "Lvl. 3 1% of $ ".number_format($user->contract->value)." by ".$user->username,
                                         'debit' => 0,
                                         'credit' => $user->contract->third_level_benefits,
                                         'id_user' => $user->upline->upline->upline->upline->id,
@@ -134,7 +134,7 @@ class Deposit extends Component
                                     ]);
                                     if($user->upline->upline->upline->upline->upline){
                                         array_push($active_income,[
-                                            'description' => "Level 4 income 1% of $ ".number_format($user->contract->value)." by ".$user->username,
+                                            'description' => "Lvl. 4 1% of $ ".number_format($user->contract->value)." by ".$user->username,
                                             'debit' => 0,
                                             'credit' => $user->contract->forth_level_benefits,
                                             'id_user' => $user->upline->upline->upline->upline->upline->id,
@@ -171,8 +171,6 @@ class Deposit extends Component
         return view('livewire.administrator.deposit', [
             'data' => $data,
             'no' => ($this->page - 1) * 10
-        ])->extends('layouts.default', [
-            'menu' => 'deposit'
-        ]);
+        ])->extends('layouts.admin');
     }
 }

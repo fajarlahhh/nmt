@@ -1,11 +1,11 @@
 <!--  BEGIN NAVBAR  -->
-<div class="header-container">
+<div class="header-container bg-dark">
     <header class="header navbar navbar-expand-sm">
 
         <ul class="navbar-item flex-row mr-auto">
             <li class="nav-item align-self-center search-animated">
                 <span class="navbar-brand-name"
-                    style="color: #060818; font-size: 20px; font-weight: 700;letter-spacing: 1px;"><strong>SOLUTION
+                    style="font-size: 20px; font-weight: 700;letter-spacing: 1px;"><strong>SOLUTION
                         STAKE</strong></span>
             </li>
         </ul>
@@ -16,7 +16,7 @@
                     <div class="media">
                         <img src="assets/img/logo.svg" class="img-fluid" alt="admin-profile">
                         <div class="media-body align-self-center">
-                            <h6><span>Hi,</span> Alan</h6>
+                            <h6><span>Hi,</span> {{ auth()->user()->username }}</h6>
                         </div>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>

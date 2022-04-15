@@ -25,8 +25,6 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.administrator.dashboard', [
-            'menu' => 'activation'
-        ])->extends('layouts.dashboard');
+        return view('livewire.administrator.dashboard')->extends('layouts.admin');
     }
 }

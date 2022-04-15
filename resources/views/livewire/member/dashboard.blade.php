@@ -11,6 +11,8 @@
     @include('form.password')
     @include('form.passive')
     @include('form.active')
+    @include('form.restake')
+    @include('form.contract')
     @include('form.active-history')
     @push('scripts')
         <script>
@@ -32,6 +34,13 @@
                 $('#passwordModal').modal('hide');
             });
 
+            window.livewire.on('contractModalClose', () => {
+                $('#contractModal').modal('hide');
+            });
+
+            window.livewire.on('restakeModalClose', () => {
+                $('#restakeModal').modal('hide');
+            });
 
             window.livewire.on('activeModalClose', (next) => {
                 $('#activeModal').modal('hide');

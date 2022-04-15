@@ -15,7 +15,7 @@ class PassiveIncome extends Model
 
     public function withdrawal()
     {
-        return $this->belongsTo('App\Models\Withdrawal', 'id_withdrawal', 'id');
+        return $this->hasOne('App\Models\Withdrawal', 'id', 'id_withdrawal');
     }
 
     public function user()

@@ -40,7 +40,7 @@ class User extends Authenticatable
 
     public function registration_waiting_fund()
     {
-        return $this->hasMany('App\Models\Deposit', 'id_owner', 'id')->where('requisite', 'Registration')->whereNull('information')->whereNull('processed_at');
+        return $this->hasMany('App\Models\Deposit', 'id_owner', 'id')->whereIn('requisite', ['Registration', 'Restake'])->whereNull('information')->whereNull('processed_at');
     }
 
     public function registration_waiting_activated()
@@ -95,12 +95,17 @@ class User extends Authenticatable
 
     public function active_income()
     {
-        return $this->hasMany('App\Models\Income', 'id_user', 'id')->where('created_at', '<=', auth()->user()->invalid_at);
+        if (auth()->user()->invalid_at) {
+            return $this->hasMany('App\Models\Income', 'id_user', 'id')->where('created_at', '<=', auth()->user()->invalid_at);
+        } else {
+            return $this->hasMany('App\Models\Income', 'id_user', 'id');
+        }
+
     }
 
     public function withdrawal_active_today()
     {
-        return $this->hasOne('App\Models\Withdrawal', 'id_user', 'id')->whereRaw('SUBSTRING(created_at, 1, 10) = "' . date('Y-m-d') . '"');
+        return $this->hasMany('App\Models\Withdrawal', 'id_user', 'id')->where('type', 'active')->whereRaw('SUBSTRING(created_at, 1, 10) = "' . date('Y-m-d') . '"');
     }
 
     public function withdrawal_all()

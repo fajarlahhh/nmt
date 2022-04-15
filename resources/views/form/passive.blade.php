@@ -19,14 +19,34 @@
                                             <div class="t-company-name">
                                                 <div class="t-name">
                                                     <h4>$ {{ number_format($row->amount) }}</h4>
-                                                    <p class="meta-date">Available At : {{ $row->valid_at }}
+                                                    @if ($row->valid_at > date('Y-m-d H:m:s'))
+                                                    <p class="meta-date">Available in {{ \Carbon\Carbon::parse($row->valid_at)->diffForHumans() }}
                                                     </p>
+                                                    @else
+                                                    @if (!$row->withdrawal)
+                                                    Available Now
+                                                    @else
+                                                    Claimed
+                                                    @endif
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="t-rate rate-inc">
                                                 @if ($row->valid_at < now())
-                                                    <button class="btn btn-sm btn-rounded btn-success"
+                                                    @if ($row->withdrawal)
+                                                        @if ($row->withdrawal->processed_at)
+                                                            <span
+                                                            class="badge outline-badge-success">Paid,
+                                                            TX
+                                                            ID :
+                                                            {{ $row->txid }}</span>
+                                                        @else
+                                                            <span class="badge outline-badge-danger">Pending</span>
+                                                        @endif
+                                                    @else
+                                                    <button type="button" class="btn btn-sm btn-rounded btn-success"
                                                         wire:click="passiveSubmit({{ $row->getKey() }})">Claim</button>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </div>

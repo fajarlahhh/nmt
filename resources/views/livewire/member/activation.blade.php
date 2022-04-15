@@ -79,7 +79,7 @@
                                     </table>
                                     <br>
                                 </div>
-                            @endif
+                            @else
                             @if (auth()->user()->registration_waiting_activated->count() > 0)
                                 <div class="alert alert-warning show" style="margin-top: 100px; margin-bottom: 100px">
                                     <h6 class="text-center"><strong>We have received your
@@ -95,6 +95,7 @@
                                         </h6>
                                     </div>
                                 @endif
+                            @endif
                             @endif
                         </div>
                     </div>

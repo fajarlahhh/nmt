@@ -11,8 +11,32 @@
                 </div>
                 @if (auth()->user()->withdrawal_active_today->count() === 0)
                     <div class="modal-body">
+                        <div class="alert alert-warning border-0">
+                            Rules:
+                            <ul>
+                                <li>
+                                    Available every weekdays (07.00 - 13.00 UTC+2)
+                                </li>
+                                <li>
+                                    10% Fee
+                                </li>
+                                <li>
+                                    Max. Claim {{ auth()->user()->contract->value * 0.5 }}
+                                </li>
+                                <li>
+                                    Min. Claim {{ auth()->user()->contract->value * 0.1 }}
+                                </li>
+                                <li>
+                                    1 x 24 hours proccess
+                                </li>
+                            </ul>
+                        </div>
+                        @if ($today > 0 || $today < 6)
+                        @else
+                        @if ($time < '070000' || $time > '150000')
+                        @else
                         <div class="form-group mb-2">
-                            <label for="availableActive" class="form-label">Available Balance</label>
+                            <label for="availableActive" class="form-label text-dark">Available Balance</label>
                             <input id="availableActive" type="text" class="form-control text-gray-700" readonly
                                 value="$ {{ number_format($availableActive) }}">
                             @error('availableActive')
@@ -20,21 +44,30 @@
                             @enderror
                         </div>
                         <div class="form-group mb-2">
-                            <label for="amountActive" class="form-label">Amount</label>
+                            <label for="amountActive" class="form-label text-dark">Amount</label>
                             <input id="amountActive" type="number" min="0" autocomplete="off"
                                 class="form-control text-gray-700" wire:model="amountActive">
                             @error('amountActive')
                                 <span class="text-danger">This field is required</span>
                             @enderror
                         </div>
+                        @endif
+                        @endif
+
                     </div>
-                    <div class="modal-footer">
-                        <input type="submit" wire:click.prevent="activeCount" class="mt-4 btn btn-primary "
+                    @if ($today > 0 || $today < 6)
+                    @else
+                    @if (date('Hms') < '070000' || date('Hms') > '150000')
+                    @else
+                    <div class="modal-footer text-center">
+                        <input type="submit" wire:click.prevent="activeCount" class="btn btn-primary "
                             value="Submit">
                     </div>
+                    @endif
+                    @endif
                 @else
                     <div class="modal-body text-center">
-                        <h3 class="text-danger">Withdrawals can only be done once a day</h3>
+                        <h5 class="text-danger">Withdrawals can only be done once a day</h5>
                     </div>
                 @endif
             </form>

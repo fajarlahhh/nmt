@@ -24,18 +24,13 @@ class Withdrawal extends Model
         return $this->belongsTo('App\Models\User', 'id_user', 'id');
     }
 
-    public function member()
-    {
-        return $this->belongsTo('App\Models\User', 'id_member', 'id');
-    }
-
     public function income()
     {
-        return $this->hasOne('App\Models\Income', 'id_withdrawal', 'id');
+        return $this->hasOne('App\Models\Income', 'id_withdrawal', 'id')->withTrashed();
     }
 
     public function passive()
     {
-        return $this->hasOne('App\Models\PassiveIncome', 'id_withdrawal', 'id');
+        return $this->hasOne('App\Models\PassiveIncome', 'id_withdrawal', 'id')->withTrashed();
     }
 }

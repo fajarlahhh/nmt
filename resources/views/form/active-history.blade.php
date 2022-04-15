@@ -23,6 +23,21 @@
                                                     </p>
                                                 </div>
                                             </div>
+                                                @if ($row->credit)
+                                                <div class="t-rate rate-inc">
+                                                    <p><span>
+                                                        + ${{ number_format($row->credit) }}
+                                                    </span>
+                                                </p>
+                                                </div>
+                                                @else
+                                                <div class="t-rate rate-dec">
+                                                    <p><span>
+                                                - ${{ number_format($row->credit) }}
+                                            </span>
+                                        </p>
+                                        </div>
+                                                @endif
                                         </div>
                                     </div>
                                 @endforeach

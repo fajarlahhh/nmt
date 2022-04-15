@@ -3,22 +3,6 @@
     <div class="overlay"></div>
     <div class="search-overlay"></div>
 
-    <!--  BEGIN TOPBAR  -->
-    <div class="topbar-nav header navbar" role="banner">
-        <nav id="topbar">
-            <ul class="navbar-nav theme-brand flex-row  text-center">
-                <li class="nav-item theme-logo">
-                    <a href="index.html">
-                        <img src="/assets/img/logo.svg" class="navbar-logo" alt="logo">
-                    </a>
-                </li>
-                <li class="nav-item theme-text">
-                    <a href="index.html" class="nav-link"> SOLUTION STAKE </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    <!--  END TOPBAR  -->
     <div id="content" class="main-content">
         <div class="layout-px-spacing">
 
@@ -59,52 +43,62 @@
                                         {{ auth()->user()->username }}</span>
                                 </div>
                             </div>
-                            <strong class="text-white mt-3">Referral Link:</strong>
-                            <a href="javascript:;" class="text-white"
-                                onclick="copyToClipboard('{{ URL::to('/registration?ref=' . auth()->user()->referral) }}')">{{ auth()->user()->referral }}</a>
+                            <br>
+                            <label class="text-white">Referral Link :</label>
+                            <span class="badge bg-white">
+                                <a href="javascript:;"
+                                    onclick="copyToClipboard('{{ URL::to('/registration?ref=' . auth()->user()->referral) }}')">{{ auth()->user()->referral }}</a> <i class="far fa-clone"></i></span>
                             <div class="wallet-balance">
                                 <p>Fund</p>
+                                @if (auth()->user()->invalid_at)
+                                @if (auth()->user()->invalid_at < now())
+                                <div class="float-right">
+                                    <a class="btn btn-sm btn-danger btn-rounded" wire:click="contractMount" data-toggle="modal" data-target="#contractModal" href="javascript:;">Claim ${{ number_format(auth()->user()->contract->value) }}</a>
+                                </div>
+                                @else
                                 <h5 class=""><span class="w-currency">$</span>
                                     {{ number_format(auth()->user()->contract->value) }}</h5>
-                            </div>
-                            <div class="float-right">
-                                @if (auth()->user()->invalid_at < now())
-                                    <button class="btn btn-sm btn-default" type="submit">Claim</button>
+                                @endif
+                                @else
+                                <div class="float-right">
+                                    <a class="btn btn-sm btn-warning btn-rounded" wire:click="restakeMount" data-toggle="modal" data-target="#restakeModal" href="javascript:;">Restake</a>
+                                </div>
                                 @endif
                             </div>
                         </div>
-
+                        @if (auth()->user()->invalid_at )
                         <div class="widget-amount">
-                            <div class="w-a-info funds-spent">
+                            <div class="w-a-info bg-warning">
                                 <span>Active <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-gift">
-                                        <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                                        <rect x="2" y="7" width="20" height="5"></rect>
-                                        <line x1="12" y1="22" x2="12" y2="7"></line>
-                                        <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                                        <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-                                    </svg></span>
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg></span>
                                 <p>
                                     <a href="javascript:;" data-toggle="modal" wire:click="activeMount"
                                         data-target="#activeRecentModal">{{ number_format($availableActive) }}</a>
                                 </p>
                             </div>
 
-                            <div class="w-a-info funds-received">
+                            <div class="w-a-info bg-success">
                                 <span>Passive <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
-                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="9" cy="7" r="4"></circle>
-                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                    </svg></span>
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-gift">
+                                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                                    <rect x="2" y="7" width="20" height="5"></rect>
+                                    <line x1="12" y1="22" x2="12" y2="7"></line>
+                                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                                </svg></span>
                                 <p><a data-toggle="modal" wire:click="passiveMount" data-target="#passiveModal"
                                         href="javascript:;">{{ number_format($passive) }}</a>
                                 </p>
                             </div>
                         </div>
+                        @endif
 
                         <div class="widget-content">
 
@@ -170,7 +164,7 @@
 
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 layout-spacing">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 layout-spacing ">
                     <div id="toggleAccordion">
                         <div class="card">
                             <div class="card-header" id="...">
@@ -178,7 +172,7 @@
                                     <div role="menu" class="collapsed" data-toggle="collapse"
                                         data-target="#defaultAccordionOne" aria-expanded="true"
                                         aria-controls="defaultAccordionOne">
-                                        Pending Income
+                                        <strong class="text-warning">Pending Income</strong>
                                     </div>
                                 </section>
                             </div>
@@ -264,7 +258,7 @@
                                     <div role="menu" class="collapsed" data-toggle="collapse"
                                         data-target="#defaultAccordionTwo" aria-expanded="true"
                                         aria-controls="defaultAccordionTwo">
-                                        Recent Withdrawal
+                                        <strong class="text-info">Recent Withdrawal</strong>
                                     </div>
                                 </section>
                             </div>
@@ -305,15 +299,19 @@
                                                                 </td>
                                                                 <td class="text-nowrap pr-3">
                                                                     <div class="td-content pricing">
-                                                                        @if ($row->income)
-                                                                            Active Income
-                                                                        @else
-                                                                            @if ($row->passive->type == 'contract')
-                                                                                Contract
-                                                                            @else
-                                                                                Passive Income
-                                                                            @endif
-                                                                        @endif
+                                                                        @switch($row->type)
+                                                                            @case('active')
+                                                                                Active Income
+                                                                                @break
+                                                                            @case('contract')
+                                                                                Fund
+                                                                                @break
+                                                                            @case('passive')
+                                                                            Passive Income
+                                                                                @break
+                                                                            @default
+
+                                                                        @endswitch
                                                                     </div>
                                                                 </td>
                                                                 <td class="text-nowrap pr-3">
