@@ -10,7 +10,7 @@
                     <div class="widget widget-table-two">
 
                         <div class="widget-heading">
-                            <h5 class="">Withdraw</h5>
+                            <h5 class="">Member</h5>
                         </div>
 
                         <div class="widget-content">
