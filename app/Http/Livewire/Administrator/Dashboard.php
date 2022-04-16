@@ -17,10 +17,9 @@ class Dashboard extends Component
 
     public function mount()
     {
-
-        $this->deposit = Deposit::whereNull('processed_at')->whereNotNull('information')->count();
-        $this->withdrawal = Withdrawal::whereNull('processed_at')->count();
-        $this->user = User::whereNotNull('activated_at')->count();
+        $this->deposit = Deposit::all();
+        $this->withdrawal = Withdrawal::all();
+        $this->user = User::whereNotNull('activated_at')->whereNotNull('invalid_at')->count();
     }
 
     public function render()

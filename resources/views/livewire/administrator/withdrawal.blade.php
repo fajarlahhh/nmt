@@ -1,4 +1,7 @@
 <div>
+    @push('css')
+    <link href="{{ asset('/assets/css/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
+    @endpush
     <div id="content" class="main-content">
         <div class="layout-px-spacing">
 
@@ -16,6 +19,7 @@
                                     <thead>
                                         <tr>
                                             <th><div class="th-content">#</div></th>
+                                            <th><div class="th-content">Created At</div></th>
                                             <th><div class="th-content">Username</div></th>
                                             <th><div class="th-content">Wallet</div></th>
                                             <th><div class="th-content">USDT Amount</div></th>
@@ -26,6 +30,7 @@
                                         @foreach ($data as $row)
                                         <tr>
                                             <td><div class="td-content">{{ ++$no }}</div></td>
+                                            <td><div class="td-content">{{ $row->created_at }}</div></td>
                                             <td><div class="td-content customer-name">{{ $row->user->username }}</div></td>
                                             <td><div class="td-content customer-name">{{ $row->wallet }}</div></td>
                                             <td><div class="td-content">$ {{ number_format($row->usdt_amount, 4) }}</div></td>
