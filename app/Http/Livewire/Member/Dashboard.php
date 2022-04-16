@@ -203,7 +203,7 @@ class Dashboard extends Main
             $error .= "You haven't entered your wallet address yet<br>";
         }
 
-        if (auth()->user()->withdrawal_active_today) {
+        if (auth()->user()->withdrawal_active_today->count() > 0) {
             $error .= "Withdrawals can only be done once a day<br>";
         }
 

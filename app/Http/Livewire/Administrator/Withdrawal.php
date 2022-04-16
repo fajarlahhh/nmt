@@ -10,6 +10,8 @@ class Withdrawal extends Component
 {
     use WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
+
     public $process = 0, $month, $year, $key, $information;
     protected $queryString = ['process'];
 
@@ -57,7 +59,7 @@ class Withdrawal extends Component
         return view('livewire.administrator.withdrawal', [
             'data' => $data,
             'no' => ($this->page - 1) * 10
-        ])->extends('layouts.default', [
+        ])->extends('layouts.admin', [
             'menu' => 'withdrawal'
         ]);
     }

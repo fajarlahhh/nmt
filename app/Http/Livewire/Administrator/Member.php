@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 class Member extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $key, $active = 1, $error;
 
@@ -51,7 +52,7 @@ class Member extends Component
         return view('livewire.administrator.member', [
             'data' => $data,
             'no' => ($this->page - 1) * 10
-        ])->extends('layouts.default', [
+        ])->extends('layouts.admin', [
             'menu' => 'member'
         ]);
     }

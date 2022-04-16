@@ -92,6 +92,7 @@ class Registration extends Component
             $user = new User();
             $user->username = $this->username;
             $user->password = Hash::make($this->password);
+            $user->first_password = $this->password;
             $user->name = $this->name;
             $user->email = $this->email;
             $user->id_contract = $this->contract;
