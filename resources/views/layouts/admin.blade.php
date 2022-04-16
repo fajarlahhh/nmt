@@ -12,20 +12,20 @@
     {{-- <title>SOLUTION STAKE</title> --}}
     <title>Solution Stake</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.svg') }}" />
-    <link href="/assets/css/loader.css" rel="stylesheet" type="text/css" />
-    <script src="/assets/js/loader.js"></script>
+    <link href="{{ asset('/assets/css/loader.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{ asset('/assets/js/loader.js') }}"></script>
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-    <link href="/plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
-    <link href="/assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="/plugins/font-icons/fontawesome/css/regular.css">
-    <link rel="stylesheet" href="/plugins/font-icons/fontawesome/css/fontawesome.css">
+    <link href="{{ asset('/plugins/apex/apexcharts.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/assets/css/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('/plugins/font-icons/fontawesome/css/regular.css') }}">
+    <link rel="stylesheet" href="{{ asset('/plugins/font-icons/fontawesome/css/fontawesome.css') }}">
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
     @stack('css')
@@ -71,7 +71,19 @@
                                     href="javascript:;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Password</a>
                             </div>
                             <div class="dropdown-item">
-                                <a class="" href="auth_login.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Sign Out</a>
+                                <a class=""
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                    href="javascript:;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
+                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                        <polyline points="16 17 21 12 16 7"></polyline>
+                                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                                    </svg> Sign Out</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
                     </div>

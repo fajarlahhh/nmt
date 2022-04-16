@@ -11,7 +11,7 @@
                                     Stake</span>
                         </h4>
                         <p class="signup-link">New Here? <a
-                                href="/registration?ref=214bc50d85ad8fa9cda686145cf1f8aca0">Create an account</a></p>
+                                href="/registration">Create an account</a></p>
 
                         @livewire('login')
                         <p class="terms-conditions">© 2021 All Rights Reserved.</p>

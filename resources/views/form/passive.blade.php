@@ -44,8 +44,14 @@
                                                             <span class="badge outline-badge-danger">Pending</span>
                                                         @endif
                                                     @else
+                                                    @if ($today < 0 || $today > 5)
+                                                    @else
+                                                    @if ((int)date('Hms') < 70000 || (int)date('Hms') > 150000)
+                                                    @else
                                                     <button type="button" class="btn btn-sm btn-rounded btn-success"
                                                         wire:click="passiveSubmit({{ $row->getKey() }})">Claim</button>
+                                                    @endif
+                                                    @endif
                                                     @endif
                                                 @endif
                                             </div>

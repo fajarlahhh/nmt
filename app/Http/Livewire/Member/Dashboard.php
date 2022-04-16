@@ -118,6 +118,7 @@ class Dashboard extends Main
 
     public function activeMount()
     {
+        $this->today = Carbon::now()->dayOfWeek;
         $this->time = date('Hms');
         $this->amountActive = '';
         $this->usdtWd = '';
@@ -177,7 +178,6 @@ class Dashboard extends Main
         $error = '';
         $max = 0.5;
         $min = 0.1;
-        $this->today = Carbon::now()->addDays(3)->dayOfWeek;
 
         if ($this->availableActive < $min * auth()->user()->contract->value) {
             $error .= "Your available income is less then $ " . number_format($min * auth()->user()->contract->value, 2) . "<br>";
@@ -274,7 +274,7 @@ class Dashboard extends Main
     {
         $this->availableActive = auth()->user()->active_income ? auth()->user()->active_income->sum('credit') - auth()->user()->active_income->sum('debit') : 0;
         return view('livewire.member.dashboard', [
-            'entrant' => User::select(DB::raw("*, LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) + 1 level"))->with('contract')->where('network', 'like', $this->user . '%')->whereRaw("LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) < 4")->get(),
+            'entrant' => User::select(DB::raw("*, LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) + 1 level"))->with('contract')->where('network', 'like', $this->user . '%')->whereRaw("LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) < 5")->get(),
             'passive' => auth()->user()->benefit_available ? auth()->user()->benefit_available->sum('amount') : 0,
             'active' => auth()->user()->active_income,
             'contract' => auth()->user()->contract_remaining ? auth()->user()->contract_remaining->amountActive : 0,

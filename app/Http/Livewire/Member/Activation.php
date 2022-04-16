@@ -26,7 +26,7 @@ class Activation extends Main
             'information' => 'required'
         ]);
 
-        Deposit::where('id', $this->deposit->first()->id)->whereIn('requisites', ['Registration','Restake'])->whereNull('processed_at')->whereNull('information')->update([
+        Deposit::where('id', $this->deposit->first()->id)->whereIn('requisite', ['Registration','Restake'])->whereNull('processed_at')->whereNull('information')->update([
             'information' => $this->information
         ]);
         redirect('/activation');

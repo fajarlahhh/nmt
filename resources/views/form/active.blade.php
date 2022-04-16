@@ -31,9 +31,9 @@
                                 </li>
                             </ul>
                         </div>
-                        @if ($today > 0 || $today < 6)
+                        @if ($today < 0 || $today > 5)
                         @else
-                        @if ($time < '070000' || $time > '150000')
+                        @if ((int)date('Hms') < 70000 || (int)date('Hms') > 150000)
                         @else
                         <div class="form-group mb-2">
                             <label for="availableActive" class="form-label text-dark">Available Balance</label>
@@ -53,11 +53,10 @@
                         </div>
                         @endif
                         @endif
-
                     </div>
-                    @if ($today > 0 || $today < 6)
+                    @if ($today < 0 || $today > 5)
                     @else
-                    @if (date('Hms') < '070000' || date('Hms') > '150000')
+                    @if ((int)date('Hms') < 70000 || (int)date('Hms') > 150000)
                     @else
                     <div class="modal-footer text-center">
                         <input type="submit" wire:click.prevent="activeCount" class="btn btn-primary "
