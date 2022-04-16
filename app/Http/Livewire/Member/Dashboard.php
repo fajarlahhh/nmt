@@ -138,6 +138,14 @@ class Dashboard extends Main
             $data = $data->first();
             $error = null;
 
+            if ($this->today > 0 || $this->today < 6) {
+                $error .= "You cant claim your active income at weekend<br>";
+            }
+
+            if ((int)date('Hms') > 70000 || (int)date('Hms') < 150000) {
+                $error .= "You can claim your active income at 07.00 until 13.00 UTC + 2<br>";
+            }
+
             if (!auth()->user()->wallet) {
                 $error .= "You haven't entered your wallet address yet<br>";
             }
@@ -187,7 +195,7 @@ class Dashboard extends Main
             $error .= "You cant claim your active income at weekend<br>";
         }
 
-        if (date('Hms') < '070000' || date('Hms') > '150000') {
+        if ((int)date('Hms') > 70000 || (int)date('Hms') < 150000) {
             $error .= "You can claim your active income at 07.00 until 13.00 UTC + 2<br>";
         }
 
