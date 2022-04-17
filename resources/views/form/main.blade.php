@@ -8,6 +8,11 @@
 
             <div class="row layout-top-spacing">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    @if (!auth()->user()->wallet)
+                    <div class="alert alert-danger border-0">
+                        You have not added a wallet address. <a href="javascript:;" wire:click="profileMount" data-toggle="modal" class="text-primary" data-target="#profileModal">Click here</a> to add it
+                    </div>
+                    @endif
                     @if (session()->has('message'))
                         <div class="alert alert-success border-0">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><svg

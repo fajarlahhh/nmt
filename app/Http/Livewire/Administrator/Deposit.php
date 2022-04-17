@@ -98,7 +98,7 @@ class Deposit extends Component
 
                 if ($data->requisite == 'Enrollment' || $data->requisite == 'Registration') {
                     if($user->upline){
-                        if ($user->upline->invalid_at < now()) {
+                        if ($user->upline->invalid_at > now()) {
                             array_push($active_income,[
                                 'description' => "Ref. 8% of $ ".number_format($user->contract->value)." by ".$user->username,
                                 'debit' => 0,
@@ -109,7 +109,7 @@ class Deposit extends Component
                             ]);
                         }
                         if($user->upline->upline){
-                            if ($user->upline->upline->invalid_at < now()) {
+                            if ($user->upline->upline->invalid_at > now()) {
                                 array_push($active_income,[
                                     'description' => "Lvl. 1 3% of $ ".number_format($user->contract->value)." by ".$user->username,
                                     'debit' => 0,
@@ -120,7 +120,7 @@ class Deposit extends Component
                                 ]);
                             }
                             if($user->upline->upline->upline){
-                                if ($user->upline->upline->upline->invalid_at < now()) {
+                                if ($user->upline->upline->upline->invalid_at > now()) {
                                     array_push($active_income,[
                                         'description' => "Lvl. 2 2% of $ ".number_format($user->contract->value)." by ".$user->username,
                                         'debit' => 0,
@@ -131,7 +131,7 @@ class Deposit extends Component
                                     ]);
                                 }
                                 if($user->upline->upline->upline->upline){
-                                    if ($user->upline->upline->upline->upline->invalid_at < now()) {
+                                    if ($user->upline->upline->upline->upline->invalid_at > now()) {
                                         array_push($active_income,[
                                             'description' => "Lvl. 3 1% of $ ".number_format($user->contract->value)." by ".$user->username,
                                             'debit' => 0,
@@ -142,7 +142,7 @@ class Deposit extends Component
                                         ]);
                                     }
                                     if($user->upline->upline->upline->upline->upline){
-                                        if ($user->upline->upline->upline->upline->upline->invalid_at < now()) {
+                                        if ($user->upline->upline->upline->upline->upline->invalid_at > now()) {
                                             array_push($active_income,[
                                                 'description' => "Lvl. 4 1% of $ ".number_format($user->contract->value)." by ".$user->username,
                                                 'debit' => 0,

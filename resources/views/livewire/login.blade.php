@@ -38,7 +38,10 @@
                     </label>
                 </div>
                 <div class="field-wrapper">
-                    <button type="submit" class="btn btn-primary" value="">Log In</button>
+                    <button type="submit"
+                    data-sitekey="{{env('RECAPTCHAV3_SITEKEY')}}"
+                    data-callback='handle'
+                    data-action='submit' class="btn btn-primary" value="">Log In</button>
                 </div>
 
             </div>
@@ -57,8 +60,22 @@
         </form>
 
         <div class="field-wrapper">
-            <a href="auth_pass_recovery.html" class="forgot-pass-link">Forgot Password?</a>
+            <a href="/forgot" class="forgot-pass-link">Forgot Password?</a>
         </div>
 
     </div>
+    @push('scripts')
+    <script src="https://www.google.com/recaptcha/api.js?render={{env('RECAPTCHAV3_SITEKEY')}}"></script>
+    <script>
+        function handle(e) {
+            grecaptcha.ready(function () {
+                grecaptcha.execute('{{env('RECAPTCHAV3_SITEKEY')}}', {action: 'submit'})
+                    .then(function (token) {
+                        @this.set('captcha', token);
+                    });
+            })
+        }
+    </script>
+
+    @endpush
 </div>

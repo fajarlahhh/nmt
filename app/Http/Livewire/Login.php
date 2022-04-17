@@ -18,6 +18,21 @@ class Login extends Component
         'password' => 'required',
     ];
 
+    public $captcha = 0;
+
+    public function updatedCaptcha($token)
+    {
+        $response = Http::post('https://www.google.com/recaptcha/api/siteverify?secret=' . env('RECAPTCHAV3_SECRET') . '&response=' . $token);
+        $this->captcha = $response->json()['score'];
+
+        if (!$this->captcha > .3) {
+            $this->store();
+        } else {
+            return session()->flash('error', 'Google thinks you are a bot, please refresh and try again');
+        }
+
+    }
+
     public function login()
     {
         $this->validate();

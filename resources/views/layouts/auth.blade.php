@@ -27,6 +27,7 @@
     <script src="{{ asset('bootstrap/js/popper.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/authentication/form-1.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>
