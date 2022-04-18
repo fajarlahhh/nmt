@@ -26,6 +26,14 @@
                         @enderror
                     </div>
                     <div class="form-group mb-2">
+                        <label for="phoneProfile" class="form-label">Phone</label>
+                        <input id="phoneProfile" type="text" class="form-control" wire:model.defer="phoneProfile"
+                            placeholder="Phone Number">
+                        @error('phoneProfile')
+                            <span class="text-danger">This field is required</span>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-2">
                         <label for="emailProfile" class="form-label">Email</label>
                         <input id="emailProfile" type="text" class="form-control" wire:model.defer="emailProfile"
                             placeholder="Email">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-    Hy {{ $ ['name'] }}, this is your password recovery link:<br><br>
+    Hy {{ $data['name'] }}, this is your password recovery link:<br><br>
     <a href="{{ config('app.url') }}/recovery?token={{ $data['token'] }}" target="_blank">{{ config('app.url') }}/recovery?token={{ $data['token'] }}</a><br>
     Thank You
     <br><br>

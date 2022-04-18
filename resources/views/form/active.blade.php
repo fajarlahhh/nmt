@@ -31,7 +31,7 @@
                                 </li>
                             </ul>
                         </div>
-                        @if ($today < 0 || $today > 5)
+                        @if ($today < 1 || $today > 5)
                         @else
                         @if ((int)date('Hms') < 70000 || (int)date('Hms') > 150000)
                         @else
@@ -54,7 +54,7 @@
                         @endif
                         @endif
                     </div>
-                    @if ($today < 0 || $today > 5)
+                    @if ($today < 1 || $today > 5)
                     @else
                     @if ((int)date('Hms') < 70000 || (int)date('Hms') > 150000)
                     @else

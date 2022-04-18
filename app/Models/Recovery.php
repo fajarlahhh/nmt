@@ -11,8 +11,8 @@ class Recovery extends Model
 
     protected $table = "recovery";
 
-    public function member()
+    public function user()
     {
-        return $this->belongsTo('App\Models\User', 'email', 'email');
+        return $this->belongsTo('App\Models\User', 'id_user', 'id');
     }
 }

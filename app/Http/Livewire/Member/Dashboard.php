@@ -191,7 +191,7 @@ class Dashboard extends Main
             $error .= "Your available income is less then $ " . number_format($min * auth()->user()->contract->value, 2) . "<br>";
         }
 
-        if ($this->today > 0 || $this->today < 6) {
+        if ($this->today < 1 || $this->today > 5) {
             $error .= "You cant claim your active income at weekend<br>";
         }
 

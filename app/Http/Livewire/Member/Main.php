@@ -11,7 +11,7 @@ class Main extends Component
 {
     public $pin, $user;
 
-    public $dataProfile, $nameProfile, $emailProfile, $walletProfile, $referralProfile;
+    public $dataProfile, $phoneProfile, $nameProfile, $emailProfile, $walletProfile, $referralProfile;
 
     public $qr_image, $googleAuthSecret, $pinGoogle, $newPassword, $oldPassword;
 
@@ -50,6 +50,7 @@ class Main extends Component
     {
         if (auth()->user()->googleAuthSecret) {
             $this->validate([
+                'phoneProfile' => 'required',
                 'nameProfile' => 'required',
                 'emailProfile' => 'required',
                 'walletProfile' => 'required',
@@ -65,7 +66,8 @@ class Main extends Component
             $this->validate([
                 'nameProfile' => 'required',
                 'emailProfile' => 'required',
-                'walletProfile' => 'required'
+                'walletProfile' => 'required',
+                'phoneProfile' => 'required'
             ]);
         }
 
@@ -73,6 +75,7 @@ class Main extends Component
         $user->name = $this->nameProfile;
         $user->email = $this->emailProfile;
         $user->wallet = $this->walletProfile;
+        $user->phone = $this->phoneProfile;
         $user->save();
         session()->flash('message', 'Profile updated successfully');
         $this->emit('profileModalClose');

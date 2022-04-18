@@ -10,60 +10,57 @@ use Illuminate\Support\Facades\Hash;
 
 class Recovery extends Component
 {
-    public $data, $token, $error, $type = 'password', $show = 'Show', $new_password, $username, $id_member, $email, $name;
+    public $data, $token, $password;
 
     protected $queryString = ['token'];
 
-    public function showHide($type)
-    {
-        if ($type == 'Show') {
-            $this->show = "Hide";
-            $this->type = "text";
-        } else {
-            $this->show = "Show";
-            $this->type = "password";
-        }
-    }
-
     protected $rules = [
-        'new_password' => 'required'
+        'password' => 'required'
     ];
+
+    public $captcha = 0;
+
+    public function updatedCaptcha($token)
+    {
+        $response = Http::post('https://www.google.com/recaptcha/api/siteverify?secret=' . env('RECAPTCHAV3_SECRET') . '&response=' . $token);
+        $this->captcha = $response->json()['score'];
+
+        if (!$this->captcha > .3) {
+            $this->store();
+        } else {
+            return session()->flash('error', 'Google thinks you are a bot, please refresh and try again');
+        }
+
+    }
 
     public function mount()
     {
-        $this->data = \App\Models\Recovery::where('token', $this->token)->with('member')->first();
-        if($this->data && $this->data->member){
-            $this->id_member = $this->data->member->id;
-            $this->username = $this->data->member->username;
-            $this->name = $this->data->member->name;
-            $this->email = $this->data->member->email;
-        }
+        $this->data = \App\Models\Recovery::where('token', $this->token)->with('user')->first();
     }
 
     public function submit()
     {
-        $this->reset('error');
         $this->validate();
-
-        if($this->recaptchaPasses() === false){
-            $this->error = "<p class='text-theme-6'>Recaptcha Failed</p>";
+        $error = '';
+        if (\App\Models\Recovery::where('token', $this->token)->count() === 0) {
+            $error .= "<p>Invalid link</p>";
             return;
         }
 
-        if (\App\Models\Recovery::where('token', $this->token)->count() === 0) {
-            $this->error = "<p class='text-theme-6'>The link has expired</p>";
-            return;
+        if ($error) {
+            session()->flash('error', $error);
         }
 
         DB::transaction(function () {
-            $member = User::findOrFail($this->id_member);
-            $member->password = Hash::make($this->new_password);
+            $member = User::findOrFail($this->data->id_user);
+            $member->password = Hash::make($this->password);
             $member->save();
 
             \App\Models\Recovery::where('token', $this->token)->delete();
         });
-        if (Auth::attempt(['username' => $this->username, 'password' => $this->new_password])) {
-            Auth::logoutOtherDevices($this->new_password, 'password');
+
+        if (Auth::attempt(['username' => $this->data->user->username, 'password' => $this->password])) {
+            Auth::logoutOtherDevices($this->password, 'password');
             return redirect('/dashboard');
         }
     }

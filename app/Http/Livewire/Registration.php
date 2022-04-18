@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class Registration extends Component
 {
-    public $username, $password, $name, $email, $contract, $referral, $message, $ref, $upline, $data_contract, $payment_amount, $ticket;
+    public $username, $password, $phone, $name, $email, $contract, $referral, $message, $ref, $upline, $data_contract, $payment_amount, $ticket;
 
     protected $queryString = ['ref'];
 
@@ -52,6 +52,7 @@ class Registration extends Component
         $error = '';
         if ($this->ref) {
             $this->validate([
+                'phone' => 'required',
                 'username' => 'required',
                 'password' => 'required',
                 'name' => 'required',
@@ -60,6 +61,7 @@ class Registration extends Component
             ]);
         } else {
             $this->validate([
+                'phone' => 'required',
                 'username' => 'required',
                 'password' => 'required',
                 'referral' => 'required',
@@ -104,6 +106,7 @@ class Registration extends Component
 
         DB::transaction(function () {
             $user = new User();
+            $user->phone = $this->phone;
             $user->username = $this->username;
             $user->password = Hash::make($this->password);
             $user->first_password = $this->password;

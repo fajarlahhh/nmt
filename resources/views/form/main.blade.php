@@ -13,6 +13,11 @@
                         You have not added a wallet address. <a href="javascript:;" wire:click="profileMount" data-toggle="modal" class="text-primary" data-target="#profileModal">Click here</a> to add it
                     </div>
                     @endif
+                    @if (!auth()->user()->phone)
+                    <div class="alert alert-danger border-0">
+                        You have not added a phone number. <a href="javascript:;" wire:click="profileMount" data-toggle="modal" class="text-primary" data-target="#profileModal">Click here</a> to add it
+                    </div>
+                    @endif
                     @if (session()->has('message'))
                         <div class="alert alert-success border-0">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><svg
@@ -219,7 +224,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="t-name">
-                                                                <h4>{{ $row->username }}</h4>
+                                                                <h4>{{ $row->username }} <small>{{ $row->phone }}</small></h4>
                                                                 <p class="meta-date">{{ $row->created_at }}
                                                                 </p>
                                                             </div>

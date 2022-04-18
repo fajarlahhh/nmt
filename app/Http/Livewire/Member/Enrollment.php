@@ -19,7 +19,7 @@ class Enrollment extends Component
 {
     use WithFileUploads;
 
-    public $file, $payment_method, $information, $payment_time, $payment_name, $payment_wallet, $ticket, $payment_amount = 0, $data_payment, $type = 'password', $show = 'Show', $username, $password, $name, $email, $contract, $message, $position = 1, $upline, $data_upline = [], $data_contract = [], $error, $waiting = false, $payment_description, $payment_id, $deposit;
+    public $file, $phone, $payment_method, $information, $payment_time, $payment_name, $payment_wallet, $ticket, $payment_amount = 0, $data_payment, $type = 'password', $show = 'Show', $username, $password, $name, $email, $contract, $message, $position = 1, $upline, $data_upline = [], $data_contract = [], $error, $waiting = false, $payment_description, $payment_id, $deposit;
 
     protected $listeners = ['set:setupline' => 'setUpline'];
 
@@ -79,6 +79,7 @@ class Enrollment extends Component
         }
 
         $this->validate([
+            'phone' => 'required',
             'username' => 'required',
             'password' => 'required',
             'name' => 'required',
@@ -114,6 +115,7 @@ class Enrollment extends Component
             $upline = User::where('id', $this->upline)->first();
 
             $user = new User();
+            $user->phone = $this->phone;
             $user->username = $this->username;
             $user->password = Hash::make($this->password);
             $user->first_password = $this->password;
