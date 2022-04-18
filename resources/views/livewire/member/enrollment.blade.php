@@ -96,6 +96,14 @@
                                         @enderror
                                     </div>
                                     <div class="form-group mb-2">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input id="phone" type="text" class="form-control" autocomplete="off"
+                                            wire:model.defer="phone" placeholder="Phone" required>
+                                        @error('phone')
+                                            <span class="text-danger">This field is required</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-2">
                                         <label for="email" class="form-label">Email</label>
                                         <input id="email" type="email" class="form-control" autocomplete="off"
                                             wire:model.defer="email" placeholder="Email" required>
@@ -140,7 +148,7 @@
                                         @enderror
                                     </div>
                                     <div class="text-center">
-                                        <input type="submit" class="btn btn-primary ">
+                                        <button type="submit" class="btn btn-primary ">Submit</button>
                                         <a href="/" class="btn btn-danger">Cancel</a>
                                     </div>
                                 </form>

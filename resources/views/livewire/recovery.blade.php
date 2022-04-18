@@ -66,7 +66,7 @@
 
                             </div>
                         </form>
-                        <p class="terms-conditions">© 2021 All Rights Reserved.</p>
+                        <p class="terms-conditions mt-4">© 2021 All Rights Reserved.</p>
                     </div>
                 </div>
             </div>

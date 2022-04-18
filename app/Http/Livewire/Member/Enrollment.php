@@ -84,8 +84,7 @@ class Enrollment extends Component
             'password' => 'required',
             'name' => 'required',
             'email' => 'required|email',
-            'contract' => 'required',
-            'upline' => 'required'
+            'contract' => 'required'
         ]);
 
         if (User::where('username', $this->username)->withTrashed()->count() > 0) {
