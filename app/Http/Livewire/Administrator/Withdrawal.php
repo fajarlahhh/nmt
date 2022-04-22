@@ -5,8 +5,9 @@ namespace App\Http\Livewire\Administrator;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Http\Livewire\Member\Main;
 
-class Withdrawal extends Component
+class Withdrawal extends Main
 {
     use WithPagination;
 

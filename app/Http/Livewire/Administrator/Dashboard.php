@@ -9,9 +9,10 @@ use App\Models\Daily;
 use App\Models\Deposit;
 use Livewire\Component;
 use App\Models\Withdrawal;
+use App\Http\Livewire\Member\Main;
 use Illuminate\Support\Facades\DB;
 
-class Dashboard extends Component
+class Dashboard extends Main
 {
     public $deposit, $withdrawal, $user;
 

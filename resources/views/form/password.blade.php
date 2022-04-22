@@ -1,4 +1,4 @@
-<div class="modal fade" wire:ignore.self id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="profilModalLabel" aria-hidden="true">
+<div class="modal fade" wire:ignore.self id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
             <form>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" wire:click.prevent="passwordSubmit" class="mt-4 btn btn-primary " value="Update">
+                    <input type="submit" wire:click.prevent="passwordSubmit" class="mt-4 btn btn-primary" value="Update">
                 </div>
             </form>
         </div>

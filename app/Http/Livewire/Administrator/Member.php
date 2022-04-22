@@ -6,9 +6,10 @@ use App\Models\User;
 use App\Models\Deposit;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Http\Livewire\Member\Main;
 use Illuminate\Support\Facades\DB;
 
-class Member extends Component
+class Member extends Main
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';

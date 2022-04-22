@@ -12,12 +12,13 @@ use App\Models\Achievement;
 use Livewire\WithPagination;
 use App\Models\PassiveIncome;
 use App\Models\InvalidTurnover;
+use App\Http\Livewire\Member\Main;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
-class Deposit extends Component
+class Deposit extends Main
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';

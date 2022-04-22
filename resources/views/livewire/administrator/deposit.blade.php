@@ -2,6 +2,7 @@
     @push('css')
     <link href="{{ asset('/assets/css/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
     @endpush
+    @include('form.password')
     <div id="content" class="main-content">
         <div class="layout-px-spacing">
 
@@ -99,4 +100,11 @@
             </div>
         </div>
     </div> --}}
+    @push('scripts')
+        <script>
+            window.livewire.on('passwordModalClose', () => {
+                $('#passwordModal').modal('hide');
+            });
+        </script>
+    @endpush
 </div>

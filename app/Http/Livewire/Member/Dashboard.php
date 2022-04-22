@@ -195,7 +195,7 @@ class Dashboard extends Main
             $error .= "You cant claim your active income at weekend<br>";
         }
 
-        if ((int)date('Hms') > 70000 || (int)date('Hms') < 150000) {
+        if (date('Hms') < 70000 || date('Hms') > 150000) {
             $error .= "You can claim your active income at 07.00 until 13.00 UTC + 2<br>";
         }
 

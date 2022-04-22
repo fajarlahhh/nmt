@@ -45,7 +45,7 @@
             <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>
 
             <div class="nav-logo align-self-center">
-                <a class="navbar-brand" href="index.html"><img alt="logo" src="/assets/img/logo.svg"> <span class="navbar-brand-name">Solution Stake</span></a>
+                <a class="navbar-brand" href="/"><img alt="logo" src="/assets/img/logo.svg"> <span class="navbar-brand-name">Solution Stake</span></a>
             </div>
 
             <ul class="navbar-item flex-row mr-auto">
@@ -103,12 +103,12 @@
             <nav id="topbar">
                 <ul class="navbar-nav theme-brand flex-row  text-center">
                     <li class="nav-item theme-logo">
-                        <a href="index.html">
+                        <a href="/">
                             <img src="/assets/img/logo.svg" class="navbar-logo" alt="logo">
                         </a>
                     </li>
                     <li class="nav-item theme-text">
-                        <a href="index.html" class="nav-link"> CORK </a>
+                        <a href="/" class="nav-link"> Solution Stake </a>
                     </li>
                 </ul>
 
