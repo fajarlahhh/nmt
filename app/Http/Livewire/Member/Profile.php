@@ -3,16 +3,10 @@
 namespace App\Http\Livewire\Member;
 
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class Profile extends Component
 {
-  use WithPagination;
-
-  protected $paginationTheme = 'bootstrap';
-
   public $data, $username, $name, $phone, $email, $upline, $wallet;
 
   public function mount()
@@ -47,10 +41,6 @@ class Profile extends Component
 
   public function render()
   {
-    $data = User::select(DB::raw("*, LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) + 1 level"))->with('contract')->where('network', 'like', $this->user . '%')->whereRaw("LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) < 5");
-    return view('livewire.member.profile', [
-      'noUrut' => ($this->page - 1) * 10,
-      'data' => $data->paginate(10),
-    ])->extends('layouts.default');
+    return view('livewire.member.profile')->extends('layouts.default');
   }
 }
