@@ -9,7 +9,7 @@
   </ol>
   <!-- end breadcrumb -->
   <!-- begin page-header -->
-  <h1 class="page-header">Downline <button class="pull-right btn btn-primary btn-sm">New</button></h1>
+  <h1 class="page-header">Downline <a href="/downline/new" class="pull-right btn btn-primary btn-sm">New</a></h1>
   <!-- end page-header -->
 
   @include('includes.message')

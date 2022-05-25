@@ -21,9 +21,9 @@ Route::group(['middleware' => ['auth']], function () {
         return redirect('/dashboard');
       });
       Route::get('/dashboard', \App\Http\Livewire\Member\Dashboard::class);
-      Route::prefix('admin-area')->group(function () {
-        Route::get('/downline', \App\Http\Livewire\Member\Downline\Index::class);
-        Route::get('/downline/new', \App\Http\Livewire\Member\Downline\Form::class);
+      Route::prefix('downline')->group(function () {
+        Route::get('/', \App\Http\Livewire\Member\Downline\Index::class);
+        Route::get('/new', \App\Http\Livewire\Member\Downline\Form::class);
       });
       Route::get('/profile', \App\Http\Livewire\Member\Profile::class);
     });
