@@ -6,18 +6,18 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a href="/" class="navbar-brand p-l-0">
+    <a href="javascript:;" class="navbar-brand">
       <b class="mr-1">Nice</b> Metavest
     </a>
     <!-- begin header-nav -->
     <ul class="navbar-nav navbar-right">
       <li class="dropdown navbar-user">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <img src="/assets/img/logo.png" style="width: 38px">
+          <img src="/assets/img/logo.png" style="width: 34px">
           <b>{{ auth()->user()->name }}</b>
         </a>
         <div class="dropdown-menu dropdown-menu-right">
-          <a href="javascript:;" wire:click="profileMount" data-toggle="modal" class="dropdown-item">My Profile</a>
+          <a href="/profile" class="dropdown-item">My Profile</a>
           <a href="javascript:;" data-toggle="modal" data-target="#passwordModal" class="dropdown-item">Change
             Password</a>
           <div class="dropdown-divider"></div>

@@ -1,7 +1,4 @@
 <div>
-  @push('css')
-    <link href="/assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
-  @endpush
   <!-- begin login -->
   <div class="login login-with-news-feed">
     <!-- begin news-feed -->
@@ -52,7 +49,5 @@
     </div>
     <!-- end login-content -->
   </div>
-  <!-- end right-container -->
-</div>
-<!-- end login -->
+  <!-- end login -->
 </div>

@@ -9,7 +9,6 @@
         <a href="javascript:;" data-toggle="nav-profile">
           <div class="cover with-shadow"></div>
           <div class="info">
-            <b class="caret pull-right"></b>
             {{ auth()->user()->name }}
           </div>
         </a>

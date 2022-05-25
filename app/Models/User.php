@@ -82,7 +82,6 @@ class User extends Authenticatable
     } else {
       return $this->hasMany(Bonus::class);
     }
-
   }
 
   public function withdrawal_today()
@@ -103,5 +102,25 @@ class User extends Authenticatable
   public function getAvailableContractAttribute()
   {
     return $this->contract()->first()->benefit - $this->bonus()->sum('debit');
+  }
+
+  public function getAvailableBonusAttribute()
+  {
+    return $this->bonus()->sum('credit') - $this->bonus()->sum('debit');
+  }
+
+  public function pin()
+  {
+    return $this->hasMany(Pin::class);
+  }
+
+  public function getAvailablePinAttribute()
+  {
+    return $this->pin()->sum('credit') - $this->pin()->sum('debit');
+  }
+
+  public function getDownlineAttribute()
+  {
+    return $this->selectRaw("*, LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) + 1 level")->with('contract')->where('network', 'like', $this->user . '%')->whereRaw("LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) < 5")->get();
   }
 }

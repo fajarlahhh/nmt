@@ -9,9 +9,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  {{-- <title>Nice Metavest</title> --}}
-  <title>Nice Metavest</title>
-  <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png') }}" />
+  <title>{{ config('app.name') }}</title>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
   <meta content="" name="description" />
   <meta content="" name="author" />
@@ -21,6 +19,25 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link href="/assets/css/google/app.min.css" rel="stylesheet" />
   <!-- ================== END BASE CSS STYLE ================== -->
+
+  <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+  <link href="/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+  <link href="/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" />
+  <link href="/assets/plugins/ion-rangeslider/css/ion.rangeSlider.min.css" rel="stylesheet" />
+  <link href="/assets/plugins/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
+  <link href="/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+  <link href="/assets/plugins/@danielfarrell/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet" />
+  <link href="/assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+  <link href="/assets/plugins/tag-it/css/jquery.tagit.css" rel="stylesheet" />
+  <link href="/assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+  <link href="/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="/assets/plugins/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
+    rel="stylesheet" />
+  <link href="/assets/plugins/bootstrap-colorpalette/css/bootstrap-colorpalette.css" rel="stylesheet" />
+  <link href="/assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.css" rel="stylesheet" />
+  <link href="/assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-fontawesome.css" rel="stylesheet" />
+  <link href="/assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-glyphicons.css" rel="stylesheet" />
+  <!-- ================== END PAGE LEVEL STYLE ================== -->
 
   @stack('css')
   @livewireStyles
@@ -33,13 +50,18 @@
   </div>
   <!-- end #page-loader -->
 
-
   <!-- begin #page-container -->
   <div id="page-container"
     class="fade page-sidebar-fixed page-header-fixed page-with-wide-sidebar page-with-light-sidebar">
+    @include('form.password')
     @include('includes.header')
     @include('includes.side-menu')
-    @yield('content')
+    <!-- begin #content -->
+    <div id="content" class="content">
+      @yield('content')
+    </div>
+    <!-- end #content -->
+
     <!-- begin scroll to top btn -->
     <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i
         class="fa fa-angle-up"></i></a>
@@ -52,6 +74,8 @@
   <!-- ================== BEGIN BASE JS ================== -->
   <script src="/assets/js/app.min.js"></script>
   <script src="/assets/js/theme/google.min.js"></script>
+  <script src="/assets/plugins/bootstrap-show-password/dist/bootstrap-show-password.js"></script>
+  <script src="/assets/plugins/parsleyjs/dist/parsley.js"></script>
   <!-- ================== END BASE JS ================== -->
 
   @stack('scripts')
