@@ -4,7 +4,7 @@
 
   <!-- begin breadcrumb -->
   <ol class="breadcrumb float-xl-right">
-    <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
     <li class="breadcrumb-item active">Profile</li>
   </ol>
   <!-- end breadcrumb -->
@@ -69,7 +69,7 @@
         @endif
       </div>
       <div class="card-footer text-center">
-        <input type="submit" class="mt-4 btn btn-primary " value="Update">
+        <input type="submit" class="btn btn-primary " value="Update">
       </div>
     </div>
   </form>

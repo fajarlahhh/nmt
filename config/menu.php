@@ -41,7 +41,7 @@ return [
   'member' => [
     [
       'icon' => 'fas fa-home',
-      'title' => 'Dashboard',
+      'title' => 'Home',
       'url' => '/dashboard',
     ],
     [
@@ -63,6 +63,11 @@ return [
       'icon' => 'fas fa-file-contract',
       'title' => 'Contract Renewal',
       'url' => '/renewal',
+    ],
+    [
+      'icon' => 'fas fa-key',
+      'title' => 'Security',
+      'url' => '/security',
     ],
     [
       'icon' => 'fas fa-download',

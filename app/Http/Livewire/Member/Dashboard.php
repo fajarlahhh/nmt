@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Member;
 
-use App\Http\Livewire\Member\Main;
 use App\Models\bonusIncome;
 use App\Models\Contract;
 use App\Models\Deposit;
@@ -13,8 +12,9 @@ use App\Models\Withdrawal;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Livewire\Component;
 
-class Dashboard extends Main
+class Dashboard extends Component
 {
   public $pin, $user, $today, $time, $dataContract, $contract;
 

@@ -4,13 +4,9 @@
 
   <!-- begin breadcrumb -->
   <ol class="breadcrumb float-xl-right">
-    <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
-    <li class="breadcrumb-item active">Dashboard</li>
+    <li class="breadcrumb-item active"><a href="javascript:;">Home</a></li>
   </ol>
   <!-- end breadcrumb -->
-  <!-- begin page-header -->
-  <h1 class="page-header">Dashboard </h1>
-  <!-- end page-header -->
 
   @include('includes.message')
 
@@ -35,24 +31,28 @@
     <!-- end col-12 -->
     <!-- begin col-12 -->
     <div class="col-xs-8">
-      <div class="widget widget-stats bg-info">
-        <div class="stats-icon stats-icon-lg"><i class="fa fa-users fa-fw"></i></div>
-        <div class="stats-content">
-          <div class="stats-title">TOTAL DOWNLINE</div>
-          <div class="stats-number">{{ number_format(auth()->user()->downline->count()) }}</div>
+      <a href="/downline" class="text-decoration-none">
+        <div class="widget widget-stats bg-info">
+          <div class="stats-icon stats-icon-lg"><i class="fa fa-users fa-fw"></i></div>
+          <div class="stats-content">
+            <div class="stats-title">TOTAL DOWNLINE</div>
+            <div class="stats-number">{{ number_format(auth()->user()->downline->count()) }}</div>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
     <!-- end col-12 -->
     <!-- begin col-12 -->
     <div class="col-xs-4">
-      <div class="widget widget-stats bg-info">
-        <div class="stats-icon stats-icon-lg"><i class="fas fa-xs fa-fw fa-ticket-alt"></i></div>
-        <div class="stats-content">
-          <div class="stats-title">PIN</div>
-          <div class="stats-number">{{ number_format(auth()->user()->available_pin) }}</div>
+      <a href="/pin" class="text-decoration-none">
+        <div class="widget widget-stats bg-info">
+          <div class="stats-icon stats-icon-lg"><i class="fas fa-xs fa-fw fa-ticket-alt"></i></div>
+          <div class="stats-content">
+            <div class="stats-title">PIN</div>
+            <div class="stats-number">{{ number_format(auth()->user()->available_pin) }}</div>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
     <!-- end col-12 -->
     <div class="col-xs-12">

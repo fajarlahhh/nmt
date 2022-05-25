@@ -1,19 +1,20 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Localhost
+ Source Server         : Localhost 57
  Source Server Type    : MySQL
- Source Server Version : 80023
+ Source Server Version : 50733
  Source Host           : localhost:3306
  Source Schema         : nicemetavest
 
  Target Server Type    : MySQL
- Target Server Version : 80023
+ Target Server Version : 50733
  File Encoding         : 65001
 
- Date: 24/05/2022 08:50:20
+ Date: 25/05/2022 15:49:19
 */
 
+SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
@@ -21,18 +22,18 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `authentication_log`;
 CREATE TABLE `authentication_log`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `authenticatable_type` varchar(255) NOT NULL,
-  `authenticatable_id` bigint NOT NULL,
-  `ip_address` varchar(45) NULL DEFAULT NULL,
-  `user_agent` text NULL,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `authenticatable_type` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `authenticatable_id` bigint(20) NOT NULL,
+  `ip_address` varchar(45) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `user_agent` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `login_at` timestamp NULL DEFAULT NULL,
   `logout_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `authentication_log_authenticatable_type_authenticatable_id_index`(`authenticatable_type`, `authenticatable_id`) USING BTREE,
   INDEX `authenticatable_id`(`authenticatable_id`) USING BTREE,
   CONSTRAINT `authentication_log_ibfk_1` FOREIGN KEY (`authenticatable_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-);
+) ENGINE = InnoDB AUTO_INCREMENT = 320 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of authentication_log
@@ -117,18 +118,29 @@ INSERT INTO `authentication_log` VALUES (298, 'App\\Models\\User', 1, '110.136.2
 INSERT INTO `authentication_log` VALUES (299, 'App\\Models\\User', 1, '110.136.218.3', 'Mozilla/5.0 (Linux; Android 11; SM-A507FN Build/RP1A.200720.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.127 Mobile Safari/537.36', '2022-05-06 05:49:02', NULL);
 INSERT INTO `authentication_log` VALUES (306, 'App\\Models\\User', 1, '110.136.218.3', 'Mozilla/5.0 (Linux; Android 11; SM-A507FN Build/RP1A.200720.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.127 Mobile Safari/537.36', '2022-05-08 07:43:19', NULL);
 INSERT INTO `authentication_log` VALUES (308, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36', '2022-05-23 14:22:36', NULL);
+INSERT INTO `authentication_log` VALUES (309, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36', '2022-05-24 04:51:33', '2022-05-24 04:51:43');
+INSERT INTO `authentication_log` VALUES (310, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Mobile Safari/537.36', '2022-05-24 04:52:21', '2022-05-24 04:52:25');
+INSERT INTO `authentication_log` VALUES (311, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Mobile Safari/537.36', '2022-05-24 04:52:52', NULL);
+INSERT INTO `authentication_log` VALUES (312, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1', NULL, '2022-05-24 05:13:35');
+INSERT INTO `authentication_log` VALUES (313, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1', '2022-05-24 05:13:38', '2022-05-24 06:29:18');
+INSERT INTO `authentication_log` VALUES (314, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1', '2022-05-24 06:34:05', NULL);
+INSERT INTO `authentication_log` VALUES (315, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1', '2022-05-25 02:46:39', '2022-05-25 05:38:51');
+INSERT INTO `authentication_log` VALUES (316, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1', '2022-05-25 05:42:21', '2022-05-25 05:42:25');
+INSERT INTO `authentication_log` VALUES (317, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1', '2022-05-25 05:42:37', '2022-05-25 05:46:40');
+INSERT INTO `authentication_log` VALUES (318, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36', '2022-05-25 05:49:35', NULL);
+INSERT INTO `authentication_log` VALUES (319, 'App\\Models\\User', 2, '127.0.0.1', 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1', '2022-05-25 09:09:44', NULL);
 
 -- ----------------------------
 -- Table structure for bonus
 -- ----------------------------
 DROP TABLE IF EXISTS `bonus`;
 CREATE TABLE `bonus`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `description` text NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `description` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `debit` decimal(40, 30) NULL DEFAULT NULL,
   `credit` decimal(40, 30) NULL DEFAULT NULL,
-  `user_id` bigint NOT NULL,
-  `withdrawal_id` bigint NULL DEFAULT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `withdrawal_id` bigint(20) NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -137,7 +149,7 @@ CREATE TABLE `bonus`  (
   INDEX `bonus_ibfk_2`(`user_id`) USING BTREE,
   CONSTRAINT `bonus_ibfk_1` FOREIGN KEY (`withdrawal_id`) REFERENCES `withdrawal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `bonus_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-);
+) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of bonus
@@ -154,21 +166,21 @@ INSERT INTO `bonus` VALUES (26, 'Lvl. 2 2% of $ 2,000 by SSHARTIN', 0.0000000000
 INSERT INTO `bonus` VALUES (27, 'Ref. 8% of $ 10,000 by Nusantara001', 0.000000000000000000000000000000, 800.000000000000000000000000000000, 2, NULL, '2022-04-22 13:17:54', '2022-04-22 13:17:54', NULL);
 INSERT INTO `bonus` VALUES (29, 'Lvl. 1 3% of $ 1,000 by Iwan87', 0.000000000000000000000000000000, 30.000000000000000000000000000000, 2, NULL, '2022-04-22 16:20:32', '2022-04-22 16:20:32', NULL);
 INSERT INTO `bonus` VALUES (31, 'Lvl. 1 3% of $ 1,000 by CUANBESAR', 0.000000000000000000000000000000, 30.000000000000000000000000000000, 2, NULL, '2022-04-22 16:47:35', '2022-04-22 16:47:35', NULL);
-INSERT INTO `bonus` VALUES (33, 'Lvl. 1 3% of $ 1,000 by tukangmeubel', 0.000000000000000000000000000000, 30.000000000000000000000000000000, 2, NULL, '2022-04-22 16:57:36', '2022-04-22 16:57:36', NULL);
+INSERT INTO `bonus` VALUES (33, 'Lvl. 1 3% of $ 1,000 by tukangmeubel asdfasdfa sdf asdfasdf asdf', 0.000000000000000000000000000000, 30.000000000000000000000000000000, 2, NULL, '2022-04-22 16:57:36', '2022-04-22 16:57:36', NULL);
 INSERT INTO `bonus` VALUES (35, 'Lvl. 1 3% of $ 1,000 by sniper88', 0.000000000000000000000000000000, 30.000000000000000000000000000000, 2, NULL, '2022-04-23 18:48:02', '2022-04-23 18:48:02', NULL);
 INSERT INTO `bonus` VALUES (36, 'Ref. 8% of $ 500 by Yasin', 0.000000000000000000000000000000, 40.000000000000000000000000000000, 2, NULL, '2022-04-26 10:33:31', '2022-04-26 10:33:31', NULL);
 INSERT INTO `bonus` VALUES (38, 'Lvl. 1 3% of $ 100 by Cryptoqueen', 0.000000000000000000000000000000, 3.000000000000000000000000000000, 2, NULL, '2022-04-28 10:36:42', '2022-04-28 10:36:42', NULL);
-INSERT INTO `bonus` VALUES (40, 'Lvl. 1 3% of $ 10,000 by Cryptoqueen25', 0.000000000000000000000000000000, 300.000000000000000000000000000000, 2, NULL, '2022-04-28 10:42:57', '2022-04-28 10:42:57', NULL);
+INSERT INTO `bonus` VALUES (40, 'Lvl. 1 3% of $ 10,000 by Cryptoqueen25', 300.000000000000000000000000000000, 0.000000000000000000000000000000, 2, NULL, '2022-04-28 10:42:57', '2022-04-28 10:42:57', NULL);
 
 -- ----------------------------
 -- Table structure for contract
 -- ----------------------------
 DROP TABLE IF EXISTS `contract`;
 CREATE TABLE `contract`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NULL DEFAULT NULL,
-  `value` int NULL DEFAULT NULL,
-  `benefit` int NULL DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `value` int(11) NULL DEFAULT NULL,
+  `benefit` int(11) NULL DEFAULT NULL,
   `minimum_withdrawal` double(10, 2) NULL DEFAULT NULL,
   `maximum_withdrawal` double(10, 2) NULL DEFAULT NULL,
   `fee_withdrawal` double(10, 2) NULL DEFAULT NULL,
@@ -177,11 +189,11 @@ CREATE TABLE `contract`  (
   `second_level_benefits` double(10, 2) NULL DEFAULT NULL,
   `third_level_benefits` double(10, 2) NULL DEFAULT NULL,
   `forth_level_benefits` double(10, 2) NULL DEFAULT NULL,
-  `pin_requirement` tinyint NULL DEFAULT NULL,
+  `pin_requirement` tinyint(4) NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-);
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of contract
@@ -198,14 +210,14 @@ INSERT INTO `contract` VALUES (6, 'Crown', 10000, 25000, 25.00, 5000.00, 2.00, 1
 -- ----------------------------
 DROP TABLE IF EXISTS `deposit`;
 CREATE TABLE `deposit`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `wallet` varchar(255) NULL DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `wallet` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `amount` decimal(20, 10) NULL DEFAULT NULL,
-  `requisite` varchar(255) NULL DEFAULT NULL,
-  `owner_id` bigint NULL DEFAULT NULL,
-  `user_id` bigint NULL DEFAULT NULL,
-  `information` varchar(255) NULL DEFAULT NULL,
-  `operator_id` bigint NULL DEFAULT NULL,
+  `requisite` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `owner_id` bigint(20) NULL DEFAULT NULL,
+  `user_id` bigint(20) NULL DEFAULT NULL,
+  `information` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `operator_id` bigint(20) NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -215,82 +227,66 @@ CREATE TABLE `deposit`  (
   INDEX `deposit_ibfk_2`(`owner_id`) USING BTREE,
   CONSTRAINT `deposit_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `deposit_ibfk_2` FOREIGN KEY (`owner_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
--- ----------------------------
--- Records of deposit
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for failed_jobs
 -- ----------------------------
 DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `connection` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `queue` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `payload` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `exception` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `failed_jobs_uuid_unique`(`uuid`) USING BTREE
-) ;
-
--- ----------------------------
--- Records of failed_jobs
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for information
 -- ----------------------------
 DROP TABLE IF EXISTS `information`;
 CREATE TABLE `information`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `id_user` bigint NULL DEFAULT NULL,
-  `title` longtext NULL,
-  `content` longtext NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_user` bigint(20) NULL DEFAULT NULL,
+  `title` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `content` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `information_ibfk_1`(`id_user`) USING BTREE,
   CONSTRAINT `information_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ;
-
--- ----------------------------
--- Records of information
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for jobs
 -- ----------------------------
 DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE `jobs`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `queue` varchar(255) NOT NULL,
-  `payload` longtext NOT NULL,
-  `attempts` tinyint UNSIGNED NOT NULL,
-  `reserved_at` int UNSIGNED NULL DEFAULT NULL,
-  `available_at` int UNSIGNED NOT NULL,
-  `created_at` int UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `queue` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `payload` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED NULL DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `jobs_queue_index`(`queue`) USING BTREE
-);
-
--- ----------------------------
--- Records of jobs
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for migrations
 -- ----------------------------
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations`  (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) NOT NULL,
-  `batch` int NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-);
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of migrations
@@ -309,115 +305,97 @@ INSERT INTO `migrations` VALUES (8, '2017_09_01_000000_create_authentication_log
 -- ----------------------------
 DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE `password_resets`  (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   INDEX `password_resets_email_index`(`email`) USING BTREE
-) ;
-
--- ----------------------------
--- Records of password_resets
--- ----------------------------
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for pin
 -- ----------------------------
 DROP TABLE IF EXISTS `pin`;
 CREATE TABLE `pin`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `user_id` bigint NULL DEFAULT NULL,
-  `description` varchar(255) NULL DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `debit` decimal(40, 30) NULL DEFAULT NULL,
+  `credit` decimal(40, 30) NULL DEFAULT NULL,
+  `user_id` bigint(20) NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `pin_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
--- ----------------------------
--- Records of pin
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for recovery
 -- ----------------------------
 DROP TABLE IF EXISTS `recovery`;
 CREATE TABLE `recovery`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `token` text NULL,
-  `email` varchar(255) NULL DEFAULT NULL,
-  `user_id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `token` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `user_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `recovery_ibfk_1`(`email`) USING BTREE,
   CONSTRAINT `recovery_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
-) ;
-
--- ----------------------------
--- Records of recovery
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for spammers
 -- ----------------------------
 DROP TABLE IF EXISTS `spammers`;
 CREATE TABLE `spammers`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `ip_address` varchar(255) NOT NULL,
-  `attempts` int NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ip_address` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `attempts` int(11) NOT NULL,
   `blocked_at` datetime NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ;
-
--- ----------------------------
--- Records of spammers
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ticket
 -- ----------------------------
 DROP TABLE IF EXISTS `ticket`;
 CREATE TABLE `ticket`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `contract_id` bigint NULL DEFAULT NULL,
-  `kode` int NULL DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `contract_id` bigint(20) NULL DEFAULT NULL,
+  `kode` int(11) NULL DEFAULT NULL,
   `date` date NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `id_contract`(`contract_id`) USING BTREE,
   CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`contract_id`) REFERENCES `contract` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
-
--- ----------------------------
--- Records of ticket
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `free` tinyint(1) NOT NULL DEFAULT 0,
-  `first_password` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `wallet` varchar(255) NULL DEFAULT NULL,
-  `network` longtext NULL,
-  `ticket` tinyint NULL DEFAULT NULL,
-  `phone` varchar(255) NOT NULL,
-  `remember_token` text NULL,
-  `google2fa_secret` text NULL,
+  `first_password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `wallet` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `network` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `ticket` tinyint(4) NULL DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `remember_token` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `google2fa_secret` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `role` tinyint(1) NULL DEFAULT 1,
-  `upline_id` bigint NULL DEFAULT NULL,
-  `contract_id` bigint NULL DEFAULT NULL,
+  `upline_id` bigint(20) NULL DEFAULT NULL,
+  `contract_id` bigint(20) NULL DEFAULT NULL,
   `activated_at` timestamp NULL DEFAULT NULL,
   `invalid_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -429,28 +407,28 @@ CREATE TABLE `user`  (
   INDEX `user_ibfk_3`(`upline_id`) USING BTREE,
   INDEX `email`(`email`) USING BTREE,
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`contract_id`) REFERENCES `contract` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'administrator', '$2y$10$KLMr09x4TTODgaoVQDk89.6sbGnWrKddwVI2OH7uWx336BQq7It2i', 0, '', 'Administrator', 'admin@bttgift.com', NULL, NULL, NULL, '', NULL, 'XRRRPKm2DKjjnKWuhOhWgAjdO765CiRz907eXOfhTtCJDBLDRPNwWB44T5vr', 0, NULL, NULL, NULL, NULL, '2021-05-05 01:00:00', '2022-05-08 07:43:20', NULL);
-INSERT INTO `user` VALUES (2, 'james', '$2y$10$V0zmCx.zswLkm/MqfPuiE.PE29fsxl8q7z7qxRmTOQol4FcpsR9YK', 1, '', 'James', 'andifajarlah@gmail.com', '$2y$10$KlmPuF4RBYKUJcHeCFwsBOiFaX2OkBzmC/oTzKGp3LNmHwv3RtSZO\r\n', NULL, NULL, '', 'VKplsY4S8EDeYBo6pVjLHfOLmPUSitNQlEumG4vn3oymYseLUO5bBADAMV1n', NULL, 1, NULL, 6, '2022-04-10 10:09:31', '2030-10-07 10:10:31', '2021-06-09 05:30:35', '2022-05-23 14:22:36', NULL);
+INSERT INTO `user` VALUES (2, 'james', '$2y$10$b/HwlMCgWGt4LrAoNpRA7eLc57XfTx13dcCf1/G1lyZHWlNxMxz2u', 1, '', 'James', 'andifajarlah@gmail.com', '$2y$10$KlmPuF4RBYKUJcHeCFwsBOiFaX2OkBzmC/oTzKGp3LNmHwv3RtSZO\r\n', NULL, NULL, '', 'erHWGIuxGyeISxVCH9PKyJwSzDkZc9T3J4eyN8P0sQEjp6XTB2V68pByeLin', NULL, 1, NULL, 6, '2022-04-10 10:09:31', '2030-10-07 10:10:31', '2021-06-09 05:30:35', '2022-05-25 09:15:57', NULL);
 
 -- ----------------------------
 -- Table structure for withdrawal
 -- ----------------------------
 DROP TABLE IF EXISTS `withdrawal`;
 CREATE TABLE `withdrawal`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `wallet` varchar(255) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `wallet` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `amount` decimal(15, 2) NOT NULL,
   `fee` decimal(15, 2) NOT NULL,
   `usdt_price` decimal(15, 10) NULL DEFAULT NULL,
   `usdt_amount` decimal(15, 2) NULL DEFAULT NULL,
-  `txid` text NULL,
-  `operator_id` bigint NULL DEFAULT NULL,
-  `user_id` bigint NOT NULL,
+  `txid` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `operator_id` bigint(20) NULL DEFAULT NULL,
+  `user_id` bigint(20) NOT NULL,
   `processed_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -460,10 +438,6 @@ CREATE TABLE `withdrawal`  (
   INDEX `id_operator`(`operator_id`) USING BTREE,
   CONSTRAINT `withdrawal_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `withdrawal_ibfk_2` FOREIGN KEY (`operator_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
--- ----------------------------
--- Records of withdrawal
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
