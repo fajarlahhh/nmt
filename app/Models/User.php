@@ -74,12 +74,12 @@ class User extends Authenticatable
     }
   }
 
-  public function withdrawal_today()
+  public function getWithdrawalTodayAttribute()
   {
-    return $this->hasMany(Withdrawal::class)->where('type', 'active')->whereRaw('SUBSTRING(created_at, 1, 10) = "' . date('Y-m-d') . '"');
+    return $this->withdrawal()->whereRaw('SUBSTRING(created_at, 1, 10) = "' . date('Y-m-d') . '"');
   }
 
-  public function withdrawal_all()
+  public function withdrawal()
   {
     return $this->hasMany(Withdrawal::class);
   }
@@ -127,5 +127,10 @@ class User extends Authenticatable
   public function getWaitingFundAttribute()
   {
     return $this->deposit->where('requisite', 'Enrollment')->whereNull('information')->whereNull('processed_at');
+  }
+
+  public function getWalletShortAttribute()
+  {
+    return substr($this->wallet, 0, 4) . "...." . substr($this->wallet, strlen($this->wallet) - 6);
   }
 }

@@ -72,7 +72,7 @@ return [
     [
       'icon' => 'fas fa-download',
       'title' => 'Withdrawal',
-      'url' => '/wihtdrawal',
+      'url' => '/withdrawal',
     ],
   ],
 ];
