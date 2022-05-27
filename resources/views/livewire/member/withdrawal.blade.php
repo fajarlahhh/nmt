@@ -23,10 +23,10 @@
         $ {{ auth()->user()->contract->fee_withdrawal }} Fee
       </li>
       <li>
-        Max. Claim $ {{ auth()->user()->contract->minimum_withdrawal }}
+        Min. Claim $ {{ auth()->user()->contract->minimum_withdrawal }}
       </li>
       <li>
-        Min. Claim $ {{ number_format(auth()->user()->contract->maximum_withdrawal) }}
+        Max. Claim $ {{ number_format(auth()->user()->contract->maximum_withdrawal) }}
       </li>
       <li>
         1 x 24 hours proccess
