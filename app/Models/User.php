@@ -45,19 +45,9 @@ class User extends Authenticatable
     return $this->hasMany(Deposit::class, 'owner_id')->where('requisite', 'Registration')->whereNotNull('information')->whereNull('processed_at');
   }
 
-  public function enrollment_waiting_fund()
+  public function deposit()
   {
-    return $this->hasMany(Deposit::class, 'owner_id')->where('requisite', 'Enrollment')->whereNull('information')->whereNull('processed_at');
-  }
-
-  public function enrollment_waiting_activated()
-  {
-    return $this->hasMany(Deposit::class, 'owner_id')->where('requisite', 'Enrollment')->whereNotNull('information')->whereNull('processed_at');
-  }
-
-  public function renewal_waiting_fund()
-  {
-    return $this->hasMany(Deposit::class, 'owner_id')->where('requisite', 'Renewal')->whereNull('information')->whereNull('processed_at');
+    return $this->hasMany(Deposit::class, 'owner_id');
   }
 
   public function renewal_waiting_activated()
@@ -122,5 +112,20 @@ class User extends Authenticatable
   public function getDownlineAttribute()
   {
     return $this->selectRaw("*, LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) + 1 level")->with('contract')->where('network', 'like', $this->user . '%')->whereRaw("LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $this->user . "', ''), '.', '')) < 5")->get();
+  }
+
+  public function getWaitingRenewalAttribute()
+  {
+    return $this->deposit()->where('requisite', 'Renewal')->whereNull('information')->whereNull('processed_at')->count();
+  }
+
+  public function getWaitingEnrollmentAttribute()
+  {
+    return $this->deposit()->where('requisite', 'Enrollment')->whereNotNull('information')->whereNull('processed_at')->count();
+  }
+
+  public function getWaitingActivationAttribute()
+  {
+    return $this->deposit()->where('requisite', 'Enrollment')->whereNull('information')->whereNull('processed_at')->count();
   }
 }

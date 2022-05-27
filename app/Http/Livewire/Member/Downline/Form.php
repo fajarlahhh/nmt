@@ -3,11 +3,12 @@
 namespace App\Http\Livewire\Member\Downline;
 
 use App\Models\Contract;
+use App\Models\User;
 use Livewire\Component;
 
 class Form extends Component
 {
-  public $file, $phone, $payment_method, $information, $payment_time, $payment_name, $payment_wallet, $ticket, $payment_amount = 0, $data_payment, $type = 'password', $show = 'Show', $username, $password, $name, $email, $contract, $message, $position = 1, $upline, $data_upline = [], $dataContract = [], $error, $waiting = false, $payment_description, $payment_id, $deposit;
+  public $username, $name, $phone, $email, $password, $contract, $upline, $dataContract, $dataUpline;
 
   protected $listeners = ['set:setupline' => 'setUpline'];
 
@@ -18,14 +19,34 @@ class Form extends Component
 
   public function mount()
   {
-    $this->upline = auth()->id();
-    if (auth()->user()->invalid_at >= date('Y-m-d H:m:s')) {
-      $this->deposit = auth()->user()->enrollment_waiting_fund;
-    }
     $this->dataContract = Contract::all();
+    $this->dataUpline = auth()->user()->downline->sortBy('name');
   }
+
+  public function submit()
+  {
+    if (auth()->user()->waiting_enrollment > 0) {
+      session()->flash('danger', '<b>Enrollment</b><br>You must complete the previous enrollment');
+      return;
+    }
+    if (User::where('username', $this->username)->withTrashed()->count() > 0) {
+      session()->flash('danger', '<b>Enrollment</b><br>You must complete the previous enrollment');
+      return;
+    }
+    $this->validate([
+      'username' => 'required',
+      'name' => 'required',
+      'phone' => 'required',
+      'email' => 'required',
+      'password' => 'required',
+      'contract' => 'required',
+      'upline' => 'required',
+    ]);
+  }
+
   public function render()
   {
+    $this->emit('reinitialize');
     return view('livewire.member.downline.form')->extends('layouts.default');
   }
 }

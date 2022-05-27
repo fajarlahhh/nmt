@@ -29,7 +29,7 @@ class Enrollment extends Component
   {
     $this->upline = auth()->id();
     if (auth()->user()->invalid_at >= date('Y-m-d H:m:s')) {
-      $this->deposit = auth()->user()->enrollment_waiting_fund;
+      $this->deposit = auth()->user()->waiting_enrollment;
     }
     $this->data_contract = Contract::all();
   }
