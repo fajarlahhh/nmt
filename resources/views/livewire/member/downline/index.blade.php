@@ -37,7 +37,7 @@
             <td class="text-nowrap align-middle">{{ $row->phone }}</td>
             <td class="text-nowrap align-middle">{{ $row->wallet }}</td>
             <td class="text-nowrap align-middle">{{ $row->contract->value }}</td>
-            <td class="text-nowrap align-middle">{{ $row->level }}</td>
+            <td class="text-nowrap align-middle">{{ $row->level == 0 ? 'Referral' : $row->level }}</td>
           </tr>
         @endforeach
       </tbody>
