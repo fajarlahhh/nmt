@@ -103,6 +103,11 @@
           @endforeach
         </div>
         <!-- end widget-list -->
+        <!-- begin card-body -->
+        <div class="card-body text-center">
+          <a href="/withdrawal" class="btn btn-purple">Withdrawal</a>
+        </div>
+        <!-- end card-body -->
       </div>
       <!-- end card -->
     </div>

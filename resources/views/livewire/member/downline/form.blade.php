@@ -25,7 +25,7 @@
               Amount (USDT BEP-20)
             </td>
             <td width="50%" class="border border-b-2 dark:border-dark-5 whitespace-nowrap">
-              {{ number_format($deposit->first()->amount, 5) }}
+              <strong>{{ number_format($deposit->first()->amount, 5) }}</strong>
             </td>
           </tr>
           <tr>
@@ -36,7 +36,9 @@
           </tr>
           <tr>
             <td colspan="2" class="border border-b-2 dark:border-dark-5 whitespace-nowrap text-center">
-              Send To <strong>{{ $deposit->wallet }}</strong>
+              Please send <strong>{{ number_format($deposit->first()->amount, 5) }}</strong> USDT
+              <small>BEP-20</small> to address
+              <strong>{{ $deposit->wallet }}</strong>
               <br>
               <div style="display: flex; justify-content: center;" class="mt-3">
                 {!! QrCode::size(200)->generate($deposit->wallet) !!}

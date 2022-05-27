@@ -21,15 +21,13 @@ Route::group(['middleware' => ['auth']], function () {
         return redirect('/dashboard');
       });
       Route::get('/dashboard', \App\Http\Livewire\Member\Dashboard::class);
+      Route::get('/withdrawal', \App\Http\Livewire\Member\Withdrawal::class);
       Route::prefix('downline')->group(function () {
         Route::get('/', \App\Http\Livewire\Member\Downline\Index::class);
         Route::get('/new', \App\Http\Livewire\Member\Downline\Form::class);
       });
       Route::get('/pin', \App\Http\Livewire\Member\Pin::class);
       Route::get('/profile', \App\Http\Livewire\Member\Profile::class);
-    });
-    Route::group(['middleware' => ['inactive']], function () {
-      Route::get('/activation', \App\Http\Livewire\Member\Activation::class);
     });
   });
 

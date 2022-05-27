@@ -36,7 +36,7 @@ class Form extends Component
 
       User::where('id', $this->deposit->first()->id_user)->restore();
     });
-    redirect('/enrollment');
+    redirect('/downline/new');
   }
 
   public function cancel($id)
