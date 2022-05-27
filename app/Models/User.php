@@ -116,16 +116,16 @@ class User extends Authenticatable
 
   public function getWaitingRenewalAttribute()
   {
-    return $this->deposit()->where('requisite', 'Renewal')->whereNull('information')->whereNull('processed_at')->count();
+    return $this->deposit->where('requisite', 'Renewal')->whereNull('information')->whereNull('processed_at');
   }
 
   public function getWaitingEnrollmentAttribute()
   {
-    return $this->deposit()->where('requisite', 'Enrollment')->whereNotNull('information')->whereNull('processed_at')->count();
+    return $this->deposit->where('requisite', 'Enrollment')->whereNotNull('information')->whereNull('processed_at');
   }
 
-  public function getWaitingActivationAttribute()
+  public function getWaitingFundAttribute()
   {
-    return $this->deposit()->where('requisite', 'Enrollment')->whereNull('information')->whereNull('processed_at')->count();
+    return $this->deposit->where('requisite', 'Enrollment')->whereNull('information')->whereNull('processed_at');
   }
 }

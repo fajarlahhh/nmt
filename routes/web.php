@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', \App\Http\Livewire\Member\Downline\Index::class);
         Route::get('/new', \App\Http\Livewire\Member\Downline\Form::class);
       });
+      Route::get('/pin', \App\Http\Livewire\Member\Pin::class);
       Route::get('/profile', \App\Http\Livewire\Member\Profile::class);
     });
     Route::group(['middleware' => ['inactive']], function () {

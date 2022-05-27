@@ -15,7 +15,6 @@
       <div class="login-header text-center">
         <img src="/assets/img/logo.png" class="width-100">
         <div class="brand">
-          <b>Nice</b> Metavest
           <small>USDT Investments</small>
         </div>
       </div>

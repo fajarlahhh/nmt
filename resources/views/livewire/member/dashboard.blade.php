@@ -96,7 +96,7 @@
               </div>
               <div class="widget-list-action text-nowrap">
                 $ <span data-animation="number"
-                  data-value="{{ number_format(1 * $row->nilai) }}">{{ number_format(1 * $row->nilai) }}</span>
+                  data-value="{{ number_format($row->nilai < 0 ? -1 * $row->nilai : $row->nilai) }}">{{ number_format($row->nilai < 0 ? -1 * $row->nilai : $row->nilai) }}</span>
               </div>
             </a>
             <!-- end widget-list-item -->

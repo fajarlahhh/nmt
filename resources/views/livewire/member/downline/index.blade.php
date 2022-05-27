@@ -9,7 +9,8 @@
   </ol>
   <!-- end breadcrumb -->
   <!-- begin page-header -->
-  <h1 class="page-header">Downline <a href="/downline/new" class="pull-right btn btn-primary btn-sm">New</a></h1>
+  <h1 class="page-header">Downline <a href="/downline/new" class="pull-right btn btn-primary btn-sm">Enrollment</a>
+  </h1>
   <!-- end page-header -->
 
   @include('includes.message')
@@ -19,7 +20,7 @@
       <thead>
         <tr>
           <th width="1%">Username</th>
-          <th>Full Name</th>
+          <th class="text-nowrap">Full Name</th>
           <th>Email</th>
           <th>Phone</th>
           <th>Wallet</th>
