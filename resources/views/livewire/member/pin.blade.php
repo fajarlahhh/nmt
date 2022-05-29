@@ -22,18 +22,13 @@
     <div class="panel-body">
       <div class="height-sm" data-scrollbar="true">
         <ul class="media-list media-list-with-divider media-messaging">
-          @foreach (auth()->user()->pin as $row)
+          @foreach (auth()->user()->pin->sortByDesc('created_at')
+    as $row)
             <li class="media media-sm">
-              <a href="javascript:;" class="pull-left">
-                @if ($row->nilai > 0)
-                  <img src="/assets/img/plus.png" alt="" class="media-object rounded-corner" />
-                @else
-                  <img src="/assets/img/minus.png" alt="" class="media-object rounded-corner" />
-                @endif
-              </a>
               <div class="media-body">
-                <h5 class="media-heading">{{ number_format($row->nilai < 0 ? -1 * $row->nilai : $row->nilai) }}
-                  <small>{{ $row->waktu }}</small></h5>
+                <h5 class="media-heading">{{ number_format($row->nilai) }}
+                  <small>{{ $row->waktu }}</small>
+                </h5>
                 <p>{{ $row->description }}</p>
               </div>
             </li>
