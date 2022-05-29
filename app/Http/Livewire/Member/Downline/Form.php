@@ -29,7 +29,6 @@ class Form extends Component
       'information' => 'required',
     ]);
 
-    dd(Deposit::where('id', $this->deposit->first()->id)->where('requisites', 'Enrollment')->whereNull('processed_at')->whereNull('information')->get());
     DB::transaction(function () {
       Deposit::where('id', $this->deposit->first()->id)->where('requisite', 'Enrollment')->whereNull('processed_at')->whereNull('information')->update([
         'information' => $this->information,
@@ -50,6 +49,7 @@ class Form extends Component
     $this->dataContract = Contract::all();
     $this->dataUpline = auth()->user()->downline->sortBy('name');
     $this->deposit = auth()->user()->waiting_fund->first();
+    dd($this->deposit);
     $this->upline = auth()->id();
   }
 
