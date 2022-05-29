@@ -64,7 +64,6 @@ class Deposit extends Main
         ]);
 
         Bonus::where('user_id', $data->user_id)->delete();
-        Bonus::where('user_id', $data->user_id)->delete();
         Withdrawal::where('user_id', $data->user_id)->delete();
 
         $user = User::where('id', $data->user_id)->withTrashed()->with('contract')->with('upline.upline.upline.upline.upline')->first();
