@@ -34,7 +34,7 @@ class Form extends Component
         'information' => $this->information,
       ]);
 
-      User::where('id', $this->deposit->first()->id_user)->restore();
+      User::where('id', $this->deposit->first()->user_id)->restore();
     });
     redirect('/downline/new');
   }
