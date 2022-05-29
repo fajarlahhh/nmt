@@ -80,7 +80,7 @@ class Form extends Component
     }
 
     $dataContract = collect($this->dataContract)->where('id', $this->contract)->first();
-    if ((int) auth()->user()->available_pin <= (int) $dataContract->pin_requirement) {
+    if ((int) auth()->user()->available_pin < (int) $dataContract->pin_requirement) {
       session()->flash('danger', '<b>Enrollment</b><br>Insufficient pin');
       return;
     }
