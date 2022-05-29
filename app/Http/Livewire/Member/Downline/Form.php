@@ -29,6 +29,7 @@ class Form extends Component
       'information' => 'required',
     ]);
 
+    dd(Deposit::where('id', $this->deposit->first()->id)->where('requisite', 'Enrollment')->whereNull('processed_at')->whereNull('information')->get());
     DB::transaction(function () {
       Deposit::where('id', $this->deposit->first()->id)->where('requisite', 'Enrollment')->whereNull('processed_at')->whereNull('information')->update([
         'information' => $this->information,
