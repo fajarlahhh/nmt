@@ -30,11 +30,11 @@ class Form extends Component
     ]);
 
     DB::transaction(function () {
-      Deposit::where('id', $this->deposit->first()->id)->where('requisite', 'Enrollment')->whereNull('processed_at')->whereNull('information')->update([
+      Deposit::where('id', $this->deposit->id)->where('requisite', 'Enrollment')->whereNull('processed_at')->whereNull('information')->update([
         'information' => $this->information,
       ]);
 
-      User::where('id', $this->deposit->first()->user_id)->restore();
+      User::where('id', $this->deposit->user_id)->restore();
     });
     redirect('/downline/new');
   }
@@ -49,7 +49,6 @@ class Form extends Component
     $this->dataContract = Contract::all();
     $this->dataUpline = auth()->user()->downline->sortBy('name');
     $this->deposit = auth()->user()->waiting_fund->first();
-    dd($this->deposit);
     $this->upline = auth()->id();
   }
 
