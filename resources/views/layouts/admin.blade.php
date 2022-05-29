@@ -12,19 +12,19 @@
   {{-- <title>Nice Metavest</title> --}}
   <title>Nice Metavest</title>
   <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png') }}" />
-  <link href="{{ asset('/assets/css/loader.css') }}" rel="stylesheet" type="text/css" />
-  <script src="{{ asset('/assets/js/loader.js') }}"></script>
+  <link href="{{ asset('/admin/assets/css/loader.css') }}" rel="stylesheet" type="text/css" />
+  <script src="{{ asset('/admin/assets/js/loader.js') }}"></script>
 
   <!-- BEGIN GLOBAL MANDATORY STYLES -->
   <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
-  <link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-  <link href="{{ asset('/assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('/admin/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('/admin/assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
   <!-- END GLOBAL MANDATORY STYLES -->
 
   <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-  <link href="{{ asset('/plugins/apex/apexcharts.css') }}" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="{{ asset('/plugins/font-icons/fontawesome/css/regular.css') }}">
-  <link rel="stylesheet" href="{{ asset('/plugins/font-icons/fontawesome/css/fontawesome.css') }}">
+  <link href="{{ asset('/admin/plugins/apex/apexcharts.css') }}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{{ asset('/admin/plugins/font-icons/fontawesome/css/regular.css') }}">
+  <link rel="stylesheet" href="{{ asset('/admin/plugins/font-icons/fontawesome/css/fontawesome.css') }}">
   <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
   @stack('css')
@@ -212,22 +212,22 @@
 
   @livewireScripts
   <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-  <script src="/assets/js/libs/jquery-3.1.1.min.js"></script>
-  <script src="/bootstrap/js/popper.min.js"></script>
-  <script src="/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-  <script src="/assets/js/app.js"></script>
+  <script src="/admin/assets/js/libs/jquery-3.1.1.min.js"></script>
+  <script src="/admin/bootstrap/js/popper.min.js"></script>
+  <script src="/admin/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/admin/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  <script src="/admin/assets/js/app.js"></script>
   <script>
     $(document).ready(function() {
       App.init();
     });
   </script>
-  <script src="/assets/js/custom.js"></script>
+  <script src="/admin/assets/js/custom.js"></script>
   <!-- END GLOBAL MANDATORY SCRIPTS -->
 
   <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-  <script src="/plugins/apex/apexcharts.min.js"></script>
-  <script src="/assets/js/dashboard/dash_2.js"></script>
+  <script src="/admin/plugins/apex/apexcharts.min.js"></script>
+  <script src="/admin/assets/js/dashboard/dash_2.js"></script>
   <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
   @stack('scripts')

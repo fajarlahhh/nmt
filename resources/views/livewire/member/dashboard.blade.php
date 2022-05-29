@@ -77,7 +77,7 @@
         </div>
         <!-- end card-body -->
         <!-- begin widget-list -->
-        <div class="widget-list widget-list-rounded height-300 overflow-auto">
+        <div class="widget-list widget-list-rounded">
           @foreach (auth()->user()->bonus->sortDesc()
     as $row)
             <!-- begin widget-list-item -->
