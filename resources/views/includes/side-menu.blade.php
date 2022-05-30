@@ -35,7 +35,7 @@
         ($menu['url'] == 'javascript:;' ? 'javascript:;' : url($menu['url'])) .
         '"><i class="'.$menu['icon'].'"></i>' .
                 $menu['title'] .
-                '</li>
+                '</a></li>
       ';
         }
       @endphp

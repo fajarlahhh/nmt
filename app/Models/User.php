@@ -112,7 +112,7 @@ class User extends Authenticatable
   public function getDownlineAttribute()
   {
     $user = auth()->user()->network . auth()->id() . '.';
-    return $this->selectRaw("*, LENGTH(REPLACE(network, '" . $this->user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $user . "', ''), '.', '')) + 1 level")->with('contract')->where('network', 'like', $user . '%')->whereRaw("LENGTH(REPLACE(network, '" . $user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $user . "', ''), '.', '')) < 5")->get();
+    return $this->selectRaw("*, LENGTH(REPLACE(network, '" . $user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $user . "', ''), '.', '')) + 1 level")->with('contract')->where('network', 'like', $user . '%')->whereRaw("LENGTH(REPLACE(network, '" . $user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $user . "', ''), '.', '')) < 5")->get();
   }
 
   public function getWaitingRenewalAttribute()
@@ -133,5 +133,24 @@ class User extends Authenticatable
   public function getWalletShortAttribute()
   {
     return substr($this->wallet, 0, 4) . "...." . substr($this->wallet, strlen($this->wallet) - 6);
+  }
+
+  public function invalid()
+  {
+    return $this->hasMany(Invalid::class);
+  }
+
+  public function getTurnoverAttribute()
+  {
+    return $this->getDownlineAttribute()->map(function ($q) {
+      return [
+        'contract' => $q->contract->value,
+      ];
+    })->sum('contract') - $this->invalid()->sum('value');
+  }
+
+  public function achievement()
+  {
+    return $this->hasMany(Achievement::class);
   }
 }

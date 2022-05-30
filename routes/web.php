@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
       });
       Route::get('/pin', \App\Http\Livewire\Member\Pin::class);
       Route::get('/profile', \App\Http\Livewire\Member\Profile::class);
+      Route::get('/security', \App\Http\Livewire\Member\Security::class);
     });
   });
 

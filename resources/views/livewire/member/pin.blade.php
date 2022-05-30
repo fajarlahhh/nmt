@@ -8,40 +8,58 @@
     <li class="breadcrumb-item active">Pin</li>
   </ol>
   <!-- end breadcrumb -->
-  <!-- begin page-header -->
-  <h1 class="page-header">Pin <a href="javascript:;" data-toggle="modal" data-target="#pinModal"
-      class="pull-right btn btn-primary btn-sm">Send</a>
-  </h1>
-  <!-- end page-header -->
 
-  <!-- begin panel -->
-  <div class="panel panel-inverse" data-sortable-id="index-5">
-    <div class="panel-heading">
-      <h4 class="panel-title">History</h4>
-    </div>
-    <div class="panel-body">
-      <div class="height-sm" data-scrollbar="true">
-        <ul class="media-list media-list-with-divider media-messaging">
-          @foreach (auth()->user()->pin->sortByDesc('created_at')
-    as $row)
-            <li class="media media-sm">
-              <div class="media-body">
-                <h5 class="media-heading">{{ number_format($row->nilai) }}
-                  <small>{{ $row->waktu }}</small>
-                </h5>
-                <p>{{ $row->description }}</p>
-              </div>
-            </li>
-          @endforeach
-        </ul>
+  <div class="card border-0 mb-3 ">
+    <!-- begin card-body -->
+    <div class="card-body">
+      <!-- begin title -->
+      <div class="mb-3 f-s-13">
+        <b>AVAILABLE PIN</b>
+        <span class="ml-2 text-muted"><i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover"
+            data-title="Sales by social source" data-placement="top"
+            data-content="Total online store sales that came from a social referrer source." data-original-title=""
+            title=""></i></span>
       </div>
+      <!-- end title -->
+      <!-- begin sales -->
+      <h3 class="m-b-10"><span data-animation="number"
+          data-value="{{ auth()->user()->available_pin }}">{{ number_format(auth()->user()->available_pin) }}</span><a
+          href="javascript:;" data-toggle="modal" data-target="#pinModal" class="pull-right btn btn-primary btn-sm">Send
+          PIN</a>
+      </h3>
+      <!-- end sales -->
     </div>
-    <div class="panel-footer">
-      <h5>Available : {{ number_format(auth()->user()->available_pin) }}</h5>
+    <!-- end card-body -->
+    <!-- begin widget-list -->
+    <div class="widget-list widget-list-rounded">
+      @foreach ($data as $row)
+        <!-- begin widget-list-item -->
+        <a href="#" class="widget-list-item border-left-0 border-right-0 bg-transparent">
+          <div class="widget-list-media icon">
+            @if ($row->nilai > 0)
+              <i class="fas fa-plus-circle bg-success text-white"></i>
+            @else
+              <i class="fas fa-minus-circle bg-red text-white"></i>
+            @endif
+          </div>
+          <div class="widget-list-content">
+            <div class="widget-list-title">{{ $row->description }}<br>
+              <small>{{ $row->waktu }}</small>
+            </div>
+          </div>
+          <div class="widget-list-action text-nowrap">
+            <span data-animation="number" data-value="{{ $row->nilai < 0 ? -1 * $row->nilai : $row->nilai }}"></span>
+          </div>
+        </a>
+      @endforeach
     </div>
+    <!-- end widget-list -->
+    <!-- begin card-body -->
+    <div class="card-body text-center">
+      {{ $data->links() }}
+    </div>
+    <!-- end card-body -->
   </div>
-  <!-- end panel -->
-
   <div class="modal fade" wire:ignore.self id="pinModal" tabindex="-1" role="dialog" aria-labelledby="pinModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">

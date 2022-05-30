@@ -5,9 +5,13 @@ namespace App\Http\Livewire\Member;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Pin extends Component
 {
+  use WithPagination;
+
+  protected $paginationTheme = 'bootstrap';
   public $username, $amount;
 
   public function submit()
@@ -55,6 +59,10 @@ class Pin extends Component
   public function render()
   {
     $this->emit('reinitialize');
-    return view('livewire.member.pin')->extends('layouts.default');
+    $data = \App\Models\Pin::where('user_id', auth()->id());
+    return view('livewire.member.pin', [
+      'noUrut' => ($this->page - 1) * 10,
+      'data' => $data->paginate(10),
+    ])->extends('layouts.default');
   }
 }

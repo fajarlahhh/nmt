@@ -7,9 +7,14 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Withdrawal extends Component
 {
+  use WithPagination;
+
+  protected $paginationTheme = 'bootstrap';
+
   public $amount, $available, $today, $usdtPrice, $usdtWd;
 
   public function mount()
@@ -109,6 +114,11 @@ class Withdrawal extends Component
 
   public function render()
   {
-    return view('livewire.member.withdrawal')->extends('layouts.default');
+    $this->emit('reinitialize');
+    $data = \App\Models\Bonus::where('user_id', auth()->id())->orderBy('id', 'desc');
+    return view('livewire.member.withdrawal', [
+      'noUrut' => ($this->page - 1) * 10,
+      'data' => $data->paginate(10),
+    ])->extends('layouts.default');
   }
 }

@@ -42,6 +42,7 @@ class Form extends Component
   public function cancel($id)
   {
     User::where('id', $id)->whereNull('activated_at')->forceDelete();
+    Pin::where('user_id', auth()->id())->orderBy('id', 'desc')->limit(1)->delete();
   }
 
   public function mount()
@@ -131,7 +132,7 @@ class Form extends Component
         $debet->user_id = auth()->id();
         $debet->debit = $dataContract->pin_requirement;
         $debet->credit = 0;
-        $debet->description = "Enrollment contract " . $dataContract->value . " username " . $this->username;
+        $debet->description = "Enrollment contract " . number_format($dataContract->value) . " username " . $this->username;
         $debet->save();
       });
 
