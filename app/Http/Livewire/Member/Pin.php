@@ -12,14 +12,27 @@ class Pin extends Component
   use WithPagination;
 
   protected $paginationTheme = 'bootstrap';
-  public $username, $amount;
+  public $username, $amount, $security;
 
   public function submit()
   {
-    $this->validate([
-      'username' => 'required',
-      'amount' => 'required',
-    ]);
+    if (auth()->user()->security) {
+      $this->validate([
+        'username' => 'required',
+        'amount' => 'required',
+        'security' => 'required',
+      ]);
+    } else {
+      $this->validate([
+        'username' => 'required',
+        'amount' => 'required',
+      ]);
+    }
+
+    if (auth()->user()->security != $this->security) {
+      session()->flash('danger', '<b>Security</b><br>Invalid security pin');
+      return;
+    }
 
     if ($this->amount < 0) {
       session()->flash('danger', '<b>Send Pin</b><br>Invalid amount');

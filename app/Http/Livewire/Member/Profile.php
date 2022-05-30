@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Profile extends Component
 {
-  public $data, $username, $name, $phone, $email, $upline, $wallet;
+  public $data, $username, $name, $phone, $email, $upline, $wallet, $security;
 
   public function mount()
   {
@@ -22,15 +22,33 @@ class Profile extends Component
 
   public function submit()
   {
-    $this->validate(
+    if (auth()->user()->security) {$this->validate(
       [
         'username' => 'required',
         'name' => 'required',
         'phone' => 'required',
         'email' => 'required',
         'wallet' => 'required',
+        'security' => 'required',
       ]
     );
+    } else {
+      $this->validate(
+        [
+          'username' => 'required',
+          'name' => 'required',
+          'phone' => 'required',
+          'email' => 'required',
+          'wallet' => 'required',
+        ]
+      );
+    }
+
+    if (auth()->user()->security != $this->security) {
+      session()->flash('danger', '<b>Security</b><br>Invalid security pin');
+      return;
+    }
+
     $this->data->name = $this->name;
     $this->data->phone = $this->phone;
     $this->data->email = $this->email;

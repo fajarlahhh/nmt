@@ -15,7 +15,7 @@ class Withdrawal extends Component
 
   protected $paginationTheme = 'bootstrap';
 
-  public $amount, $available, $today, $usdtPrice, $usdtWd;
+  public $amount, $available, $today, $usdtPrice, $usdtWd, $security;
 
   public function mount()
   {
@@ -25,24 +25,24 @@ class Withdrawal extends Component
 
   public function submit()
   {
-    if (auth()->user()->googleAuthSecret) {
+    if (auth()->user()->security) {
       $this->validate([
         'available' => 'required',
         'amount' => 'required',
-        'pin' => 'required',
+        'security' => 'required',
       ]);
-
-      $google2fa = app('pragmarx.google2fa');
-      if ($google2fa->verifyKey(auth()->user()->googleAuthSecret, $this->pin) === false) {
-        session()->flash('danger', '<b>Withdrawal</b><br>Invalid Google Authenticator PIN');
-        return;
-      }
     } else {
       $this->validate([
         'available' => 'required',
         'amount' => 'required',
       ]);
     }
+
+    if (auth()->user()->security != $this->security) {
+      session()->flash('danger', '<b>Security</b><br>Invalid security pin');
+      return;
+    }
+
     $this->amount = $this->amount ?: 0;
 
     if ($this->available < $this->amount) {

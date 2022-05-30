@@ -89,6 +89,18 @@
                 <span class="text-danger">This field is required</span>
               @enderror
             </div>
+            <hr>
+            @if (auth()->user()->security)
+              <hr class="mb-1">
+              <div class="form-group mb-2">
+                <label for="security" class="form-label">Security Pin</label>
+                <input id="security" type="text" class="form-control" wire:model.defer="security" autocomplete="off"
+                  s>
+                @error('security')
+                  <span class="text-danger">This field is required</span>
+                @enderror
+              </div>
+            @endif
           </div>
           <div class="modal-footer">
             <input type="submit" class="mt-4 btn btn-primary" value="Send Pin">

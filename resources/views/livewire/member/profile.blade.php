@@ -48,21 +48,18 @@
         </div>
         <hr>
         <div class="form-group mb-2">
-          <label for="wallet" class="form-label">USDT Wallet <small class="text-danger">(BEP
-              20)</small></label>
-          <input id="wallet" type="text" class="form-control text-gray-700" wire:model.defer="wallet"
-            placeholder="USDT Wallet">
+          <label for="wallet" class="form-label">USDT Wallet </label>
+          <input id="wallet" type="text" class="form-control text-gray-700" wire:model.defer="wallet">
           @error('wallet')
             <span class="text-danger">This field is required</span>
           @enderror
         </div>
-        @if (auth()->user()->googleAuthSecret)
+        @if (auth()->user()->security)
           <hr class="mb-1">
           <div class="form-group mb-2">
-            <label for="pin" class="form-label">Google Auth PIN</label>
-            <input id="pin" type="text" class="form-control" wire:model.defer="pin"
-              placeholder="Enter Your Google Authenticator PIN" autocomplete="off">
-            @error('pin')
+            <label for="security" class="form-label">Security Pin</label>
+            <input id="security" type="text" class="form-control" wire:model.defer="security" autocomplete="off" s>
+            @error('security')
               <span class="text-danger">This field is required</span>
             @enderror
           </div>

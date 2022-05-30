@@ -70,7 +70,7 @@
               <li>You have not added a phone number. <a href="/profile" class="text-primary">Click here</a> to add it
               </li>
             @endif
-            @if (!auth()->user()->security || !auth()->user()->googleAuthSecret)
+            @if (!auth()->user()->security)
               <li>You have not setup your security. <a href="/security" class="text-primary">Click here</a> to setup
               </li>
             @endif

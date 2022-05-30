@@ -14,7 +14,7 @@ use Livewire\Component;
 
 class Form extends Component
 {
-  public $username, $name, $phone, $email, $password, $contract, $upline, $dataContract, $dataUpline, $paymentAmount, $deposit, $information;
+  public $username, $name, $phone, $email, $password, $contract, $upline, $dataContract, $dataUpline, $paymentAmount, $deposit, $information, $security;
 
   protected $listeners = ['set:setupline' => 'setUpline'];
 
@@ -55,15 +55,33 @@ class Form extends Component
 
   public function submit()
   {
-    $this->validate([
-      'username' => 'required',
-      'name' => 'required',
-      'phone' => 'required',
-      'email' => 'required',
-      'password' => 'required',
-      'contract' => 'required',
-      'upline' => 'required',
-    ]);
+    if (auth()->user()->security) {
+      $this->validate([
+        'username' => 'required',
+        'name' => 'required',
+        'phone' => 'required',
+        'email' => 'required',
+        'password' => 'required',
+        'contract' => 'required',
+        'upline' => 'required',
+        'security' => 'required',
+      ]);
+    } else {
+      $this->validate([
+        'username' => 'required',
+        'name' => 'required',
+        'phone' => 'required',
+        'email' => 'required',
+        'password' => 'required',
+        'contract' => 'required',
+        'upline' => 'required',
+      ]);
+    }
+
+    if (auth()->user()->security != $this->security) {
+      session()->flash('danger', '<b>Security</b><br>Invalid security pin');
+      return;
+    }
 
     if (auth()->user()->waiting_enrollment->count() > 0) {
       session()->flash('danger', '<b>Enrollment</b><br>You must complete the previous enrollment');
