@@ -33,10 +33,9 @@
             echo '
        <li class="'. $active .'"><a href="' .
         ($menu['url'] == 'javascript:;' ? 'javascript:;' : url($menu['url'])) .
-        '"><i class="'.$menu['icon'].'"></i>' .
+        '"><i class="'.$menu['icon'].'"></i><span>' .
                 $menu['title'] .
-                '</a></li>
-      ';
+                '</span></a></li>';
         }
       @endphp
     </ul>

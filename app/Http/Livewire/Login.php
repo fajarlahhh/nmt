@@ -10,7 +10,7 @@ use Livewire\Component;
 class Login extends Component
 {
 
-  public $error, $username, $password, $referral_token, $remember = false;
+  public $error, $username, $password;
   public $message;
 
   protected $rules = [
@@ -22,8 +22,7 @@ class Login extends Component
   {
     $this->validate();
 
-    $remember = $this->remember == 'on';
-    if (Auth::attempt(['username' => $this->username, 'password' => $this->password], $remember)) {
+    if (Auth::attempt(['username' => $this->username, 'password' => $this->password], true)) {
 
       Auth::logoutOtherDevices($this->password, 'password');
       if (auth()->user()->role == 1) {
