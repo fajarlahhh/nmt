@@ -36,10 +36,10 @@
               @if ((int) date('Hms') < 70000 || (int) date('Hms') > 150000)
               @else --}}
             <div class="form-group mb-2">
-              <label for="availableActive" class="form-label text-dark">Available</label>
-              <input id="availableActive" type="text" class="form-control text-gray-700" readonly
-                value="$ {{ number_format($availableActive) }}">
-              @error('availableActive')
+              <label for="available" class="form-label text-dark">Available</label>
+              <input id="available" type="text" class="form-control text-gray-700" readonly
+                value="$ {{ number_format($available) }}">
+              @error('available')
                 <span class="text-danger">This field is required</span>
               @enderror
             </div>

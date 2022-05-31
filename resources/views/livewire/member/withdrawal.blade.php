@@ -10,6 +10,7 @@
   <!-- end breadcrumb -->
 
   @include('includes.message')
+  @include('form.bonus')
   <div id="accordion" class="accordion">
     <!-- begin card -->
     <div class="card">
@@ -169,4 +170,11 @@
     </div>
     <!-- end card -->
   </div>
+  @push('scripts')
+    <script>
+      window.livewire.on('confirmation', (next) => {
+        $('#bonusModal').modal('show');
+      });
+    </script>
+  @endpush
 </div>
