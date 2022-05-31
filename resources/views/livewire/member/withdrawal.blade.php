@@ -172,7 +172,7 @@
   </div>
   @push('scripts')
     <script>
-      window.livewire.on('confirmation', (next) => {
+      window.livewire.on('confirmation', () => {
         $('#bonusModal').modal('show');
       });
     </script>
