@@ -30,7 +30,7 @@
                   <small>{{ $row->waktu }}</small>
                 </div>
               </div>
-              <div class="widget-list-action text-nowrap">
+              <div class="widget-list-action text-nowrap">$
                 <span data-animation="number"
                   data-value="{{ $row->nilai < 0 ? -1 * $row->nilai : $row->nilai }}"></span>
               </div>

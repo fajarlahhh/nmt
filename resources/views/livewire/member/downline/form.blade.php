@@ -128,7 +128,7 @@
                     ({{ auth()->user()->name }})
                   </option>
                   @foreach ($dataUpline as $row)
-                    <option value="{{ $row->getKey() }}">{{ $row->username }} ({{ $row->name }})
+                    <option value="{{ $row->getKey() }}">{{ $row->username }}
                     </option>
                   @endforeach
                 </select>
