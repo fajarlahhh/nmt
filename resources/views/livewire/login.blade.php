@@ -21,6 +21,12 @@
       <!-- end login-header -->
       <!-- begin login-content -->
       <div class="login-content">
+        @if (session()->has('error'))
+          <div class="alert alert-danger ">
+            <span class="close" data-dismiss="alert">×</span>
+            {!! session('error') !!}
+          </div>
+        @endif
         <form wire:submit.prevent="login" class="margin-bottom-0">
           <div class="form-group m-b-15">
             <input type="text" class="form-control form-control-lg" wire:model.defer="username" required
@@ -40,10 +46,6 @@
       <div class="m-t-20 m-b-40 p-b-40 text-inverse text-center">
         Forgot Password? Click <a href="/forgot">here</a>.
       </div>
-      @if (session()->has('error'))
-        <br>
-        <div class="text-danger">{!! session('error') !!}</div>
-      @endif
       </form>
     </div>
     <!-- end login-content -->
