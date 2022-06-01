@@ -2,63 +2,17 @@
   @push('css')
   @endpush
 
-  <!-- begin breadcrumb -->
-  <ol class="breadcrumb float-xl-right">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active">Withdrawal</li>
-  </ol>
-  <!-- end breadcrumb -->
-
-  @include('includes.message')
-  @include('form.bonus')
-  <div id="accordion" class="accordion">
-    <!-- begin card -->
-    <div class="card">
-      <div class="card-header pointer-cursor d-flex align-items-center " data-toggle="collapse"
-        data-target="#collapseTwo">
-        <i class="fa fa-circle fa-fw text-indigo mr-2 f-s-8"></i> History
-      </div>
-      <div id="collapseTwo" class="collapse show" data-parent="#accordion">
-        <!-- begin widget-list -->
-        <div class="widget-list widget-list-rounded">
-          @foreach ($data as $row)
-            <!-- begin widget-list-item -->
-            <a href="#" class="widget-list-item border-left-0 border-right-0 bg-transparent">
-              <div class="widget-list-media icon">
-                @if ($row->nilai > 0)
-                  <i class="fas fa-plus-circle bg-success text-white"></i>
-                @else
-                  <i class="fas fa-download bg-red text-white"></i>
-                @endif
-              </div>
-              <div class="widget-list-content">
-                <div class="widget-list-title">{{ $row->description }}<br>
-                  <small>{{ $row->waktu }}</small>
-                </div>
-              </div>
-              <div class="widget-list-action text-nowrap">
-                <span data-animation="number"
-                  data-value="{{ $row->nilai < 0 ? -1 * $row->nilai : $row->nilai }}"></span>
-              </div>
-            </a>
-          @endforeach
-        </div>
-        <!-- end widget-list -->
-        <!-- begin card-body -->
-        <div class="card-body text-center">
-          {{ $data->links() }}
-        </div>
-        <!-- end card-body -->
-      </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <ol class="breadcrumb float-xl-right">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active">Withdrawal</li>
+      </ol>
     </div>
-    <!-- end card -->
-    <!-- begin card -->
-    <div class="card">
-      <div class="card-header pointer-cursor d-flex align-items-center collapsed" data-toggle="collapse"
-        data-target="#collapseOne">
-        <i class="fa fa-circle fa-fw text-red mr-2 f-s-8"></i> Form
-      </div>
-      <div id="collapseOne" class="collapse " data-parent="#accordion">
+    <div class="col-xs-12">
+      @include('includes.message')
+      @include('form.bonus')
+      <div class="card">
         <div class="card-body">
           <div class="alert alert-warning border-0">
             Rules:
@@ -161,20 +115,12 @@
               @endif
             @endif
           @else
-            <div class="alert alert-danger border-0">
-              <h5 class="text-danger">Withdrawals can only be done once a day</h5>
+            <div class="alert alert-danger border-0 text-center">
+              You have made a withdrawal today
             </div>
           @endif
         </div>
       </div>
     </div>
-    <!-- end card -->
   </div>
-  @push('scripts')
-    <script>
-      window.livewire.on('confirmation', () => {
-        $('#bonusModal').modal('show');
-      });
-    </script>
-  @endpush
 </div>

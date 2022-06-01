@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Administrator;
 
 use App\Http\Livewire\Member\Main;
 use App\Models\Bonus;
+use App\Models\Turnover;
 use App\Models\User;
 use App\Models\Withdrawal;
 use Carbon\Carbon;
@@ -60,7 +61,6 @@ class Deposit extends Main
         User::where('id', $data->user_id)->restore();
         User::where('id', $data->user_id)->update([
           'activated_at' => $time,
-          'invalid_at' => $valid_time,
         ]);
 
         Bonus::where('user_id', $data->user_id)->delete();
@@ -69,10 +69,11 @@ class Deposit extends Main
         $user = User::where('id', $data->user_id)->withTrashed()->with('contract')->with('upline.upline.upline.upline.upline')->first();
 
         $bonus = [];
+        $turnover = [];
 
         if ($data->requisite == 'Enrollment' || $data->requisite == 'Registration') {
           if ($user->upline) {
-            if ($user->upline->invalid_at > now()) {
+            if ($user->upline->activated_at) {
               array_push($bonus, [
                 'description' => "Ref. 10% of $ " . number_format($user->contract->value) . " by " . $user->username,
                 'debit' => 0,
@@ -81,9 +82,17 @@ class Deposit extends Main
                 'created_at' => $time,
                 'updated_at' => $time,
               ]);
+
+              array_push($turnover, [
+                'user_id' => $user->upline->id,
+                'value' => $user->contract->value,
+                'downline_id' => $user->id,
+                'created_at' => $time,
+                'updated_at' => $time,
+              ]);
             }
             if ($user->upline->upline) {
-              if ($user->upline->upline->invalid_at > now()) {
+              if ($user->upline->upline->activated_at) {
                 array_push($bonus, [
                   'description' => "Lvl. 1 3% of $ " . number_format($user->contract->value) . " by " . $user->username,
                   'debit' => 0,
@@ -92,9 +101,17 @@ class Deposit extends Main
                   'created_at' => $time,
                   'updated_at' => $time,
                 ]);
+
+                array_push($turnover, [
+                  'user_id' => $user->upline->upline->id,
+                  'value' => $user->contract->value,
+                  'downline_id' => $user->id,
+                  'created_at' => $time,
+                  'updated_at' => $time,
+                ]);
               }
               if ($user->upline->upline->upline) {
-                if ($user->upline->upline->upline->invalid_at > now()) {
+                if ($user->upline->upline->upline->activated_at) {
                   array_push($bonus, [
                     'description' => "Lvl. 2 2% of $ " . number_format($user->contract->value) . " by " . $user->username,
                     'debit' => 0,
@@ -103,9 +120,17 @@ class Deposit extends Main
                     'created_at' => $time,
                     'updated_at' => $time,
                   ]);
+
+                  array_push($turnover, [
+                    'user_id' => $user->upline->upline->upline->id,
+                    'value' => $user->contract->value,
+                    'downline_id' => $user->id,
+                    'created_at' => $time,
+                    'updated_at' => $time,
+                  ]);
                 }
                 if ($user->upline->upline->upline->upline) {
-                  if ($user->upline->upline->upline->upline->invalid_at > now()) {
+                  if ($user->upline->upline->upline->upline->activated_at) {
                     array_push($bonus, [
                       'description' => "Lvl. 3 1% of $ " . number_format($user->contract->value) . " by " . $user->username,
                       'debit' => 0,
@@ -114,14 +139,30 @@ class Deposit extends Main
                       'created_at' => $time,
                       'updated_at' => $time,
                     ]);
+
+                    array_push($turnover, [
+                      'user_id' => $user->upline->upline->upline->upline->id,
+                      'value' => $user->contract->value,
+                      'downline_id' => $user->id,
+                      'created_at' => $time,
+                      'updated_at' => $time,
+                    ]);
                   }
                   if ($user->upline->upline->upline->upline->upline) {
-                    if ($user->upline->upline->upline->upline->upline->invalid_at > now()) {
+                    if ($user->upline->upline->upline->upline->upline->activated_at) {
                       array_push($bonus, [
                         'description' => "Lvl. 4 1% of $ " . number_format($user->contract->value) . " by " . $user->username,
                         'debit' => 0,
                         'credit' => $user->contract->forth_level_benefits,
                         'user_id' => $user->upline->upline->upline->upline->upline->id,
+                        'created_at' => $time,
+                        'updated_at' => $time,
+                      ]);
+
+                      array_push($turnover, [
+                        'user_id' => $user->upline->upline->upline->upline->upline->id,
+                        'value' => $user->contract->value,
+                        'downline_id' => $user->id,
                         'created_at' => $time,
                         'updated_at' => $time,
                       ]);
@@ -136,6 +177,10 @@ class Deposit extends Main
         $dataBonus = collect($bonus)->chunk(10);
         foreach ($dataBonus as $item) {
           Bonus::insert($item->toArray());
+        }
+        $dataTurnover = collect($turnover)->chunk(10);
+        foreach ($dataTurnover as $item) {
+          Turnover::insert($item->toArray());
         }
       }
     });

@@ -10,7 +10,7 @@
       <b class="mr-1">Nice</b> Metavest
     </a>
     <!-- begin header-nav -->
-    <ul class="navbar-nav navbar-right">
+    <ul class="navbar-nav navbar-right pull-right">
       <li class="dropdown navbar-user">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <img src="/assets/img/logo.png" style="width: 34px">

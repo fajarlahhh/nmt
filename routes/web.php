@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
       Route::get('/pin', \App\Http\Livewire\Member\Pin::class);
       Route::get('/profile', \App\Http\Livewire\Member\Profile::class);
       Route::get('/security', \App\Http\Livewire\Member\Security::class);
+      Route::get('/bonus', \App\Http\Livewire\Member\Bonus::class);
     });
   });
 
@@ -41,9 +42,8 @@ Route::group(['middleware' => ['auth']], function () {
       Route::get('/payment', \App\Http\Livewire\Administrator\Deposit::class);
       Route::get('/withdrawal', \App\Http\Livewire\Administrator\Withdrawal::class);
       Route::get('/member', \App\Http\Livewire\Administrator\Member::class);
+      Route::get('/daily', \App\Http\Livewire\Administrator\Daily::class);
       Route::get('/security', \App\Http\Livewire\Administrator\Security::class);
-      Route::get('/information', \App\Http\Livewire\Administrator\Information\Index::class);
-      Route::get('/information/add', \App\Http\Livewire\Administrator\Information\Add::class);
     });
   });
 });

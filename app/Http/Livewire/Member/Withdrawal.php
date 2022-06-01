@@ -115,10 +115,6 @@ class Withdrawal extends Component
   public function render()
   {
     $this->emit('reinitialize');
-    $data = \App\Models\Bonus::where('user_id', auth()->id())->orderBy('id', 'desc');
-    return view('livewire.member.withdrawal', [
-      'noUrut' => ($this->page - 1) * 10,
-      'data' => $data->paginate(10),
-    ])->extends('layouts.default');
+    return view('livewire.member.withdrawal')->extends('layouts.default');
   }
 }

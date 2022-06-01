@@ -58,7 +58,7 @@
     @include('includes.side-menu')
     <!-- begin #content -->
     <div id="content" class="content">
-      @if (!auth()->user()->wallet || !auth()->user()->phone || !auth()->user()->security || !auth()->user()->googleAuthSecret)
+      @if (!auth()->user()->wallet || !auth()->user()->phone || !auth()->user()->security)
         <div class="alert alert-warning border-0">
           <h5>Warning</h5>
           <ul>

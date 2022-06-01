@@ -140,13 +140,9 @@ class User extends Authenticatable
     return $this->hasMany(Invalid::class);
   }
 
-  public function getTurnoverAttribute()
+  public function turnover()
   {
-    return $this->getDownlineAttribute()->map(function ($q) {
-      return [
-        'contract' => $q->contract->value,
-      ];
-    })->sum('contract') - $this->invalid()->sum('value');
+    return $this->hasMany(Turnover::class);
   }
 
   public function achievement()
