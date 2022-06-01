@@ -93,7 +93,6 @@
                     <span class="text-danger">This field is required</span>
                   @enderror
                 </div>
-                <hr>
                 @if (auth()->user()->security)
                   <hr class="mb-1">
                   <div class="form-group mb-2">
