@@ -17,7 +17,7 @@
   <!-- ================== BEGIN BASE CSS STYLE ================== -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link href="/assets/css/default/app.min.css" rel="stylesheet" />
+  <link href="/assets/css/google/app.min.css" rel="stylesheet" />
   <!-- ================== END BASE CSS STYLE ================== -->
   @livewireStyles
 </head>
@@ -44,7 +44,7 @@
   @livewireScripts
   <!-- ================== BEGIN BASE JS ================== -->
   <script src="/assets/js/app.min.js"></script>
-  <script src="/assets/js/theme/default.min.js"></script>
+  <script src="/assets/js/theme/google.min.js"></script>
   <script src="/assets/plugins/bootstrap-show-password/dist/bootstrap-show-password.js"></script>
   <!-- ================== END BASE JS ================== -->
 </body>
