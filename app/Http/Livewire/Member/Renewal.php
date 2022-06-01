@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Member\Downline;
+namespace App\Http\Livewire\Member;
 
 use App\Models\Contract;
 use App\Models\Deposit;
@@ -8,11 +8,10 @@ use App\Models\Pin;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
-class Form extends Component
+class Renewal extends Component
 {
   public $username, $name, $phone, $email, $password, $contract, $upline, $dataContract, $dataUpline, $paymentAmount, $deposit, $information, $security;
 
@@ -36,76 +35,48 @@ class Form extends Component
 
       User::where('id', $this->deposit->user_id)->restore();
     });
-    redirect('/downline/new');
+    redirect('/renewal');
   }
 
   public function cancel($id)
   {
-    User::where('id', $id)->whereNull('activated_at')->forceDelete();
+    Deposit::where('id', $this->deposit->id)->delete();
     Pin::where('user_id', auth()->id())->orderBy('id', 'desc')->limit(1)->delete();
-    redirect('/downline/new');
+    redirect('/renewal');
   }
 
   public function mount()
   {
     $this->dataContract = Contract::all();
-    $this->dataUpline = auth()->user()->downline->sortBy('name');
-    $this->deposit = auth()->user()->waiting_fund->first();
-    $this->upline = auth()->id();
+    $this->deposit = auth()->user()->waiting_renewal->first();
   }
 
   public function submit()
   {
-    if (!auth()->user()->activated_at) {
-      session()->flash('danger', '<b>Enrollment</b><br>You cannot do this action');
-      return;
-    }
     if (auth()->user()->security) {
       $this->validate([
-        'username' => 'required',
-        'name' => 'required',
-        'phone' => 'required',
-        'email' => 'required',
-        'password' => 'required',
         'contract' => 'required',
-        'upline' => 'required',
         'security' => 'required',
       ]);
     } else {
       $this->validate([
-        'username' => 'required',
-        'name' => 'required',
-        'phone' => 'required',
-        'email' => 'required',
-        'password' => 'required',
         'contract' => 'required',
-        'upline' => 'required',
       ]);
     }
 
     if (auth()->user()->security != $this->security) {
-      session()->flash('danger', '<b>Security</b><br>Invalid security pin');
+      session()->flash('danger', '<b>Contract renewal</b><br>Invalid security pin');
       return;
     }
 
-    if (auth()->user()->waiting_enrollment->count() > 0) {
-      session()->flash('danger', '<b>Enrollment</b><br>You must complete the previous enrollment');
-      return;
-    }
-
-    if (auth()->user()->waiting_fund->count() > 0) {
-      session()->flash('danger', '<b>Enrollment</b><br>You must complete the previous enrollment');
-      return;
-    }
-
-    if (User::where('username', $this->username)->withTrashed()->count() > 0) {
-      session()->flash('danger', '<b>Enrollment</b><br>You must complete the previous enrollment');
+    if (auth()->user()->waiting_renewal->count() > 0) {
+      session()->flash('danger', '<b>Contract renewal</b><br>You must complete the previous enrollment');
       return;
     }
 
     $dataContract = collect($this->dataContract)->where('id', $this->contract)->first();
     if ((int) auth()->user()->available_pin < (int) $dataContract->pin_requirement) {
-      session()->flash('danger', '<b>Enrollment</b><br>Insufficient pin');
+      session()->flash('danger', '<b>Contract renewal</b><br>Insufficient pin');
       return;
     }
 
@@ -124,19 +95,10 @@ class Form extends Component
       DB::transaction(function () use ($dataContract) {
         $upline = User::where('id', $this->upline)->first();
 
-        $user = new User();
-        $user->phone = $this->phone;
-        $user->username = $this->username;
-        $user->password = Hash::make($this->password);
-        $user->first_password = $this->password;
-        $user->name = $this->name;
-        $user->email = $this->email;
-        $user->contract_id = $this->contract;
-        $user->upline_id = $this->upline;
-        $user->reinvest = 1;
-        $user->network = trim($upline->network) . $upline->id . '.';
-        $user->deleted_at = now();
-        $user->save();
+        User::where('id', auth()->id())->update([
+          'activated_at' => now(),
+          'reinvest' => auth()->user()->reinvest + 1,
+        ]);
 
         $ticket = new Ticket();
         $ticket->contract_id = $this->contract;
@@ -146,32 +108,30 @@ class Form extends Component
 
         $deposit = new Deposit();
         $deposit->owner_id = auth()->id();
-        $deposit->user_id = $user->id;
+        $deposit->user_id = auth()->id();
         $deposit->wallet = config('constants.wallet');
         $deposit->amount = $this->paymentAmount;
-        $deposit->requisite = 'Enrollment';
+        $deposit->requisite = 'Renewal';
         $deposit->save();
 
         $debet = new Pin();
         $debet->user_id = auth()->id();
         $debet->debit = $dataContract->pin_requirement;
         $debet->credit = 0;
-        $debet->description = "Enrollment contract " . number_format($dataContract->value) . " username " . $this->username;
+        $debet->description = "Contract renewal " . number_format($dataContract->value);
         $debet->save();
 
-        session()->flash('success', '<b>Enrollment</b><br>Enrollment is successful');
+        session()->flash('success', '<b>Contract renewal</b><br>Contract renewal is successful');
       });
 
-      redirect('/downline/new');
+      redirect('/renewal');
     } catch (\Exception $e) {
-      session()->flash('danger', '<b>Enrollment</b><br>' . $e->getMessage());
+      session()->flash('danger', '<b>Contract renewal</b><br>' . $e->getMessage());
       return;
     }
   }
-
   public function render()
   {
-    $this->emit('reinitialize');
-    return view('livewire.member.downline.form')->extends('layouts.default');
+    return view('livewire.member.renewal')->extends('layouts.default');
   }
 }

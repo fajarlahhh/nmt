@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Administrator;
 
-use App\Http\Livewire\Member\Main;
+use App\Http\Livewire\Main;
 use App\Models\Bonus;
 use App\Models\Turnover;
 use App\Models\User;

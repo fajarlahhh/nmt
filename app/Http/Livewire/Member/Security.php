@@ -11,6 +11,10 @@ class Security extends Component
 
   public function submit()
   {
+    if (!auth()->user()->activated_at) {
+      session()->flash('danger', '<b>Enrollment</b><br>You cannot do this action');
+      return;
+    }
     if (auth()->user()->security) {
       $this->validate(
         [

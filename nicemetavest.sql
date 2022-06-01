@@ -25,7 +25,7 @@ CREATE TABLE `achievement`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `user_id` bigint NULL DEFAULT NULL,
   `value` int NULL DEFAULT NULL,
-  `description` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `description` varchar(255) NULL DEFAULT NULL,
   `operator_id` bigint NULL DEFAULT NULL,
   `processed_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE `achievement`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `achievement_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of achievement
@@ -45,17 +45,17 @@ CREATE TABLE `achievement`  (
 DROP TABLE IF EXISTS `authentication_log`;
 CREATE TABLE `authentication_log`  (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `authenticatable_type` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `authenticatable_type` varchar(255) NOT NULL,
   `authenticatable_id` bigint NOT NULL,
-  `ip_address` varchar(45) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `user_agent` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `ip_address` varchar(45) NULL DEFAULT NULL,
+  `user_agent` text NULL,
   `login_at` timestamp NULL DEFAULT NULL,
   `logout_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `authentication_log_authenticatable_type_authenticatable_id_index`(`authenticatable_type`, `authenticatable_id`) USING BTREE,
   INDEX `authenticatable_id`(`authenticatable_id`) USING BTREE,
   CONSTRAINT `authentication_log_ibfk_1` FOREIGN KEY (`authenticatable_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 373 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of authentication_log
@@ -187,7 +187,7 @@ INSERT INTO `authentication_log` VALUES (373, 'App\\Models\\User', 2, '127.0.0.1
 DROP TABLE IF EXISTS `bonus`;
 CREATE TABLE `bonus`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `description` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `description` text NULL,
   `debit` decimal(40, 2) NULL DEFAULT NULL,
   `credit` decimal(40, 2) NULL DEFAULT NULL,
   `daily_id` bigint NULL DEFAULT NULL,
@@ -215,7 +215,7 @@ CREATE TABLE `bonus`  (
 DROP TABLE IF EXISTS `contract`;
 CREATE TABLE `contract`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `name` varchar(255) NULL DEFAULT NULL,
   `value` int NULL DEFAULT NULL,
   `benefit` int NULL DEFAULT NULL,
   `minimum_withdrawal` double(10, 2) NULL DEFAULT NULL,
@@ -230,7 +230,7 @@ CREATE TABLE `contract`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of contract
@@ -252,7 +252,7 @@ CREATE TABLE `daily`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ;
 
 -- ----------------------------
 -- Records of daily
@@ -264,12 +264,12 @@ CREATE TABLE `daily`  (
 DROP TABLE IF EXISTS `deposit`;
 CREATE TABLE `deposit`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `wallet` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `wallet` varchar(255) NULL DEFAULT NULL,
   `amount` decimal(20, 10) NULL DEFAULT NULL,
-  `requisite` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `requisite` varchar(255) NULL DEFAULT NULL,
   `owner_id` bigint NULL DEFAULT NULL,
   `user_id` bigint NULL DEFAULT NULL,
-  `information` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `information` varchar(255) NULL DEFAULT NULL,
   `operator_id` bigint NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -292,15 +292,15 @@ CREATE TABLE `deposit`  (
 DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs`  (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `connection` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `queue` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `payload` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `exception` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `failed_jobs_uuid_unique`(`uuid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of failed_jobs
@@ -313,14 +313,14 @@ DROP TABLE IF EXISTS `information`;
 CREATE TABLE `information`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `id_user` bigint NULL DEFAULT NULL,
-  `title` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
-  `content` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `title` longtext NULL,
+  `content` longtext NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `information_ibfk_1`(`id_user`) USING BTREE,
   CONSTRAINT `information_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of information
@@ -332,15 +332,15 @@ CREATE TABLE `information`  (
 DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE `jobs`  (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `queue` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `payload` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
   `attempts` tinyint UNSIGNED NOT NULL,
   `reserved_at` int UNSIGNED NULL DEFAULT NULL,
   `available_at` int UNSIGNED NOT NULL,
   `created_at` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `jobs_queue_index`(`queue`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of jobs
@@ -352,10 +352,10 @@ CREATE TABLE `jobs`  (
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations`  (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of migrations
@@ -374,11 +374,11 @@ INSERT INTO `migrations` VALUES (8, '2017_09_01_000000_create_authentication_log
 -- ----------------------------
 DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE `password_resets`  (
-  `email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   INDEX `password_resets_email_index`(`email`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of password_resets
@@ -390,7 +390,7 @@ CREATE TABLE `password_resets`  (
 DROP TABLE IF EXISTS `pin`;
 CREATE TABLE `pin`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `description` varchar(255) NULL DEFAULT NULL,
   `debit` int NULL DEFAULT NULL,
   `credit` int NULL DEFAULT NULL,
   `user_id` bigint NULL DEFAULT NULL,
@@ -399,7 +399,7 @@ CREATE TABLE `pin`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `pin_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of pin
@@ -412,8 +412,8 @@ INSERT INTO `pin` VALUES (1, 'Transfer from administrator', 0, 10000, 2, '2021-0
 DROP TABLE IF EXISTS `recovery`;
 CREATE TABLE `recovery`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `token` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
-  `email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `token` text NULL,
+  `email` varchar(255) NULL DEFAULT NULL,
   `user_id` bigint NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -421,7 +421,7 @@ CREATE TABLE `recovery`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `recovery_ibfk_1`(`email`) USING BTREE,
   CONSTRAINT `recovery_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of recovery
@@ -433,13 +433,13 @@ CREATE TABLE `recovery`  (
 DROP TABLE IF EXISTS `spammers`;
 CREATE TABLE `spammers`  (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `ip_address` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `ip_address` varchar(255) NOT NULL,
   `attempts` int NOT NULL,
   `blocked_at` datetime NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of spammers
@@ -459,7 +459,7 @@ CREATE TABLE `ticket`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `id_contract`(`contract_id`) USING BTREE,
   CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`contract_id`) REFERENCES `contract` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of ticket
@@ -479,7 +479,7 @@ CREATE TABLE `turnover`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `turnover_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ;
 
 -- ----------------------------
 -- Records of turnover
@@ -491,18 +491,18 @@ CREATE TABLE `turnover`  (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `free` tinyint(1) NOT NULL DEFAULT 0,
-  `first_password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `wallet` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `network` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `first_password` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `wallet` varchar(255) NULL DEFAULT NULL,
+  `network` longtext NULL,
   `ticket` tinyint NULL DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `remember_token` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
-  `google2fa_secret` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `phone` varchar(255) NOT NULL,
+  `remember_token` text NULL,
+  `google2fa_secret` text NULL,
   `role` tinyint(1) NULL DEFAULT 1,
   `reinvest` tinyint NULL DEFAULT 1,
   `upline_id` bigint NULL DEFAULT NULL,
@@ -518,7 +518,7 @@ CREATE TABLE `user`  (
   INDEX `user_ibfk_3`(`upline_id`) USING BTREE,
   INDEX `email`(`email`) USING BTREE,
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`contract_id`) REFERENCES `contract` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of user
@@ -532,12 +532,12 @@ INSERT INTO `user` VALUES (2, 'james', '$2y$10$SxbbORiZhYXCCYoFzxwqquRA5MobRbZqQ
 DROP TABLE IF EXISTS `withdrawal`;
 CREATE TABLE `withdrawal`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `wallet` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `wallet` varchar(255) NOT NULL,
   `amount` decimal(15, 2) NOT NULL,
   `fee` decimal(15, 2) NOT NULL,
   `usdt_price` decimal(15, 10) NULL DEFAULT NULL,
   `usdt_amount` decimal(15, 2) NULL DEFAULT NULL,
-  `txid` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `txid` text NULL,
   `operator_id` bigint NULL DEFAULT NULL,
   `user_id` bigint NOT NULL,
   `processed_at` timestamp NULL DEFAULT NULL,
@@ -549,7 +549,7 @@ CREATE TABLE `withdrawal`  (
   INDEX `id_operator`(`operator_id`) USING BTREE,
   CONSTRAINT `withdrawal_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `withdrawal_ibfk_2` FOREIGN KEY (`operator_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ;
 
 -- ----------------------------
 -- Records of withdrawal

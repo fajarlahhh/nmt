@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
       Route::get('/profile', \App\Http\Livewire\Member\Profile::class);
       Route::get('/security', \App\Http\Livewire\Member\Security::class);
       Route::get('/bonus', \App\Http\Livewire\Member\Bonus::class);
+      Route::get('/renewal', \App\Http\Livewire\Member\Renewal::class);
     });
   });
 

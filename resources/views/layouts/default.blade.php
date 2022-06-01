@@ -58,10 +58,14 @@
     @include('includes.side-menu')
     <!-- begin #content -->
     <div id="content" class="content">
-      @if (!auth()->user()->wallet || !auth()->user()->phone || !auth()->user()->security)
+      @if (!auth()->user()->wallet || !auth()->user()->phone || !auth()->user()->security || !auth()->user()->activated_at)
         <div class="alert alert-warning border-0">
           <h5>Warning</h5>
           <ul>
+            @if (!auth()->user()->activated_at)
+              <li>You need to renew the contract. <a href="/renewal" class="text-primary">Click here</a> to do it
+              </li>
+            @endif
             @if (!auth()->user()->wallet)
               <li>You have not added a wallet address. <a href="/profile" class="text-primary">Click here</a> to add it
               </li>

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Member;
 
 use App\Models\Bonus;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -25,6 +26,10 @@ class Withdrawal extends Component
 
   public function submit()
   {
+    if (!auth()->user()->activated_at) {
+      session()->flash('danger', '<b>Withdrawal</b><br>You cannot do this action');
+      return;
+    }
     if (auth()->user()->security) {
       $this->validate([
         'available' => 'required',
@@ -39,7 +44,7 @@ class Withdrawal extends Component
     }
 
     if (auth()->user()->security != $this->security) {
-      session()->flash('danger', '<b>Security</b><br>Invalid security pin');
+      session()->flash('danger', '<b>Withdrawal</b><br>Invalid security pin');
       return;
     }
 
@@ -107,6 +112,12 @@ class Withdrawal extends Component
       $bonus->save();
 
       session()->flash('success', '<b>Withdrawal</b><br>Your withdrawal is successufully created. Please wait for 1 x 24');
+
+      if (auth()->user()->available_contract < 25) {
+        User::where('id', auth()->id())->udpdate([
+          'activated_at' => null,
+        ]);
+      }
 
       redirect('/withdrawal');
     });

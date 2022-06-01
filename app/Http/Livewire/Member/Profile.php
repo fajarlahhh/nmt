@@ -22,6 +22,10 @@ class Profile extends Component
 
   public function submit()
   {
+    if (!auth()->user()->activated_at) {
+      session()->flash('danger', '<b>Profile</b><br>You cannot do this action');
+      return;
+    }
     if (auth()->user()->security) {$this->validate(
       [
         'username' => 'required',
@@ -45,7 +49,7 @@ class Profile extends Component
     }
 
     if (auth()->user()->security != $this->security) {
-      session()->flash('danger', '<b>Security</b><br>Invalid security pin');
+      session()->flash('danger', '<b>Profile</b><br>Invalid security pin');
       return;
     }
 
@@ -54,7 +58,7 @@ class Profile extends Component
     $this->data->email = $this->email;
     $this->data->wallet = $this->wallet;
     $this->data->save();
-    session()->flash('success', '<b>Profile Update</b><br>Your profile updated successfully');
+    session()->flash('success', '<b>Profile</b><br>Your profile updated successfully');
   }
 
   public function render()

@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire\Administrator;
 
+use App\Http\Livewire\Main;
 use App\Models\Bonus;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Livewire\Component;
 use Livewire\WithPagination;
 
-class Daily extends Component
+class Daily extends Main
 {
   use WithPagination;
 

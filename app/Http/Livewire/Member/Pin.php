@@ -16,6 +16,10 @@ class Pin extends Component
 
   public function submit()
   {
+    if (!auth()->user()->activated_at) {
+      session()->flash('danger', '<b>Pin</b><br>You cannot do this action');
+      return;
+    }
     if (auth()->user()->security) {
       $this->validate([
         'username' => 'required',
@@ -30,24 +34,24 @@ class Pin extends Component
     }
 
     if (auth()->user()->security != $this->security) {
-      session()->flash('danger', '<b>Security</b><br>Invalid security pin');
+      session()->flash('danger', '<b>Pin</b><br>Invalid security pin');
       return;
     }
 
     if ($this->amount < 0) {
-      session()->flash('danger', '<b>Send Pin</b><br>Invalid amount');
+      session()->flash('danger', '<b>Pin</b><br>Invalid amount');
       return;
     }
 
     if ((int) auth()->user()->available_pin <= $this->amount) {
-      session()->flash('danger', '<b>Send Pin</b><br>Insufficient pin');
+      session()->flash('danger', '<b>Pin</b><br>Insufficient pin');
       return;
     }
 
     $username = User::where('username', $this->username)->first();
 
     if (!isset($username)) {
-      session()->flash('danger', '<b>Send Pin</b><br>Username is not registered');
+      session()->flash('danger', '<b>Pin</b><br>Username is not registered');
       return;
     }
 
