@@ -14,7 +14,7 @@
       <li class="dropdown navbar-user">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <img src="/assets/img/logo.png" style="width: 34px">
-          <b>{{ auth()->user()->name }}</b>
+          <b>{{ auth()->user()->username }}</b>
         </a>
         <div class="dropdown-menu dropdown-menu-right">
           <a href="/profile" class="dropdown-item">My Profile</a>
