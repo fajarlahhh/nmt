@@ -96,6 +96,7 @@ class Renewal extends Component
         $upline = User::where('id', $this->upline)->first();
 
         User::where('id', auth()->id())->update([
+          'contract_id' => $this->contract,
           'activated_at' => now(),
           'reinvest' => auth()->user()->reinvest + 1,
         ]);
