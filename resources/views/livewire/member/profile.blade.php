@@ -46,7 +46,7 @@
             </div>
             <hr>
             <div class="form-group mb-2">
-              <label for="wallet" class="form-label">USDT Wallet </label>
+              <label for="wallet" class="form-label">USDT Wallet <small>USDT BEP-20</small></label>
               <input id="wallet" type="text" class="form-control text-gray-700" wire:model.defer="wallet">
               @error('wallet')
                 <span class="text-danger">This field is required</span>
