@@ -1,7 +1,7 @@
 <div>
   @push('css')
     <link href="{{ asset('/admin/assets/css/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
-    <link href="/admin/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/admin/plugins/select2/select2.min.css">
   @endpush
   @include('form.password')
   <div id="content" class="main-content">
@@ -12,14 +12,18 @@
           <div class="widget widget-table-two">
 
             <div class="widget-heading">
-              <h5 class="">Daily Bonus</h5>
+              <h5 class="">Pin</h5>
             </div>
 
             <div class="widget-content">
               @if (\App\Models\Daily::where('created_at', 'like', date('Y-m-d') . '%')->count() == 0)
                 <div class="input-group mb-3">
-                  <input id="basicFlatpickr" wire:model.defer="date"
-                    class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date..">
+                  <select class="form-control basic" wire:model.defer="user">
+                    <option value="">-- Choose Username --</option>
+                    @foreach ($dataUser as $row)
+                      <option value="{{ $row->getKey() }}">{{ $row->username }}</option>
+                    @endforeach
+                  </select>
                   <input type="number" step="any" min="0" max="10" class="form-control" wire:model.defer="amount"
                     aria-describedby="button-addon2">
                   <div class="input-group-append">
@@ -39,7 +43,10 @@
                         <div class="th-content">Date</div>
                       </th>
                       <th>
-                        <div class="th-content">Value</div>
+                        <div class="th-content">Username</div>
+                      </th>
+                      <th>
+                        <div class="th-content">Amount</div>
                       </th>
                     </tr>
                   </thead>
@@ -50,10 +57,13 @@
                           <div class="td-content">{{ ++$no }}</div>
                         </td>
                         <td>
-                          <div class="td-content">{{ $row->date }}</div>
+                          <div class="td-content">{{ $row->created_at }}</div>
                         </td>
                         <td>
-                          <div class="td-content">{{ $row->value }}</div>
+                          <div class="td-content">{{ $row->user->username }}</div>
+                        </td>
+                        <td>
+                          <div class="td-content">{{ number_format($row->credit) }}</div>
                         </td>
                       </tr>
                     @endforeach
@@ -76,11 +86,22 @@
     </div>
   </div>
   @push('scripts')
-    <script src="/admin/plugins/flatpickr/flatpickr.js"></script>
+    <script src="/admin/plugins/select2/select2.min.js"></script>
     <script>
-      var f1 = flatpickr(document.getElementById('basicFlatpickr'));
+      var ss = $(".basic").select2({
+        tags: true,
+      }).on('change', function(e) {
+        window.livewire.emit('set:setuser', $(this).val());
+      });
       window.livewire.on('passwordModalClose', () => {
         $('#passwordModal').modal('hide');
+      });
+      Livewire.on('reinitialize', id => {
+        var ss = $(".basic").select2({
+          tags: true,
+        }).on('change', function(e) {
+          window.livewire.emit('set:setuser', $(this).val());
+        });
       });
     </script>
   @endpush

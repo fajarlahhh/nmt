@@ -111,13 +111,13 @@ class Withdrawal extends Component
       $bonus->withdrawal_id = $withdrawal->id;
       $bonus->save();
 
-      session()->flash('success', '<b>Withdrawal</b><br>Your withdrawal is successufully created. Please wait for 1 x 24');
-
       if (auth()->user()->available_contract < 25) {
         User::where('id', auth()->id())->udpdate([
           'activated_at' => null,
         ]);
       }
+
+      session()->flash('success', '<b>Withdrawal</b><br>Your withdrawal is successufully created. Please wait for 1 x 24');
 
       redirect('/withdrawal');
     });

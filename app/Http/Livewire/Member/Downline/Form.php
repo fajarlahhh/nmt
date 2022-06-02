@@ -36,6 +36,7 @@ class Form extends Component
 
       User::where('id', $this->deposit->user_id)->restore();
     });
+    session()->flash('success', '<b>Enrollment</b><br>Enrollment is successful');
     redirect('/downline/new');
   }
 
@@ -159,7 +160,6 @@ class Form extends Component
         $debet->description = "Enrollment contract " . number_format($dataContract->value) . " username " . $this->username;
         $debet->save();
 
-        session()->flash('success', '<b>Enrollment</b><br>Enrollment is successful');
       });
 
       redirect('/downline/new');

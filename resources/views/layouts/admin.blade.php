@@ -180,6 +180,13 @@
               </div>
             </a>
           </li>
+          <li class="menu single-menu">
+            <a href="/admin-area/pin">
+              <div class="">
+                <span>Pin</span>
+              </div>
+            </a>
+          </li>
         </ul>
       </nav>
     </div>

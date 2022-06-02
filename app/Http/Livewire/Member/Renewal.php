@@ -35,6 +35,7 @@ class Renewal extends Component
 
       User::where('id', $this->deposit->user_id)->restore();
     });
+    session()->flash('success', '<b>Contract renewal</b><br>Contract renewal is successful');
     redirect('/renewal');
   }
 
@@ -122,7 +123,6 @@ class Renewal extends Component
         $debet->description = "Contract renewal " . number_format($dataContract->value);
         $debet->save();
 
-        session()->flash('success', '<b>Contract renewal</b><br>Contract renewal is successful');
       });
 
       redirect('/renewal');

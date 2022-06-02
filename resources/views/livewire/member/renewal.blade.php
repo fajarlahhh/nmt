@@ -12,9 +12,6 @@
     </div>
     <div class="col-xs-12">
       @include('includes.message')
-      <div class="alert alert-warning border-0">
-
-      </div>
       @if (isset($deposit))
         <form wire:submit.prevent="done">
           <div class="intro-y box text-center overflow-x-auto">
@@ -73,6 +70,9 @@
           </div>
         </form>
       @else
+        <div class="alert alert-warning border-0">
+
+        </div>
         <form wire:submit.prevent="submit">
           <a href="/pin" class="text-decoration-none">
             <div class="widget widget-stats bg-info">
