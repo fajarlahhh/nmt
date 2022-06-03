@@ -85,9 +85,7 @@ class Withdrawal extends Component
       return;
     }
 
-    $indodax = Http::get('https://indodax.com/api/summaries')->collect()->first();
-    $this->usdtPrice = (float) $indodax[strtolower('usdt_idr')]['last'];
-    $this->usdtWd = round((($this->amount ?: 0) - auth()->user()->contract->fee_withdrawal) * 15000 / $this->usdtPrice, 3);
+    $this->usdtWd = round((($this->amount ?: 0) - auth()->user()->contract->fee_withdrawal) * 15000 / 14500, 3);
     $this->emit('confirmation');
   }
 

@@ -46,7 +46,7 @@
               </div>
               <div class="widget-list-content">
                 <div class="widget-list-title">{{ $row->description }}<br>
-                  <small>{{ $row->waktu }}</small>
+                  <small>{{ $row->created_at }}</small>
                 </div>
               </div>
               <div class="widget-list-action text-nowrap">

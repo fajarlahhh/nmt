@@ -15,15 +15,12 @@
       @include('includes.message')
 
       <form wire:submit.prevent="submit">
-        <a href="/pin" class="text-decoration-none">
-          <div class="widget widget-stats bg-info">
-            <div class="stats-icon stats-icon-lg"><i class="fas fa-xs fa-fw fa-ticket-alt"></i></div>
-            <div class="stats-content">
-              <div class="stats-title">PIN</div>
-              <div class="stats-number">{{ number_format(auth()->user()->available_pin) }}</div>
-            </div>
-          </div>
-        </a>
+        <div class="alert alert-info">
+          <ul>
+            <li><strong>Available Pin: {{ number_format(auth()->user()->available_pin) }}</strong></li>
+            <li><strong>Available Balance: {{ number_format(auth()->user()->available_balance) }} USDT </strong></li>
+          </ul>
+        </div>
         <div class="card">
           <div class="card-body">
             <div class="form-group mb-2">
@@ -85,7 +82,12 @@
                 data-live-search="true" data-style="btn-white">
                 <option value="" selected>-- Choose Contract --</option>
                 @foreach ($dataContract as $row)
-                  <option value="{{ $row->getKey() }}">$ {{ number_format($row->value) }} - {{ $row->name }}
+                  @php
+                    $aktif = ($row->value * 15000) / 14500 < auth()->user()->available_balance ? '' : 'disabled';
+                  @endphp
+                  <option value="{{ $row->getKey() }}" {{ $aktif }}>$ {{ number_format($row->value) }} =
+                    {{ number_format(($row->value * 15000) / 14500) }} USDT -
+                    {{ $row->name }}
                   </option>
                 @endforeach
               </select>

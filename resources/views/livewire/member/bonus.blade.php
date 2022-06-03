@@ -22,12 +22,16 @@
                 @if ($row->nilai > 0)
                   <i class="fas fa-plus-circle bg-success text-white"></i>
                 @else
-                  <i class="fas fa-download bg-red text-white"></i>
+                  @if ($row->withdrawal->processed_at)
+                    <i class="fas fa-spinner bg-warning text-white"></i>
+                  @else
+                    <i class="fas fa-check bg-red text-white"></i>
+                  @endif
                 @endif
               </div>
               <div class="widget-list-content">
                 <div class="widget-list-title">{{ $row->description }}<br>
-                  <small>{{ $row->waktu }}</small>
+                  <small>{{ $row->processed_at ?: 'Waiting..' }}</small>
                 </div>
               </div>
               <div class="widget-list-action text-nowrap">$

@@ -13,7 +13,7 @@ use Livewire\Component;
 
 class Form extends Component
 {
-  public $username, $name, $phone, $email, $password, $contract, $upline, $dataContract, $dataUpline, $paymentAmount, $deposit, $information, $security;
+  public $username, $name, $phone, $email, $password, $contract, $upline, $dataContract, $dataUpline, $usdtNeed, $deposit, $information, $security;
 
   protected $listeners = ['set:setupline' => 'setUpline'];
 
@@ -63,29 +63,27 @@ class Form extends Component
       return;
     }
 
-    if (User::where('username', $this->username)->withTrashed()->count() > 0) {
-      session()->flash('danger', '<b>Enrollment</b><br>You must complete the previous enrollment');
-      return;
+    $dataContract = collect($this->dataContract)->where('id', $this->contract)->first();
+    $dataTicket = Ticket::where('date', date('Y-m-d'))->where('amount', $dataContract->value)->orderBy('created_at', 'desc')->get();
+    if ($dataTicket->count() > 0) {
+      $this->ticket = $dataTicket->first()->kode;
+    } else {
+      $this->ticket = 1;
     }
 
-    $dataContract = collect($this->dataContract)->where('id', $this->contract)->first();
+    $this->usdtNeed = (float) round($dataContract->value * 15000 / 14500, 3) + ($this->ticket * 1 / 1000);
+
     if ((int) auth()->user()->available_pin < (int) $dataContract->pin_requirement) {
       session()->flash('danger', '<b>Enrollment</b><br>Insufficient pin');
       return;
     }
 
+    if (auth()->user()->available_balance * 1 < $this->usdtNeed * 1) {
+      session()->flash('danger', '<b>Enrollment</b><br>Insufficient balance');
+      return;
+    }
+
     try {
-      $dataTicket = Ticket::where('date', date('Y-m-d'))->where('contract_id', $this->contract)->orderBy('created_at', 'desc')->get();
-      if ($dataTicket->count() > 0) {
-        $this->ticket = $dataTicket->first()->kode;
-      } else {
-        $this->ticket = 1;
-      }
-
-      $indodax = Http::get('https://indodax.com/api/summaries')->collect()->first();
-      $paymentIdr = (float) $indodax[strtolower('usdt_idr')]['last'];
-      $this->paymentAmount = (float) round($dataContract->value * 15000 / $paymentIdr, 3) + ($this->ticket * 1 / 1000);
-
       DB::transaction(function () use ($dataContract) {
         $upline = User::where('id', $this->upline)->first();
 
@@ -109,17 +107,24 @@ class Form extends Component
         $ticket->date = now();
         $ticket->save();
 
-        $debet = new Pin();
-        $debet->user_id = auth()->id();
-        $debet->debit = $dataContract->pin_requirement;
-        $debet->credit = 0;
-        $debet->description = "Enrollment contract " . number_format($dataContract->value) . " username " . $this->username;
-        $debet->save();
+        $pin = new Pin();
+        $pin->user_id = auth()->id();
+        $pin->debit = $dataContract->pin_requirement;
+        $pin->credit = 0;
+        $pin->description = "Enrollment contract " . number_format($dataContract->value) . " username " . $this->username;
+        $pin->save();
+
+        $balance = new Pin();
+        $balance->user_id = auth()->id();
+        $balance->debit = $this->usdtNeed;
+        $balance->credit = 0;
+        $balance->description = "Enrollment contract " . number_format($dataContract->value) . " username " . $this->username;
+        $balance->save();
 
       });
 
       redirect('/downline/new');
-    } catch (\Exception$e) {
+    } catch (\Exception $e) {
       session()->flash('danger', '<b>Enrollment</b><br>' . $e->getMessage());
       return;
     }

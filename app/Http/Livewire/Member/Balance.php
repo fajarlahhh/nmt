@@ -39,11 +39,11 @@ class Balance extends Component
     }
 
     if ($this->amount < 0) {
-      session()->flash('danger', '<b>Deposit</b><br>Amount must bigger than 0');
+      session()->flash('danger', '<b>Balance</b><br>Amount must bigger than 0');
       return;
     }
 
-    if ((int) auth()->user()->available_balance < $this->amount) {
+    if (auth()->user()->available_balance < $this->amount) {
       session()->flash('danger', '<b>Balance</b><br>Insufficient balance');
       return;
     }
