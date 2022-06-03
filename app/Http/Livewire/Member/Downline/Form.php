@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Member\Downline;
 
 use App\Models\Contract;
-use App\Models\Deposit;
 use App\Models\Pin;
 use App\Models\Ticket;
 use App\Models\User;
@@ -23,35 +22,10 @@ class Form extends Component
     $this->upline = $upline;
   }
 
-  public function done()
-  {
-    $this->validate([
-      'information' => 'required',
-    ]);
-
-    DB::transaction(function () {
-      Deposit::where('id', $this->deposit->id)->where('requisite', 'Enrollment')->whereNull('processed_at')->whereNull('information')->update([
-        'information' => $this->information,
-      ]);
-
-      User::where('id', $this->deposit->user_id)->restore();
-    });
-    session()->flash('success', '<b>Enrollment</b><br>Enrollment is successful');
-    redirect('/downline/new');
-  }
-
-  public function cancel($id)
-  {
-    User::where('id', $id)->whereNull('activated_at')->forceDelete();
-    Pin::where('user_id', auth()->id())->orderBy('id', 'desc')->limit(1)->delete();
-    redirect('/downline/new');
-  }
-
   public function mount()
   {
     $this->dataContract = Contract::all();
     $this->dataUpline = auth()->user()->downline->sortBy('name');
-    $this->deposit = auth()->user()->waiting_fund->first();
     $this->upline = auth()->id();
   }
 
@@ -86,16 +60,6 @@ class Form extends Component
 
     if (auth()->user()->security != $this->security) {
       session()->flash('danger', '<b>Security</b><br>Invalid security pin');
-      return;
-    }
-
-    if (auth()->user()->waiting_enrollment->count() > 0) {
-      session()->flash('danger', '<b>Enrollment</b><br>You must complete the previous enrollment');
-      return;
-    }
-
-    if (auth()->user()->waiting_fund->count() > 0) {
-      session()->flash('danger', '<b>Enrollment</b><br>You must complete the previous enrollment');
       return;
     }
 
@@ -136,7 +100,7 @@ class Form extends Component
         $user->upline_id = $this->upline;
         $user->reinvest = 1;
         $user->network = trim($upline->network) . $upline->id . '.';
-        $user->deleted_at = now();
+        $user->activated_at = now();
         $user->save();
 
         $ticket = new Ticket();
@@ -144,14 +108,6 @@ class Form extends Component
         $ticket->kode = $this->ticket;
         $ticket->date = now();
         $ticket->save();
-
-        $deposit = new Deposit();
-        $deposit->owner_id = auth()->id();
-        $deposit->user_id = $user->id;
-        $deposit->wallet = config('constants.wallet');
-        $deposit->amount = $this->paymentAmount;
-        $deposit->requisite = 'Enrollment';
-        $deposit->save();
 
         $debet = new Pin();
         $debet->user_id = auth()->id();
@@ -163,7 +119,7 @@ class Form extends Component
       });
 
       redirect('/downline/new');
-    } catch (\Exception $e) {
+    } catch (\Exception$e) {
       session()->flash('danger', '<b>Enrollment</b><br>' . $e->getMessage());
       return;
     }

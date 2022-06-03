@@ -73,12 +73,33 @@
             <!-- end card-body -->
           </div>
         </div>
-        <!-- begin col-12 -->
+        <div class="col-xs-12">
+          <!-- begin card -->
+          <div class="card border-0 text-truncate mb-3 ">
+            <!-- begin card-body -->
+            <div class="card-body">
+              <!-- begin title -->
+              <div class="mb-3  f-s-13">
+                <b class="mb-3">BALANCE</b>
+              </div>
+              <!-- end title -->
+              <!-- begin conversion-rate -->
+              <div class="d-flex align-items-center mb-1">
+                <h2 class="mb-0 "><span data-animation="number"
+                    data-value="{{ auth()->user()->available_balance }}">{{ auth()->user()->available_balance }}
+                  </span> USDT
+                </h2>
+              </div>
+            </div>
+          </div>
+          <!-- end card -->
+        </div>
         <div class="col-xs-8">
           <div class="widget widget-stats bg-info">
             <div class="stats-icon stats-icon-lg"><i class="fa fa-users fa-fw"></i></div>
             <div class="stats-content">
-              <div class="stats-title"><a href="/downline" class="text-decoration-none text-white">TOTAL DOWNLINE</a>
+              <div class="stats-title"><a href="/downline" class="text-decoration-none text-white">TOTAL
+                  DOWNLINE</a>
               </div>
               <div class="stats-number">{{ number_format(auth()->user()->downline->count()) }}
                 <a href="/downline/new" class="btn btn-warning btn-xs pull-right m-t-20">Enrollment</a>
@@ -86,8 +107,6 @@
             </div>
           </div>
         </div>
-        <!-- end col-12 -->
-        <!-- begin col-12 -->
         <div class="col-xs-4">
           <a href="/pin" class="text-decoration-none">
             <div class="widget widget-stats bg-info">
@@ -99,7 +118,6 @@
             </div>
           </a>
         </div>
-        <!-- end col-12 -->
         <div class="col-xs-12">
           <!-- begin card -->
           <div class="card border-0 mb-3 ">

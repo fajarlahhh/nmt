@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth']], function () {
       Route::get('/security', \App\Http\Livewire\Member\Security::class);
       Route::get('/bonus', \App\Http\Livewire\Member\Bonus::class);
       Route::get('/renewal', \App\Http\Livewire\Member\Renewal::class);
+      Route::get('/deposit', \App\Http\Livewire\Member\Deposit::class);
+      Route::get('/balance', \App\Http\Livewire\Member\Balance::class);
     });
   });
 

@@ -28,14 +28,24 @@ return [
       'url' => '/renewal',
     ],
     [
-      'icon' => 'fas fa-key',
-      'title' => 'Security',
-      'url' => '/security',
+      'icon' => 'fas fa-gift',
+      'title' => 'Bonus',
+      'url' => '/bonus',
     ],
     [
       'icon' => 'fas fa-dollar-sign',
-      'title' => 'Bonus',
-      'url' => '/bonus',
+      'title' => 'Balance',
+      'url' => '/balance',
+    ],
+    [
+      'icon' => 'fas fa-credit-card',
+      'title' => 'Deposit',
+      'url' => '/deposit',
+    ],
+    [
+      'icon' => 'fas fa-key',
+      'title' => 'Security',
+      'url' => '/security',
     ],
     [
       'icon' => 'fas fa-download',

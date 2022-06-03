@@ -35,24 +35,9 @@ class User extends Authenticatable
     return $this->belongsTo(Contract::class);
   }
 
-  public function registration_waiting_fund()
-  {
-    return $this->hasMany(Deposit::class, 'owner_id')->whereIn('requisite', ['Registration', 'Restake'])->whereNull('information')->whereNull('processed_at');
-  }
-
-  public function registration_waiting_activated()
-  {
-    return $this->hasMany(Deposit::class, 'owner_id')->where('requisite', 'Registration')->whereNotNull('information')->whereNull('processed_at');
-  }
-
   public function deposit()
   {
-    return $this->hasMany(Deposit::class, 'owner_id');
-  }
-
-  public function renewal_waiting_activated()
-  {
-    return $this->hasMany(Deposit::class, 'owner_id')->where('requisite', 'Renewal')->whereNotNull('file')->whereNotNull('information')->whereNull('id_user_waiting')->whereNull('processed_at');
+    return $this->hasMany(Deposit::class);
   }
 
   public function upline()
@@ -104,9 +89,19 @@ class User extends Authenticatable
     return $this->hasMany(Pin::class);
   }
 
+  public function balance()
+  {
+    return $this->hasMany(Balance::class);
+  }
+
   public function getAvailablePinAttribute()
   {
     return $this->pin()->sum('credit') - $this->pin()->sum('debit');
+  }
+
+  public function getAvailableBalanceAttribute()
+  {
+    return $this->balance()->sum('credit') - $this->balance()->sum('debit');
   }
 
   public function getDownlineAttribute()
@@ -115,19 +110,14 @@ class User extends Authenticatable
     return $this->selectRaw("*, LENGTH(REPLACE(network, '" . $user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $user . "', ''), '.', '')) + 1 level")->with('contract')->where('network', 'like', $user . '%')->whereRaw("LENGTH(REPLACE(network, '" . $user . "', '')) - LENGTH(REPLACE(REPLACE(network, '" . $user . "', ''), '.', '')) < 5")->get();
   }
 
-  public function getWaitingRenewalAttribute()
+  public function getDepositWaitingFundAttribute()
   {
-    return $this->deposit->where('requisite', 'Renewal')->whereNull('information')->whereNull('processed_at');
+    return $this->deposit->whereNull('information')->whereNull('processed_at');
   }
 
-  public function getWaitingEnrollmentAttribute()
+  public function getDepositWaitingProcessAttribute()
   {
-    return $this->deposit->where('requisite', 'Enrollment')->whereNotNull('information')->whereNull('processed_at');
-  }
-
-  public function getWaitingFundAttribute()
-  {
-    return $this->deposit->where('requisite', 'Enrollment')->whereNull('information')->whereNull('processed_at');
+    return $this->deposit->whereNull('processed_at');
   }
 
   public function getWalletShortAttribute()
