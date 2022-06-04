@@ -69,6 +69,7 @@ class Balance extends Component
       $debet->credit = 0;
       $debet->description = "Transfer to " . $this->username;
       $debet->save();
+      session()->flash('success', '<b>Balance</b><br>Balance transfer successfully');
     });
     redirect('/balance');
   }

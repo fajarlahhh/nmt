@@ -91,7 +91,7 @@ class Renewal extends Component
         ]);
 
         $ticket = new Ticket();
-        $ticket->contract_id = $this->contract;
+        $ticket->amount = $dataContract->value;
         $ticket->kode = $this->ticket;
         $ticket->date = now();
         $ticket->save();
@@ -103,7 +103,7 @@ class Renewal extends Component
         $debet->description = "Contract Renewal " . number_format($dataContract->value);
         $debet->save();
 
-        $balance = new Pin();
+        $balance = new Balance();
         $balance->user_id = auth()->id();
         $balance->debit = $this->usdtNeed;
         $balance->credit = 0;
@@ -113,6 +113,7 @@ class Renewal extends Component
         $member = User::where('id', auth()->id())->with('contract')->with('upline.upline.upline.upline.upline')->first();
         $bonus = [];
         $turnover = [];
+        $time = now();
 
         if ($member->upline) {
           if ($member->upline->activated_at) {
@@ -223,6 +224,7 @@ class Renewal extends Component
         foreach ($dataTurnover as $item) {
           Turnover::insert($item->toArray());
         }
+        session()->flash('success', '<b>Contract Renewal</b><br>Contract renewal successfully');
       });
 
       redirect('/renewal');

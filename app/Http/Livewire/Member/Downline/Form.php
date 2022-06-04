@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Member\Downline;
 
+use App\Models\Balance;
 use App\Models\Bonus;
 use App\Models\Contract;
 use App\Models\Pin;
@@ -103,7 +104,7 @@ class Form extends Component
         $user->save();
 
         $ticket = new Ticket();
-        $ticket->contract_id = $this->contract;
+        $ticket->amount = $dataContract->value;
         $ticket->kode = $this->ticket;
         $ticket->date = now();
         $ticket->save();
@@ -115,7 +116,7 @@ class Form extends Component
         $pin->description = "Enrollment contract " . number_format($dataContract->value) . " username " . $this->username;
         $pin->save();
 
-        $balance = new Pin();
+        $balance = new Balance();
         $balance->user_id = auth()->id();
         $balance->debit = $this->usdtNeed;
         $balance->credit = 0;
@@ -125,6 +126,7 @@ class Form extends Component
         $member = User::where('id', $user->id)->with('contract')->with('upline.upline.upline.upline.upline')->first();
         $bonus = [];
         $turnover = [];
+        $time = now();
 
         if ($member->upline) {
           if ($member->upline->activated_at) {
@@ -235,6 +237,7 @@ class Form extends Component
         foreach ($dataTurnover as $item) {
           Turnover::insert($item->toArray());
         }
+        session()->flash('success', '<b>Enrollment</b><br>Enrollment successfully');
       });
 
       redirect('/downline/new');

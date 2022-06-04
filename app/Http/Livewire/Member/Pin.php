@@ -69,6 +69,7 @@ class Pin extends Component
       $debet->credit = 0;
       $debet->description = "Transfer to " . $this->username;
       $debet->save();
+      session()->flash('success', '<b>Pin</b><br>Pin transfer successfully');
     });
     redirect('/pin');
   }
