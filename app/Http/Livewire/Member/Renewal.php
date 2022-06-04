@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire\Member;
 
+use App\Models\Balance;
 use App\Models\Bonus;
 use App\Models\Contract;
-use App\Models\Deposit;
 use App\Models\Pin;
 use App\Models\Ticket;
 use App\Models\Turnover;
@@ -26,7 +26,6 @@ class Renewal extends Component
   public function mount()
   {
     $this->dataContract = Contract::all();
-    $this->deposit = auth()->user()->waiting_renewal->first();
   }
 
   public function submit()
@@ -74,13 +73,6 @@ class Renewal extends Component
     }
 
     try {
-      $dataTicket = Ticket::where('date', date('Y-m-d'))->where('contract_id', $this->contract)->orderBy('created_at', 'desc')->get();
-      if ($dataTicket->count() > 0) {
-        $this->ticket = $dataTicket->first()->kode;
-      } else {
-        $this->ticket = 1;
-      }
-
       DB::transaction(function () use ($dataContract) {
         $upline = User::where('id', $this->upline)->first();
 
@@ -89,6 +81,10 @@ class Renewal extends Component
           'activated_at' => now(),
           'reinvest' => auth()->user()->reinvest + 1,
         ]);
+
+        $available_bonus = auth()->user()->available_bonus;
+
+        Bonus::where('user_id', $data->user_id)->delete();
 
         $ticket = new Ticket();
         $ticket->amount = $dataContract->value;
@@ -114,6 +110,15 @@ class Renewal extends Component
         $bonus = [];
         $turnover = [];
         $time = now();
+
+        arrau_push($bonus, [
+          'description' => "the rest of the previous bonus",
+          'debit' => 0,
+          'credit' => $available_bonus / 2,
+          'user_id' => auth()->id(),
+          'created_at' => $time,
+          'updated_at' => $time,
+        ]);
 
         if ($member->upline) {
           if ($member->upline->activated_at) {
@@ -235,6 +240,7 @@ class Renewal extends Component
   }
   public function render()
   {
+    $this->emit('reinitialize');
     return view('livewire.member.renewal')->extends('layouts.default');
   }
 }

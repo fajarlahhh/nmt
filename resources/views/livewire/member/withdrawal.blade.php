@@ -46,9 +46,6 @@
                         <label for="available" class="form-label text-dark">Available Bonus</label>
                         <input id="available" type="text" class="form-control" readonly
                           value="{{ number_format(auth()->user()->available_bonus) }}">
-                        @error('available')
-                          <span class="text-danger">This field is required</span>
-                        @enderror
                       </div>
                       <div class="form-group mb-2">
                         <label for="amount" class="form-label text-dark">Withdrawal Amount</label>

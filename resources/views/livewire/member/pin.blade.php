@@ -49,9 +49,9 @@
                   <small>{{ $row->created_at }}</small>
                 </div>
               </div>
-              <div class="widget-list-action text-nowrap">
+              <div class="widget-list-action text-nowrap f-w-600 text-right">
                 <span data-animation="number"
-                  data-value="{{ $row->nilai < 0 ? -1 * $row->nilai : $row->nilai }}"></span>
+                  data-value="{{ $row->nilai < 0 ? -1 * $row->nilai : $row->nilai }}">{{ number_format($row->nilai < 0 ? -1 * $row->nilai : $row->nilai) }}</span>
               </div>
             </a>
           @endforeach

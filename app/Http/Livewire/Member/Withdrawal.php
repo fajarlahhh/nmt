@@ -6,7 +6,6 @@ use App\Models\Bonus;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -16,12 +15,11 @@ class Withdrawal extends Component
 
   protected $paginationTheme = 'bootstrap';
 
-  public $amount, $available, $today, $usdtPrice, $usdtWd, $security;
+  public $amount, $today, $usdtPrice, $usdtWd, $security;
 
   public function mount()
   {
     $this->today = Carbon::now()->dayOfWeek;
-    $this->available = auth()->user()->available_bonus;
   }
 
   public function submit()
@@ -50,7 +48,7 @@ class Withdrawal extends Component
 
     $this->amount = $this->amount ?: 0;
 
-    if ($this->available < $this->amount) {
+    if (auth()->user()->available_bonus < $this->amount) {
       session()->flash('danger', '<b>Withdrawal</b><br>Insufficient bonus');
       return;
     }
@@ -109,7 +107,7 @@ class Withdrawal extends Component
       $bonus->withdrawal_id = $withdrawal->id;
       $bonus->save();
 
-      if (auth()->user()->available_contract < 25) {
+      if (auth()->user()->available_bonus < 25) {
         User::where('id', auth()->id())->udpdate([
           'activated_at' => null,
         ]);
