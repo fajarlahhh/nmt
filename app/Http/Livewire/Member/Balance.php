@@ -77,7 +77,7 @@ class Balance extends Component
   public function render()
   {
     $this->emit('reinitialize');
-    $data = \App\Models\Balance::where('user_id', auth()->id());
+    $data = \App\Models\Balance::where('user_id', auth()->id())->orderBy('id', 'desc');
     return view('livewire.member.balance', [
       'noUrut' => ($this->page - 1) * 10,
       'data' => $data->paginate(10),
