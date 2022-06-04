@@ -27,4 +27,9 @@ class Deposit extends Model
   {
     return $this->belongsTo(User::class)->withTrashed();
   }
+
+  public function getNilaiAttribute()
+  {
+    return $this->amount * 1;
+  }
 }

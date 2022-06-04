@@ -31,38 +31,35 @@
                 </li>
               </ul>
             </div>
-            {{-- @if ($today < 1 || $today > 5)
+            @if ($today < 1 || $today > 5)
             @else
               @if ((int) date('Hms') < 70000 || (int) date('Hms') > 150000)
-              @else --}}
-            <div class="form-group mb-2">
-              <label for="available" class="form-label text-dark">Available</label>
-              <input id="available" type="text" class="form-control text-gray-700" readonly
-                value="$ {{ number_format($available) }}">
-              @error('available')
-                <span class="text-danger">This field is required</span>
-              @enderror
-            </div>
-            <div class="form-group mb-2">
-              <label for="amountActive" class="form-label text-dark">Amount</label>
-              <input id="amountActive" type="number" min="0" autocomplete="off" class="form-control text-gray-700"
-                wire:model="amountActive">
-              @error('amountActive')
-                <span class="text-danger">This field is required</span>
-              @enderror
-            </div>
-            {{-- @endif
-            @endif --}}
+              @else
+                <div class="form-group mb-2">
+                  <label for="available" class="form-label text-dark">Available</label>
+                  <input id="available" type="text" class="form-control text-gray-700" readonly
+                    value="$ {{ number_format(auth()->user()->available_bonus) }}">
+                </div>
+                <div class="form-group mb-2">
+                  <label for="amountActive" class="form-label text-dark">Amount</label>
+                  <input id="amountActive" type="number" min="0" autocomplete="off" class="form-control text-gray-700"
+                    wire:model="amountActive">
+                  @error('amountActive')
+                    <span class="text-danger">This field is required</span>
+                  @enderror
+                </div>
+              @endif
+            @endif
           </div>
-          {{-- @if ($today < 1 || $today > 5)
+          @if ($today < 1 || $today > 5)
           @else
             @if ((int) date('Hms') < 70000 || (int) date('Hms') > 150000)
-            @else --}}
-          <div class="modal-footer text-center">
-            <input type="submit" wire:click.prevent="activeCount" class="btn btn-primary " value="Submit">
-          </div>
-          {{-- @endif
-          @endif --}}
+            @else
+              <div class="modal-footer text-center">
+                <input type="submit" wire:click.prevent="activeCount" class="btn btn-primary " value="Submit">
+              </div>
+            @endif
+          @endif
         @else
           <div class="modal-body text-center">
             <h5 class="text-danger">Withdrawals can only be done once a day</h5>

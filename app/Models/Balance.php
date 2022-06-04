@@ -16,7 +16,7 @@ class Balance extends Model
 
   public function getNilaiAttribute()
   {
-    return (float) $this->debit > 0 ? -1 * $this->debit : 1 * $this->credit;
+    return $this->debit > 0 ? -1 * $this->debit : 1 * $this->credit;
   }
 
   public function getWaktuAttribute()

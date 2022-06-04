@@ -96,8 +96,9 @@
                     <small>{{ $row->processed_at ?: 'Waiting...' }}</small>
                   </div>
                 </div>
-                <div class="widget-list-action text-nowrap">
-                  {{ number_format($row->amount, 5) }}
+                <div class="widget-list-action text-nowrap f-w-600 text-right">
+                  <span data-animation="number"
+                    data-value="{{ $row->nilai }}">{{ number_format($row->nilai) }}</span>
                 </div>
               </a>
             @endforeach
