@@ -23,9 +23,9 @@
                   <i class="fas fa-plus-circle bg-success text-white"></i>
                 @else
                   @if ($row->withdrawal->processed_at)
-                    <i class="fas fa-spinner bg-warning text-white"></i>
-                  @else
                     <i class="fas fa-check bg-red text-white"></i>
+                  @else
+                    <i class="fas fa-spinner bg-warning text-white"></i>
                   @endif
                 @endif
               </div>
