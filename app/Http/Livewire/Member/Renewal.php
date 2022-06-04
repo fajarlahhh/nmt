@@ -68,7 +68,7 @@ class Renewal extends Component
     }
 
     $dataContract = collect($this->dataContract)->where('id', $this->contract)->first();
-    if ((int) auth()->user()->available_pin < (int) $dataContract->pin_requirement) {
+    if (1 * auth()->user()->available_pin < 1 * $dataContract->pin_requirement) {
       session()->flash('danger', '<b>Contract Renewal</b><br>Insufficient pin');
       return;
     }

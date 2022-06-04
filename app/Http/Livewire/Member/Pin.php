@@ -43,7 +43,7 @@ class Pin extends Component
       return;
     }
 
-    if ((int) auth()->user()->available_pin < $this->amount) {
+    if (1 * auth()->user()->available_pin < $this->amount) {
       session()->flash('danger', '<b>Pin</b><br>Insufficient pin');
       return;
     }
