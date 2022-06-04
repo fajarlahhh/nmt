@@ -2,18 +2,19 @@
 
 namespace App\Http\Livewire\Member\Downline;
 
+use App\Models\Bonus;
 use App\Models\Contract;
 use App\Models\Pin;
 use App\Models\Ticket;
+use App\Models\Turnover;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class Form extends Component
 {
-  public $username, $name, $phone, $email, $password, $contract, $upline, $dataContract, $dataUpline, $usdtNeed, $deposit, $information, $security;
+  public $username, $name, $phone, $email, $password, $contract, $upline, $dataContract, $dataUpline, $usdtNeed, $deposit, $information, $security, $ticket;
 
   protected $listeners = ['set:setupline' => 'setUpline'];
 
@@ -73,7 +74,7 @@ class Form extends Component
 
     $this->usdtNeed = (float) round($dataContract->value * 15000 / 14500, 3) + ($this->ticket * 1 / 1000);
 
-    if ((int) auth()->user()->available_pin < (int) $dataContract->pin_requirement) {
+    if ((int) auth()->user()->available_pin * 1 < (int) $dataContract->pin_requirement * 1) {
       session()->flash('danger', '<b>Enrollment</b><br>Insufficient pin');
       return;
     }
@@ -121,10 +122,123 @@ class Form extends Component
         $balance->description = "Enrollment contract " . number_format($dataContract->value) . " username " . $this->username;
         $balance->save();
 
+        $member = User::where('id', $user->id)->with('contract')->with('upline.upline.upline.upline.upline')->first();
+        $bonus = [];
+        $turnover = [];
+
+        if ($member->upline) {
+          if ($member->upline->activated_at) {
+            array_push($bonus, [
+              'description' => "Ref. 10% of $ " . number_format($member->contract->value) . " by " . $member->username,
+              'debit' => 0,
+              'credit' => $member->contract->sponsorship_benefits,
+              'user_id' => $member->upline->id,
+              'created_at' => $time,
+              'updated_at' => $time,
+            ]);
+
+            array_push($turnover, [
+              'user_id' => $member->upline->id,
+              'value' => $member->contract->value,
+              'downline_id' => $member->id,
+              'created_at' => $time,
+              'updated_at' => $time,
+            ]);
+          }
+          if ($member->upline->upline) {
+            if ($member->upline->upline->activated_at) {
+              array_push($bonus, [
+                'description' => "Lvl. 1 3% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                'debit' => 0,
+                'credit' => $member->contract->first_level_benefits,
+                'user_id' => $member->upline->upline->id,
+                'created_at' => $time,
+                'updated_at' => $time,
+              ]);
+
+              array_push($turnover, [
+                'user_id' => $member->upline->upline->id,
+                'value' => $member->contract->value,
+                'downline_id' => $member->id,
+                'created_at' => $time,
+                'updated_at' => $time,
+              ]);
+            }
+            if ($member->upline->upline->upline) {
+              if ($member->upline->upline->upline->activated_at) {
+                array_push($bonus, [
+                  'description' => "Lvl. 2 2% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                  'debit' => 0,
+                  'credit' => $member->contract->second_level_benefits,
+                  'user_id' => $member->upline->upline->upline->id,
+                  'created_at' => $time,
+                  'updated_at' => $time,
+                ]);
+
+                array_push($turnover, [
+                  'user_id' => $member->upline->upline->upline->id,
+                  'value' => $member->contract->value,
+                  'downline_id' => $member->id,
+                  'created_at' => $time,
+                  'updated_at' => $time,
+                ]);
+              }
+              if ($member->upline->upline->upline->upline) {
+                if ($member->upline->upline->upline->upline->activated_at) {
+                  array_push($bonus, [
+                    'description' => "Lvl. 3 1% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                    'debit' => 0,
+                    'credit' => $member->contract->third_level_benefits,
+                    'user_id' => $member->upline->upline->upline->upline->id,
+                    'created_at' => $time,
+                    'updated_at' => $time,
+                  ]);
+
+                  array_push($turnover, [
+                    'user_id' => $member->upline->upline->upline->upline->id,
+                    'value' => $member->contract->value,
+                    'downline_id' => $member->id,
+                    'created_at' => $time,
+                    'updated_at' => $time,
+                  ]);
+                }
+                if ($member->upline->upline->upline->upline->upline) {
+                  if ($member->upline->upline->upline->upline->upline->activated_at) {
+                    array_push($bonus, [
+                      'description' => "Lvl. 4 1% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                      'debit' => 0,
+                      'credit' => $member->contract->forth_level_benefits,
+                      'user_id' => $member->upline->upline->upline->upline->upline->id,
+                      'created_at' => $time,
+                      'updated_at' => $time,
+                    ]);
+
+                    array_push($turnover, [
+                      'user_id' => $member->upline->upline->upline->upline->upline->id,
+                      'value' => $member->contract->value,
+                      'downline_id' => $member->id,
+                      'created_at' => $time,
+                      'updated_at' => $time,
+                    ]);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        $dataBonus = collect($bonus)->chunk(10);
+        foreach ($dataBonus as $item) {
+          Bonus::insert($item->toArray());
+        }
+        $dataTurnover = collect($turnover)->chunk(10);
+        foreach ($dataTurnover as $item) {
+          Turnover::insert($item->toArray());
+        }
       });
 
       redirect('/downline/new');
-    } catch (\Exception $e) {
+    } catch (\Exception$e) {
       session()->flash('danger', '<b>Enrollment</b><br>' . $e->getMessage());
       return;
     }

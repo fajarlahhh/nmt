@@ -2,48 +2,25 @@
 
 namespace App\Http\Livewire\Member;
 
+use App\Models\Bonus;
 use App\Models\Contract;
 use App\Models\Deposit;
 use App\Models\Pin;
 use App\Models\Ticket;
+use App\Models\Turnover;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class Renewal extends Component
 {
-  public $username, $name, $phone, $email, $password, $contract, $upline, $dataContract, $dataUpline, $paymentAmount, $deposit, $information, $security;
+  public $username, $name, $phone, $email, $password, $contract, $upline, $dataContract, $dataUpline, $usdtNeed, $deposit, $information, $security, $ticket;
 
   protected $listeners = ['set:setupline' => 'setUpline'];
 
   public function setUpline($upline)
   {
     $this->upline = $upline;
-  }
-
-  public function done()
-  {
-    $this->validate([
-      'information' => 'required',
-    ]);
-
-    DB::transaction(function () {
-      Deposit::where('id', $this->deposit->id)->where('requisite', 'Enrollment')->whereNull('processed_at')->whereNull('information')->update([
-        'information' => $this->information,
-      ]);
-
-      User::where('id', $this->deposit->user_id)->restore();
-    });
-    session()->flash('success', '<b>Contract renewal</b><br>Contract renewal is successful');
-    redirect('/renewal');
-  }
-
-  public function cancel($id)
-  {
-    Deposit::where('id', $this->deposit->id)->delete();
-    Pin::where('user_id', auth()->id())->orderBy('id', 'desc')->limit(1)->delete();
-    redirect('/renewal');
   }
 
   public function mount()
@@ -66,18 +43,33 @@ class Renewal extends Component
     }
 
     if (auth()->user()->security != $this->security) {
-      session()->flash('danger', '<b>Contract renewal</b><br>Invalid security pin');
+      session()->flash('danger', '<b>Contract Renewal</b><br>Invalid security pin');
       return;
     }
 
-    if (auth()->user()->waiting_renewal->count() > 0) {
-      session()->flash('danger', '<b>Contract renewal</b><br>You must complete the previous enrollment');
+    $dataContract = collect($this->dataContract)->where('id', $this->contract)->first();
+    $dataTicket = Ticket::where('date', date('Y-m-d'))->where('amount', $dataContract->value)->orderBy('created_at', 'desc')->get();
+    if ($dataTicket->count() > 0) {
+      $this->ticket = $dataTicket->first()->kode;
+    } else {
+      $this->ticket = 1;
+    }
+
+    $this->usdtNeed = (float) round($dataContract->value * 15000 / 14500, 3) + ($this->ticket * 1 / 1000);
+
+    if (auth()->user()->available_pin * 1 < $dataContract->pin_requirement * 1) {
+      session()->flash('danger', '<b>Contract Renewal</b><br>Insufficient pin');
+      return;
+    }
+
+    if (auth()->user()->available_balance * 1 < $this->usdtNeed * 1) {
+      session()->flash('danger', '<b>Contract Renewal</b><br>Insufficient balance');
       return;
     }
 
     $dataContract = collect($this->dataContract)->where('id', $this->contract)->first();
     if ((int) auth()->user()->available_pin < (int) $dataContract->pin_requirement) {
-      session()->flash('danger', '<b>Contract renewal</b><br>Insufficient pin');
+      session()->flash('danger', '<b>Contract Renewal</b><br>Insufficient pin');
       return;
     }
 
@@ -88,10 +80,6 @@ class Renewal extends Component
       } else {
         $this->ticket = 1;
       }
-
-      $indodax = Http::get('https://indodax.com/api/summaries')->collect()->first();
-      $paymentIdr = (float) $indodax[strtolower('usdt_idr')]['last'];
-      $this->paymentAmount = (float) round($dataContract->value * 15000 / $paymentIdr, 3) + ($this->ticket * 1 / 1000);
 
       DB::transaction(function () use ($dataContract) {
         $upline = User::where('id', $this->upline)->first();
@@ -108,26 +96,138 @@ class Renewal extends Component
         $ticket->date = now();
         $ticket->save();
 
-        $deposit = new Deposit();
-        $deposit->owner_id = auth()->id();
-        $deposit->user_id = auth()->id();
-        $deposit->wallet = config('constants.wallet');
-        $deposit->amount = $this->paymentAmount;
-        $deposit->requisite = 'Renewal';
-        $deposit->save();
-
         $debet = new Pin();
         $debet->user_id = auth()->id();
         $debet->debit = $dataContract->pin_requirement;
         $debet->credit = 0;
-        $debet->description = "Contract renewal " . number_format($dataContract->value);
+        $debet->description = "Contract Renewal " . number_format($dataContract->value);
         $debet->save();
 
+        $balance = new Pin();
+        $balance->user_id = auth()->id();
+        $balance->debit = $this->usdtNeed;
+        $balance->credit = 0;
+        $balance->description = "Renewal contract " . number_format($dataContract->value) . " username " . $this->username;
+        $balance->save();
+
+        $member = User::where('id', auth()->id())->with('contract')->with('upline.upline.upline.upline.upline')->first();
+        $bonus = [];
+        $turnover = [];
+
+        if ($member->upline) {
+          if ($member->upline->activated_at) {
+            array_push($bonus, [
+              'description' => "Ref. 10% of $ " . number_format($member->contract->value) . " by " . $member->username,
+              'debit' => 0,
+              'credit' => $member->contract->sponsorship_benefits,
+              'user_id' => $member->upline->id,
+              'created_at' => $time,
+              'updated_at' => $time,
+            ]);
+
+            array_push($turnover, [
+              'user_id' => $member->upline->id,
+              'value' => $member->contract->value,
+              'downline_id' => $member->id,
+              'created_at' => $time,
+              'updated_at' => $time,
+            ]);
+          }
+          if ($member->upline->upline) {
+            if ($member->upline->upline->activated_at) {
+              array_push($bonus, [
+                'description' => "Lvl. 1 3% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                'debit' => 0,
+                'credit' => $member->contract->first_level_benefits,
+                'user_id' => $member->upline->upline->id,
+                'created_at' => $time,
+                'updated_at' => $time,
+              ]);
+
+              array_push($turnover, [
+                'user_id' => $member->upline->upline->id,
+                'value' => $member->contract->value,
+                'downline_id' => $member->id,
+                'created_at' => $time,
+                'updated_at' => $time,
+              ]);
+            }
+            if ($member->upline->upline->upline) {
+              if ($member->upline->upline->upline->activated_at) {
+                array_push($bonus, [
+                  'description' => "Lvl. 2 2% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                  'debit' => 0,
+                  'credit' => $member->contract->second_level_benefits,
+                  'user_id' => $member->upline->upline->upline->id,
+                  'created_at' => $time,
+                  'updated_at' => $time,
+                ]);
+
+                array_push($turnover, [
+                  'user_id' => $member->upline->upline->upline->id,
+                  'value' => $member->contract->value,
+                  'downline_id' => $member->id,
+                  'created_at' => $time,
+                  'updated_at' => $time,
+                ]);
+              }
+              if ($member->upline->upline->upline->upline) {
+                if ($member->upline->upline->upline->upline->activated_at) {
+                  array_push($bonus, [
+                    'description' => "Lvl. 3 1% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                    'debit' => 0,
+                    'credit' => $member->contract->third_level_benefits,
+                    'user_id' => $member->upline->upline->upline->upline->id,
+                    'created_at' => $time,
+                    'updated_at' => $time,
+                  ]);
+
+                  array_push($turnover, [
+                    'user_id' => $member->upline->upline->upline->upline->id,
+                    'value' => $member->contract->value,
+                    'downline_id' => $member->id,
+                    'created_at' => $time,
+                    'updated_at' => $time,
+                  ]);
+                }
+                if ($member->upline->upline->upline->upline->upline) {
+                  if ($member->upline->upline->upline->upline->upline->activated_at) {
+                    array_push($bonus, [
+                      'description' => "Lvl. 4 1% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                      'debit' => 0,
+                      'credit' => $member->contract->forth_level_benefits,
+                      'user_id' => $member->upline->upline->upline->upline->upline->id,
+                      'created_at' => $time,
+                      'updated_at' => $time,
+                    ]);
+
+                    array_push($turnover, [
+                      'user_id' => $member->upline->upline->upline->upline->upline->id,
+                      'value' => $member->contract->value,
+                      'downline_id' => $member->id,
+                      'created_at' => $time,
+                      'updated_at' => $time,
+                    ]);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        $dataBonus = collect($bonus)->chunk(10);
+        foreach ($dataBonus as $item) {
+          Bonus::insert($item->toArray());
+        }
+        $dataTurnover = collect($turnover)->chunk(10);
+        foreach ($dataTurnover as $item) {
+          Turnover::insert($item->toArray());
+        }
       });
 
       redirect('/renewal');
-    } catch (\Exception $e) {
-      session()->flash('danger', '<b>Contract renewal</b><br>' . $e->getMessage());
+    } catch (\Exception$e) {
+      session()->flash('danger', '<b>Contract Renewal</b><br>' . $e->getMessage());
       return;
     }
   }
