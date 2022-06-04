@@ -47,14 +47,7 @@ class Renewal extends Component
     }
 
     $dataContract = collect($this->dataContract)->where('id', $this->contract)->first();
-    $dataTicket = Ticket::where('date', date('Y-m-d'))->where('amount', $dataContract->value)->orderBy('created_at', 'desc')->get();
-    if ($dataTicket->count() > 0) {
-      $this->ticket = $dataTicket->first()->kode;
-    } else {
-      $this->ticket = 1;
-    }
-
-    $this->usdtNeed = (float) round($dataContract->value * 15000 / 14500, 3) + ($this->ticket * 1 / 1000);
+    $this->usdtNeed = round($dataContract->value * 15000 / 14500);
 
     if (auth()->user()->available_pin * 1 < $dataContract->pin_requirement * 1) {
       session()->flash('danger', '<b>Contract Renewal</b><br>Insufficient pin');
@@ -233,7 +226,7 @@ class Renewal extends Component
       });
 
       redirect('/renewal');
-    } catch (\Exception$e) {
+    } catch (\Exception $e) {
       session()->flash('danger', '<b>Contract Renewal</b><br>' . $e->getMessage());
       return;
     }

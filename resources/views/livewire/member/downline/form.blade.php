@@ -86,7 +86,7 @@
                     $aktif = ($row->value * 15000) / 14500 < auth()->user()->available_balance ? '' : 'disabled';
                   @endphp
                   <option value="{{ $row->getKey() }}" {{ $aktif }}>$ {{ number_format($row->value) }} =
-                    {{ number_format(($row->value * 15000) / 14500) }} USDT -
+                    {{ number_format(round(($row->value * 15000) / 14500)) }} USDT -
                     {{ $row->name }}
                   </option>
                 @endforeach

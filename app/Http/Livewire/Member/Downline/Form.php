@@ -66,14 +66,7 @@ class Form extends Component
     }
 
     $dataContract = collect($this->dataContract)->where('id', $this->contract)->first();
-    $dataTicket = Ticket::where('date', date('Y-m-d'))->where('amount', $dataContract->value)->orderBy('created_at', 'desc')->get();
-    if ($dataTicket->count() > 0) {
-      $this->ticket = $dataTicket->first()->kode;
-    } else {
-      $this->ticket = 1;
-    }
-
-    $this->usdtNeed = (float) round($dataContract->value * 15000 / 14500, 3) + ($this->ticket * 1 / 1000);
+    $this->usdtNeed = round($dataContract->value * 15000 / 14500);
 
     if (1 * auth()->user()->available_pin < $dataContract->pin_requirement * 1) {
       session()->flash('danger', '<b>Enrollment</b><br>Insufficient pin');
