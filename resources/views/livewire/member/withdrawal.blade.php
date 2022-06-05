@@ -87,8 +87,8 @@
                         @if (auth()->user()->withdrawal_today->count() === 0)
                           <div class="modal-body text-center">
                             <h5>
-                              You Got {{ $usdtWd }} USDT <small>(After Fee $
-                                {{ auth()->user()->contract->fee_withdrawal }})</small><br>To<br>
+                              You Got {{ $amount }} USDT <small>(After Fee
+                                {{ auth()->user()->contract->fee_withdrawal }}) USDT</small><br>To<br>
                               <small> {{ auth()->user()->wallet }}</small>
                               <br>
                               <small class="text-danger">Make sure your wallet address is right</small>

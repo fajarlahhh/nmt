@@ -116,7 +116,7 @@ class Renewal extends Component
         if ($member->upline) {
           if ($member->upline->activated_at) {
             array_push($bonus, [
-              'description' => "Ref. 10% of $ " . number_format($member->contract->value) . " by " . $member->username,
+              'description' => "Ref. 10% of ". number_format($member->contract->value) . " by " . $member->username,
               'debit' => 0,
               'credit' => $member->contract->sponsorship_benefits,
               'user_id' => $member->upline->id,
@@ -135,7 +135,7 @@ class Renewal extends Component
           if ($member->upline->upline) {
             if ($member->upline->upline->activated_at) {
               array_push($bonus, [
-                'description' => "Lvl. 1 3% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                'description' => "Lvl. 1 3% of ". number_format($member->contract->value) . " by " . $member->username,
                 'debit' => 0,
                 'credit' => $member->contract->first_level_benefits,
                 'user_id' => $member->upline->upline->id,
@@ -154,7 +154,7 @@ class Renewal extends Component
             if ($member->upline->upline->upline) {
               if ($member->upline->upline->upline->activated_at) {
                 array_push($bonus, [
-                  'description' => "Lvl. 2 2% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                  'description' => "Lvl. 2 2% of ". number_format($member->contract->value) . " by " . $member->username,
                   'debit' => 0,
                   'credit' => $member->contract->second_level_benefits,
                   'user_id' => $member->upline->upline->upline->id,
@@ -173,7 +173,7 @@ class Renewal extends Component
               if ($member->upline->upline->upline->upline) {
                 if ($member->upline->upline->upline->upline->activated_at) {
                   array_push($bonus, [
-                    'description' => "Lvl. 3 1% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                    'description' => "Lvl. 3 1% of ". number_format($member->contract->value) . " by " . $member->username,
                     'debit' => 0,
                     'credit' => $member->contract->third_level_benefits,
                     'user_id' => $member->upline->upline->upline->upline->id,
@@ -192,7 +192,7 @@ class Renewal extends Component
                 if ($member->upline->upline->upline->upline->upline) {
                   if ($member->upline->upline->upline->upline->upline->activated_at) {
                     array_push($bonus, [
-                      'description' => "Lvl. 4 1% of $ " . number_format($member->contract->value) . " by " . $member->username,
+                      'description' => "Lvl. 4 1% of ". number_format($member->contract->value) . " by " . $member->username,
                       'debit' => 0,
                       'credit' => $member->contract->forth_level_benefits,
                       'user_id' => $member->upline->upline->upline->upline->upline->id,

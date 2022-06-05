@@ -15,7 +15,7 @@ class Withdrawal extends Component
 
   protected $paginationTheme = 'bootstrap';
 
-  public $amount, $today, $usdtPrice, $usdtWd, $security;
+  public $amount, $today, $security;
 
   public function mount()
   {
@@ -83,7 +83,6 @@ class Withdrawal extends Component
       return;
     }
 
-    $this->usdtWd = round((($this->amount ?: 0) - auth()->user()->contract->fee_withdrawal) * 15000 / 14500, 3);
     $this->emit('confirmation');
   }
 
@@ -94,13 +93,11 @@ class Withdrawal extends Component
       $withdrawal->wallet = auth()->user()->wallet;
       $withdrawal->amount = $this->amount;
       $withdrawal->fee = ($this->amount ?: 0) * 0.1;
-      $withdrawal->usdt_price = $this->usdtPrice;
-      $withdrawal->usdt_amount = $this->usdtWd;
       $withdrawal->user_id = auth()->id();
       $withdrawal->save();
 
       $bonus = new Bonus();
-      $bonus->description = "Withdrawal $ " . number_format($this->amount) . " = " . number_format($this->usdtWd) . " USDT";
+      $bonus->description = "Withdrawal";
       $bonus->debit = $this->amount;
       $bonus->credit = 0;
       $bonus->user_id = auth()->id();

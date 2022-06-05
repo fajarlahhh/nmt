@@ -26,9 +26,11 @@
                   </div>
                   <!-- end title -->
                   <div class="d-flex mb-1">
-                    <h2 class="mb-0">{{ strtoupper(auth()->user()->contract->name) }} $<span
-                        data-animation="number"
-                        data-value="{{ auth()->user()->contract->value }}">{{ auth()->user()->contract->value }}</span>
+                    <h2 class="mb-0">{{ strtoupper(auth()->user()->contract->name) }} <small>
+                        <span data-animation="number"
+                          data-value="{{ auth()->user()->contract->value }}">{{ auth()->user()->contract->value }}</span>
+                        USDT
+                      </small>
                     </h2>
                   </div>
                   <div class="stats-progress progress">
@@ -36,7 +38,7 @@
                       style="width: {{ (auth()->user()->available_contract / auth()->user()->contract->benefit) * 100 }}%;">
                     </div>
                   </div>
-                  <div class="stats-desc">Available $ {{ number_format(auth()->user()->available_contract) }}
+                  <div class="stats-desc">Available {{ number_format(auth()->user()->available_contract) }} USDT
                   </div>
                   <hr>
                   <!-- begin row -->
@@ -44,17 +46,18 @@
                     <!-- begin col-6 -->
                     <div class="col-4">
                       <div class="f-s-12">Turnover</div>
-                      <div class="f-s-18 m-b-5 f-w-600 p-b-1">$<span data-animation="number"
+                      <div class="f-s-18 m-b-5 f-w-600 p-b-1"><span data-animation="number"
                           data-value="{{ auth()->user()->turnover->sum('value') }}">{{ auth()->user()->turnover->sum('value') }}</span>
+                        USDT
                       </div>
                     </div>
                     <!-- end col-6 -->
                     <!-- begin col-6 -->
                     <div class="col-8">
                       <div class="f-s-12">Current Bonus</div>
-                      <div class="f-s-18 m-b-5 f-w-600 p-b-1">$<span data-animation="number"
+                      <div class="f-s-18 m-b-5 f-w-600 p-b-1"><span data-animation="number"
                           data-value="{{ auth()->user()->available_bonus }}">{{ auth()->user()->available_bonus }}</span>
-                        <a href="/withdrawal" class="btn btn-sm btn-white pull-right">WD</a>
+                        <a href="/withdrawal" class="btn btn-sm btn-white pull-right">WD</a> USDT
                       </div>
                     </div>
                     <!-- end col-6 -->
@@ -150,8 +153,8 @@
                     </div>
                   </div>
                   <div class="widget-list-action text-nowrap">
-                    $ <span data-animation="number"
-                      data-value="{{ number_format($row->value) }}">{{ number_format($row->value) }}</span>
+                    <span data-animation="number"
+                      data-value="{{ number_format($row->value) }}">{{ number_format($row->value) }}</span> USDT
                   </div>
                 </a>
                 <!-- end widget-list-item -->
