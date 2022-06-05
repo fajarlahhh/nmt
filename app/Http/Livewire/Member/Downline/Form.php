@@ -66,7 +66,7 @@ class Form extends Component
     }
 
     $dataContract = collect($this->dataContract)->where('id', $this->contract)->first();
-    $this->usdtNeed = round($dataContract->value * 15000 / 14500);
+    $this->usdtNeed = $dataContract->value;
 
     if (1 * auth()->user()->available_pin < $dataContract->pin_requirement * 1) {
       session()->flash('danger', '<b>Enrollment</b><br>Insufficient pin');

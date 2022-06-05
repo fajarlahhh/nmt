@@ -83,10 +83,9 @@
                 <option value="" selected>-- Choose Contract --</option>
                 @foreach ($dataContract as $row)
                   @php
-                    $aktif = ($row->value * 15000) / 14500 < auth()->user()->available_balance ? '' : 'disabled';
+                    $aktif = $row->value < auth()->user()->available_balance ? '' : 'disabled';
                   @endphp
-                  <option value="{{ $row->getKey() }}" {{ $aktif }}>$ {{ number_format($row->value) }} =
-                    {{ number_format(round(($row->value * 15000) / 14500)) }} USDT -
+                  <option value="{{ $row->getKey() }}" {{ $aktif }}>{{ number_format($row->value) }} USDT -
                     {{ $row->name }}
                   </option>
                 @endforeach
