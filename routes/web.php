@@ -16,24 +16,22 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
   Route::post('/gantisandi', [App\Http\Controllers\PasswordController::class, 'submit'])->name('gantisandi');
   Route::group(['middleware' => ['member']], function () {
-    Route::group(['middleware' => ['active']], function () {
-      Route::get('/', function () {
-        return redirect('/dashboard');
-      });
-      Route::get('/dashboard', \App\Http\Livewire\Member\Dashboard::class);
-      Route::get('/withdrawal', \App\Http\Livewire\Member\Withdrawal::class);
-      Route::prefix('downline')->group(function () {
-        Route::get('/', \App\Http\Livewire\Member\Downline\Index::class);
-        Route::get('/new', \App\Http\Livewire\Member\Downline\Form::class);
-      });
-      Route::get('/pin', \App\Http\Livewire\Member\Pin::class);
-      Route::get('/profile', \App\Http\Livewire\Member\Profile::class);
-      Route::get('/security', \App\Http\Livewire\Member\Security::class);
-      Route::get('/bonus', \App\Http\Livewire\Member\Bonus::class);
-      Route::get('/renewal', \App\Http\Livewire\Member\Renewal::class);
-      Route::get('/deposit', \App\Http\Livewire\Member\Deposit::class);
-      Route::get('/balance', \App\Http\Livewire\Member\Balance::class);
+    Route::get('/', function () {
+      return redirect('/dashboard');
     });
+    Route::get('/dashboard', \App\Http\Livewire\Member\Dashboard::class);
+    Route::get('/withdrawal', \App\Http\Livewire\Member\Withdrawal::class);
+    Route::prefix('downline')->group(function () {
+      Route::get('/', \App\Http\Livewire\Member\Downline\Index::class);
+      Route::get('/new', \App\Http\Livewire\Member\Downline\Form::class);
+    });
+    Route::get('/pin', \App\Http\Livewire\Member\Pin::class);
+    Route::get('/profile', \App\Http\Livewire\Member\Profile::class);
+    Route::get('/security', \App\Http\Livewire\Member\Security::class);
+    Route::get('/bonus', \App\Http\Livewire\Member\Bonus::class);
+    Route::get('/renewal', \App\Http\Livewire\Member\Renewal::class);
+    Route::get('/deposit', \App\Http\Livewire\Member\Deposit::class);
+    Route::get('/balance', \App\Http\Livewire\Member\Balance::class);
   });
 
   Route::group(['middleware' => ['admin']], function () {
