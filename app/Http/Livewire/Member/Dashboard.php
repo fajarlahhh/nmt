@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Member;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -19,7 +18,6 @@ class Dashboard extends Component
   public function mount()
   {
     $this->user = auth()->user()->network . auth()->id() . '.';
-    dd(Hash::make('erul'));
   }
 
   public function render()
