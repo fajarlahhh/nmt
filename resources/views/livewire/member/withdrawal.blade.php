@@ -20,13 +20,13 @@
                 Available every weekdays (07.00 - 13.00 UTC+2)
               </li>
               <li>
-                $ {{ auth()->user()->contract->fee_withdrawal }} Fee
+                {{ auth()->user()->contract->fee_withdrawal }} USDT Fee
               </li>
               <li>
-                Min. Claim $ {{ auth()->user()->contract->minimum_withdrawal }}
+                Min. Claim {{ auth()->user()->contract->minimum_withdrawal }} USDT
               </li>
               <li>
-                Max. Claim $ {{ number_format(auth()->user()->contract->maximum_withdrawal) }}
+                Max. Claim {{ number_format(auth()->user()->contract->maximum_withdrawal) }} USDT
               </li>
               <li>
                 1 x 24 hours proccess
