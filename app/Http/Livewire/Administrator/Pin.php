@@ -35,10 +35,10 @@ class Pin extends Component
     ]);
 
     $pin = new \App\Models\Pin();
-    $pin->description = "Top up ";
+    $pin->description = $this->amount < 0 ? "Subtraction" : "Top up ";
     $pin->topup = 1;
-    $pin->debit = 0;
-    $pin->credit = $this->amount;
+    $pin->debit = $this->amount < 0 ? -1 * $this->amount : 0;
+    $pin->credit = $this->amount > 0 ? $this->amount : 0;
     $pin->user_id = $this->user;
     $pin->operator_id = auth()->id();
     $pin->save();

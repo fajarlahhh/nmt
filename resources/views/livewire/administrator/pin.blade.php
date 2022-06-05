@@ -6,6 +6,8 @@
   @include('form.password')
   <div id="content" class="main-content">
     <div class="layout-px-spacing">
+      <br>
+      @include('includes.message')
 
       <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
@@ -26,8 +28,8 @@
                       <option value="{{ $row->getKey() }}">{{ $row->username }}</option>
                     @endforeach
                   </select>
-                  <input type="number" step="any" min="0" max="10" class="form-control" wire:model.defer="amount"
-                    placeholder="amount" aria-describedby="button-addon2">
+                  <input type="number" step="any" class="form-control" wire:model.defer="amount" placeholder="amount"
+                    aria-describedby="button-addon2">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" wire:click="send"
                       id="button-addon2">Send</button>
@@ -83,7 +85,9 @@
                           <div class="td-content">{{ $row->user->username }}</div>
                         </td>
                         <td>
-                          <div class="td-content">{{ number_format($row->credit) }}</div>
+                          <div class="td-content">
+                            {{ number_format($row->nilai) }}
+                          </div>
                         </td>
                         <td>
                           <div class="td-content">{{ $row->operator->username }}</div>

@@ -77,7 +77,7 @@ class Pin extends Component
   public function render()
   {
     $this->emit('reinitialize');
-    $data = \App\Models\Pin::where('user_id', auth()->id());
+    $data = \App\Models\Pin::where('user_id', auth()->id())->orderBy('id', 'desc');
     return view('livewire.member.pin', [
       'noUrut' => ($this->page - 1) * 10,
       'data' => $data->paginate(10),

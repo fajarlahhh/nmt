@@ -6,6 +6,8 @@
   @include('form.password')
   <div id="content" class="main-content">
     <div class="layout-px-spacing">
+      <br>
+      @include('includes.message')
 
       <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
@@ -13,18 +15,16 @@
 
             <div class="widget-heading form-inline">
               <h5 class="pt-3">Daily Bonus</h5>&nbsp;
-              @if (\App\Models\Daily::where('created_at', 'like', date('Y-m-d') . '%')->count() == 0)
-                <div class="input-group input-group-sm">
-                  <input id="basicFlatpickr" wire:model.defer="date"
-                    class="form-control flatpickr flatpickr-input active" type="text">
-                  <input type="number" step="any" min="0" max="10" class="form-control" wire:model.defer="amount"
-                    aria-describedby="button-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" wire:click="send"
-                      id="button-addon2">Send</button>
-                  </div>
+              <div class="input-group input-group-sm">
+                <input id="basicFlatpickr" wire:model.defer="date" class="form-control flatpickr flatpickr-input active"
+                  type="text">
+                <input type="number" step="any" min="0" max="10" class="form-control" wire:model.defer="amount"
+                  aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" wire:click="send"
+                    id="button-addon2">Send</button>
                 </div>
-              @endif
+              </div>
               <div class="table-responsive">
                 <table class="table">
                   <thead>
