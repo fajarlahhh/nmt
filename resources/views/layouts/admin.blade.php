@@ -158,9 +158,9 @@
           </li>
 
           <li class="menu single-menu">
-            <a href="/admin-area/payment">
+            <a href="/admin-area/deposit">
               <div class="">
-                <span>Payment</span>
+                <span>Deposit</span>
               </div>
             </a>
           </li>

@@ -40,6 +40,7 @@ class Pin extends Component
     $pin->debit = 0;
     $pin->credit = $this->amount;
     $pin->user_id = $this->user;
+    $pin->operator_id = auth()->id();
     $pin->save();
     redirect('/admin-area/pin');
   }

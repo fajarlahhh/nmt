@@ -10,8 +10,16 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
           <div class="widget widget-table-two">
 
-            <div class="widget-heading">
-              <h5 class="">Member</h5>
+            <div class="widget-heading form-inline">
+              <h5 class="pt-3">Member</h5>
+              &nbsp;
+              <div class="input-group input-group-sm">
+                <select wire:model="status" class="form-control">
+                  <option value="1">Active</option>
+                  <option value="2">Non Active</option>
+                  <option value="3">Deleted</option>
+                </select>
+              </div>
             </div>
 
             <div class="widget-content">
@@ -80,13 +88,40 @@
                           <div class="td-content">
                             @if (!$row->actived_at)
                               @if ((int) $key === $row->getKey())
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                  <a href="javascript:;" wire:click="delete()" class="btn btn-sm btn-danger">Yes</a>
-                                  <a wire:click="cancel()" href="javascript:;" class="btn btn-sm btn-warning">Cancel</a>
-                                </div>
+                                @if ($delete)
+                                  <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="javascript:;" wire:click="delete()" class="btn btn-sm btn-danger">Yes,
+                                      Delete</a>
+                                    <a wire:click="cancel()" href="javascript:;"
+                                      class="btn btn-sm btn-success">Cancel</a>
+                                  </div>
+                                @endif
+                                @if ($resetPin)
+                                  <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="javascript:;" wire:click="resetPin()" class="btn btn-sm btn-danger">Yes,
+                                      Reset Pin</a>
+                                    <a wire:click="cancel()" href="javascript:;"
+                                      class="btn btn-sm btn-success">Cancel</a>
+                                  </div>
+                                @endif
+                                @if ($resetPassword)
+                                  <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="javascript:;" wire:click="resetPassword()"
+                                      class="btn btn-sm btn-danger">Yes,
+                                      Reset Password</a>
+                                    <a wire:click="cancel()" href="javascript:;"
+                                      class="btn btn-sm btn-success">Cancel</a>
+                                  </div>
+                                @endif
                               @else
-                                <a href="javascript:;" wire:click="setKey({{ $row->getKey() }})"
-                                  class="btn btn-sm btn-warning">Delete</a>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                  <a href="javascript:;" wire:click="setResetPin({{ $row->getKey() }})"
+                                    class="btn btn-sm btn-warning">Reset Pin</a>
+                                  <a href="javascript:;" wire:click="setResetPassword({{ $row->getKey() }})"
+                                    class="btn btn-sm btn-info">Reset Pswd</a>
+                                  <a href="javascript:;" wire:click="setDelete({{ $row->getKey() }})"
+                                    class="btn btn-sm btn-danger">Delete</a>
+                                </div>
                               @endif
                             @endif
                           </div>

@@ -26,6 +26,7 @@ class Daily extends Main
       $data = new \App\Models\Daily();
       $data->value = $this->amount;
       $data->date = $this->date;
+      $data->operator_id = auth()->id();
       $data->save();
 
       $bonus = [];

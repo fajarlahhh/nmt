@@ -11,27 +11,44 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
           <div class="widget widget-table-two">
 
-            <div class="widget-heading">
-              <h5 class="">Pin</h5>
+            <div class="widget-heading form-inline">
+              <h5 class="pt-3">Pin</h5>
             </div>
 
             <div class="widget-content">
-              @if (\App\Models\Daily::where('created_at', 'like', date('Y-m-d') . '%')->count() == 0)
-                <div class="input-group mb-3">
-                  <select class="form-control basic" wire:model.defer="user">
+              <div class="alert alert-primary mb-4" role="alert">
+                <h5>Form Send Pin</h5>
+                <hr>
+                <div class="input-group">
+                  <select class="form-control basic form-control-sm" wire:model.defer="user">
                     <option value="">-- Choose Username --</option>
                     @foreach ($dataUser as $row)
                       <option value="{{ $row->getKey() }}">{{ $row->username }}</option>
                     @endforeach
                   </select>
                   <input type="number" step="any" min="0" max="10" class="form-control" wire:model.defer="amount"
-                    aria-describedby="button-addon2">
+                    placeholder="amount" aria-describedby="button-addon2">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" wire:click="send"
                       id="button-addon2">Send</button>
                   </div>
                 </div>
-              @endif
+              </div>
+              <div class="form-inline">
+                Data&nbsp;
+                <div class="input-group input-group-sm">
+                  <select wire:model="month" class="form-control">
+                    @for ($i = 1; $i < 13; $i++)
+                      <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                  </select>
+                  <select wire:model="year" class="form-control">
+                    @for ($i = 2022; $i <= date('Y'); $i++)
+                      <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                  </select>
+                </div>
+              </div>
               <div class="table-responsive">
                 <table class="table">
                   <thead>
@@ -47,6 +64,9 @@
                       </th>
                       <th>
                         <div class="th-content">Amount</div>
+                      </th>
+                      <th>
+                        <div class="th-content">Operator</div>
                       </th>
                     </tr>
                   </thead>
@@ -64,6 +84,9 @@
                         </td>
                         <td>
                           <div class="td-content">{{ number_format($row->credit) }}</div>
+                        </td>
+                        <td>
+                          <div class="td-content">{{ $row->operator->username }}</div>
                         </td>
                       </tr>
                     @endforeach

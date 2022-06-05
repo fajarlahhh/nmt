@@ -11,15 +11,12 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
           <div class="widget widget-table-two">
 
-            <div class="widget-heading">
-              <h5 class="">Daily Bonus</h5>
-            </div>
-
-            <div class="widget-content">
+            <div class="widget-heading form-inline">
+              <h5 class="pt-3">Daily Bonus</h5>&nbsp;
               @if (\App\Models\Daily::where('created_at', 'like', date('Y-m-d') . '%')->count() == 0)
-                <div class="input-group mb-3">
+                <div class="input-group input-group-sm">
                   <input id="basicFlatpickr" wire:model.defer="date"
-                    class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date..">
+                    class="form-control flatpickr flatpickr-input active" type="text">
                   <input type="number" step="any" min="0" max="10" class="form-control" wire:model.defer="amount"
                     aria-describedby="button-addon2">
                   <div class="input-group-append">
@@ -41,6 +38,9 @@
                       <th>
                         <div class="th-content">Value</div>
                       </th>
+                      <th>
+                        <div class="th-content">Operator</div>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -53,7 +53,10 @@
                           <div class="td-content">{{ $row->date }}</div>
                         </td>
                         <td>
-                          <div class="td-content">{{ $row->value }}</div>
+                          <div class="td-content">{{ $row->value }} %</div>
+                        </td>
+                        <td>
+                          <div class="td-content">{{ $row->operator->username }}</div>
                         </td>
                       </tr>
                     @endforeach

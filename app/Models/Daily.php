@@ -10,4 +10,14 @@ class Daily extends Model
   use HasFactory;
 
   protected $table = 'daily';
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
+  public function operator()
+  {
+    return $this->belongsTo(User::class, 'operator_id');
+  }
 }

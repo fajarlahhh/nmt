@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
       Route::get('/dashboard', \App\Http\Livewire\Administrator\Dashboard::class);
       Route::get('/withdrawal', \App\Http\Livewire\Administrator\Withdrawal::class);
       Route::get('/member', \App\Http\Livewire\Administrator\Member::class);
+      Route::get('/deposit', \App\Http\Livewire\Administrator\Deposit::class);
       Route::get('/daily', \App\Http\Livewire\Administrator\Daily::class);
       Route::get('/security', \App\Http\Livewire\Administrator\Security::class);
       Route::get('/pin', \App\Http\Livewire\Administrator\Pin::class);

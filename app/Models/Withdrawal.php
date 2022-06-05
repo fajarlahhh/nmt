@@ -19,6 +19,11 @@ class Withdrawal extends Model
     'information',
   ];
 
+  public function operator()
+  {
+    return $this->belongsTo(User::class, 'operator_id');
+  }
+
   public function user()
   {
     return $this->belongsTo(User::class);

@@ -18,9 +18,9 @@ class Deposit extends Model
     'processed_at',
   ];
 
-  public function owner()
+  public function operator()
   {
-    return $this->belongsTo(User::class, 'owner_id')->withTrashed();
+    return $this->belongsTo(User::class, 'operator_id');
   }
 
   public function user()
