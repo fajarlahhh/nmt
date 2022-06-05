@@ -91,8 +91,8 @@ class Withdrawal extends Component
     DB::transaction(function () {
       $withdrawal = new \App\Models\Withdrawal();
       $withdrawal->wallet = auth()->user()->wallet;
-      $withdrawal->amount = $this->amount;
-      $withdrawal->fee = ($this->amount ?: 0) * 0.1;
+      $withdrawal->amount = $this->amount - 2;
+      $withdrawal->fee = 2;
       $withdrawal->user_id = auth()->id();
       $withdrawal->save();
 
