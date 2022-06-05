@@ -42,7 +42,6 @@ Route::group(['middleware' => ['auth']], function () {
         return redirect('/admin-area/dashboard');
       });
       Route::get('/dashboard', \App\Http\Livewire\Administrator\Dashboard::class);
-      Route::get('/payment', \App\Http\Livewire\Administrator\Deposit::class);
       Route::get('/withdrawal', \App\Http\Livewire\Administrator\Withdrawal::class);
       Route::get('/member', \App\Http\Livewire\Administrator\Member::class);
       Route::get('/daily', \App\Http\Livewire\Administrator\Daily::class);

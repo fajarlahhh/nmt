@@ -150,6 +150,14 @@
           </li>
 
           <li class="menu single-menu">
+            <a href="/admin-area/member">
+              <div class="">
+                <span>Member</span>
+              </div>
+            </a>
+          </li>
+
+          <li class="menu single-menu">
             <a href="/admin-area/payment">
               <div class="">
                 <span>Payment</span>
@@ -161,14 +169,6 @@
             <a href="/admin-area/withdrawal">
               <div class="">
                 <span>Withdrawal</span>
-              </div>
-            </a>
-          </li>
-
-          <li class="menu single-menu">
-            <a href="/admin-area/member">
-              <div class="">
-                <span>Member</span>
               </div>
             </a>
           </li>

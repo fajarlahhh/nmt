@@ -26,13 +26,13 @@
                         <div class="th-content">Username</div>
                       </th>
                       <th>
-                        <div class="th-content">Email</div>
+                        <div class="th-content">Email/Phone</div>
                       </th>
                       <th>
                         <div class="th-content">Name</div>
                       </th>
                       <th>
-                        <div class="th-content">Fund</div>
+                        <div class="th-content">Contract</div>
                       </th>
                       <th>
                         <div class="th-content">Wallet</div>
@@ -55,7 +55,7 @@
                           <div class="td-content">{{ $row->username }}</div>
                         </td>
                         <td>
-                          <div class="td-content">{{ $row->email }}</div>
+                          <div class="td-content">{{ $row->email }} / {{ $row->phone }}</div>
                         </td>
                         <td>
                           <div class="td-content">{{ $row->name }}</div>
@@ -64,12 +64,12 @@
                           <div class="td-content">{{ number_format($row->contract->value) }}</th>
                         <td>
                           <div class="td-content">
-                            {{ substr($row->wallet, 0, 3) }}...{{ substr($row->wallet, strlen($row->wallet) - 5, strlen($row->wallet)) }}
+                            {{ $row->wallet }}
                           </div>
                         </td>
                         <td>
                           <div class="td-content">
-                            @if ($row->activated_at && $row->invalid_at)
+                            @if ($row->activated_at)
                               <span class="badge outline-badge-success">Active</span>
                             @else
                               <span class="badge outline-badge-danger">Inactive</span>
