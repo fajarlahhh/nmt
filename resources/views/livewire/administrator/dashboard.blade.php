@@ -62,7 +62,7 @@
                   <p class="w-value">$
                     {{ number_format($deposit->whereNull('processed_at')->whereNotNull('information')->sum('amount'),4) }}
                   </p>
-                  <h5 class=""><a href="/admin-area/payment">Pending Payment Confirmation</a></h5>
+                  <h5 class=""><a href="/admin-area/deposit">Pending Deposit</a></h5>
                 </div>
               </div>
             </div>
@@ -82,7 +82,7 @@
                   </div>
                   <p class="w-value">$
                     {{ number_format($withdrawal->whereNull('processed_at')->sum('amount'), 4) }}</p>
-                  <h5 class=""><a href="/admin-area/withdrawal">Pending Withdrawal Confirmation</a></h5>
+                  <h5 class=""><a href="/admin-area/withdrawal">Pending Withdrawal</a></h5>
                 </div>
               </div>
             </div>
