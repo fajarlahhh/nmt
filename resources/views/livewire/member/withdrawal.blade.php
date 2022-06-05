@@ -11,7 +11,6 @@
     </div>
     <div class="col-xs-12">
       @include('includes.message')
-      @include('form.bonus')
       <div class="card">
         <div class="card-body">
           <div class="alert alert-warning border-0">
