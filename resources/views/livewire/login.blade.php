@@ -39,14 +39,14 @@
             <input data-toggle="password" data-placement="after" class="form-control form-control-lg" type="password"
               wire:model.defer="password" placeholder="Password" />
           </div>
-      </div>
-      <div class="login-buttons text-center">
-        <button type="submit" class="btn btn-success btn-lg">Sign me in</button>
+          <div class="login-buttons text-center">
+            <button type="submit" class="btn btn-success btn-lg">Sign me in</button>
+          </div>
+        </form>
       </div>
       <div class="m-t-20 m-b-40 p-b-40 text-inverse text-center">
         Forgot Password? Click <a href="/forgot">here</a>.
       </div>
-      </form>
     </div>
     <!-- end login-content -->
   </div>
