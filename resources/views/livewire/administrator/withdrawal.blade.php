@@ -82,7 +82,7 @@
                           <div class="td-content customer-name">{{ $row->wallet }}</div>
                         </td>
                         <td>
-                          <div class="td-content">$ {{ number_format($row->usdt_amount, 4) }}</div>
+                          <div class="td-content">{{ number_format($row->amount, 5) }}</div>
                         </td>
                         @if ($status == 2)
                           <td>
@@ -103,7 +103,6 @@
                                 @endif
                                 @if ($process)
                                   <div class="input-group input-group-sm">
-
                                     <input type="text" class="form-control" wire:model.defer="information"
                                       @error('information') placeholder="TX ID is required" @enderror>
                                     <div class="input-group-append">
