@@ -23,10 +23,10 @@
                 {{ auth()->user()->contract->fee_withdrawal }} USDT Fee
               </li>
               <li>
-                Min. Claim {{ auth()->user()->contract->minimum_withdrawal }} USDT
+                Min. WD {{ auth()->user()->contract->minimum_withdrawal }} USDT
               </li>
               <li>
-                Max. Claim {{ number_format(auth()->user()->contract->maximum_withdrawal) }} USDT
+                Max. WD {{ number_format(auth()->user()->contract->maximum_withdrawal) }} USDT
               </li>
               <li>
                 1 x 24 hours proccess
@@ -86,8 +86,8 @@
                         @if (auth()->user()->withdrawal_today->count() === 0)
                           <div class="modal-body text-center">
                             <h5>
-                              You Got {{ $amount }} USDT <small>(After Fee
-                                {{ auth()->user()->contract->fee_withdrawal }}) USDT</small><br>To<br>
+                              You Got {{ $amount - 2 }} USDT <small>(After Fee
+                                {{ auth()->user()->contract->fee_withdrawal }} USDT) </small><br>To Wallet<br>
                               <small> {{ auth()->user()->wallet }}</small>
                               <br>
                               <small class="text-danger">Make sure your wallet address is right</small>

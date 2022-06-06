@@ -30,13 +30,11 @@ class Withdrawal extends Component
     }
     if (auth()->user()->security) {
       $this->validate([
-        'available' => 'required',
         'amount' => 'required',
         'security' => 'required',
       ]);
     } else {
       $this->validate([
-        'available' => 'required',
         'amount' => 'required',
       ]);
     }
