@@ -102,7 +102,7 @@ class Withdrawal extends Component
       $bonus->withdrawal_id = $withdrawal->id;
       $bonus->save();
 
-      if (auth()->user()->available_bonus < 25) {
+      if (auth()->user()->available_contract < 25) {
         User::where('id', auth()->id())->udpdate([
           'activated_at' => null,
         ]);
