@@ -42,7 +42,7 @@ class User extends Authenticatable
 
   public function upline()
   {
-    return $this->belongsTo(User::class, 'upline_id');
+    return $this->belongsTo(User::class, 'upline_id')->withTrashed();
   }
 
   public function contract_remaining()

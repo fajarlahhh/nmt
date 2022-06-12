@@ -122,7 +122,7 @@ class Form extends Component
         $time = now();
 
         if ($member->upline) {
-          if ($member->upline->activated_at) {
+          if ($member->upline->activated_at && $member->upline->deleted_at == null) {
             array_push($bonus, [
               'description' => "Ref. 10% of " . number_format($member->contract->value) . " by " . $member->username,
               'debit' => 0,
@@ -141,9 +141,9 @@ class Form extends Component
             ]);
           }
           if ($member->upline->upline) {
-            if ($member->upline->upline->activated_at) {
+            if ($member->upline->upline->activated_at && $member->upline->upline->deleted_at == null) {
               array_push($bonus, [
-                'description' => "Lvl. 1 3% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
+                'description' => "Lvl. 1 5% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
                 'debit' => 0,
                 'credit' => $member->contract->first_level_benefits,
                 'user_id' => $member->upline->upline->id,
@@ -160,9 +160,9 @@ class Form extends Component
               ]);
             }
             if ($member->upline->upline->upline) {
-              if ($member->upline->upline->upline->activated_at) {
+              if ($member->upline->upline->upline->activated_at && $member->upline->upline->upline->deleted_at == null) {
                 array_push($bonus, [
-                  'description' => "Lvl. 2 2% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
+                  'description' => "Lvl. 2 4% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
                   'debit' => 0,
                   'credit' => $member->contract->second_level_benefits,
                   'user_id' => $member->upline->upline->upline->id,
@@ -179,9 +179,9 @@ class Form extends Component
                 ]);
               }
               if ($member->upline->upline->upline->upline) {
-                if ($member->upline->upline->upline->upline->activated_at) {
+                if ($member->upline->upline->upline->upline->activated_at && $member->upline->upline->upline->upline->deleted_at == null) {
                   array_push($bonus, [
-                    'description' => "Lvl. 3 1% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
+                    'description' => "Lvl. 3 3% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
                     'debit' => 0,
                     'credit' => $member->contract->third_level_benefits,
                     'user_id' => $member->upline->upline->upline->upline->id,
@@ -198,9 +198,9 @@ class Form extends Component
                   ]);
                 }
                 if ($member->upline->upline->upline->upline->upline) {
-                  if ($member->upline->upline->upline->upline->upline->activated_at) {
+                  if ($member->upline->upline->upline->upline->upline->activated_at && $member->upline->upline->upline->upline->upline->deleted_at == null) {
                     array_push($bonus, [
-                      'description' => "Lvl. 4 1% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
+                      'description' => "Lvl. 4 2% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
                       'debit' => 0,
                       'credit' => $member->contract->forth_level_benefits,
                       'user_id' => $member->upline->upline->upline->upline->upline->id,
@@ -215,6 +215,126 @@ class Form extends Component
                       'created_at' => $time,
                       'updated_at' => $time,
                     ]);
+                  }
+                  if ($member->upline->upline->upline->upline->upline->upline) {
+                    if ($member->upline->upline->upline->upline->upline->upline->activated_at && $member->upline->upline->upline->upline->upline->upline->deleted_at == null) {
+                      array_push($bonus, [
+                        'description' => "Lvl. 5 1% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
+                        'debit' => 0,
+                        'credit' => $member->contract->fifth_level_benefits,
+                        'user_id' => $member->upline->upline->upline->upline->upline->upline->id,
+                        'created_at' => $time,
+                        'updated_at' => $time,
+                      ]);
+
+                      array_push($turnover, [
+                        'user_id' => $member->upline->upline->upline->upline->upline->upline->id,
+                        'value' => $member->contract->value,
+                        'downline_id' => $member->id,
+                        'created_at' => $time,
+                        'updated_at' => $time,
+                      ]);
+                    }
+                    if ($member->upline->upline->upline->upline->upline->upline->upline) {
+                      if ($member->upline->upline->upline->upline->upline->upline->upline->activated_at && $member->upline->upline->upline->upline->upline->upline->upline->deleted_at == null) {
+                        array_push($bonus, [
+                          'description' => "Lvl. 6 1% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
+                          'debit' => 0,
+                          'credit' => $member->contract->sixth_level_benefits,
+                          'user_id' => $member->upline->upline->upline->upline->upline->upline->upline->id,
+                          'created_at' => $time,
+                          'updated_at' => $time,
+                        ]);
+
+                        array_push($turnover, [
+                          'user_id' => $member->upline->upline->upline->upline->upline->upline->upline->id,
+                          'value' => $member->contract->value,
+                          'downline_id' => $member->id,
+                          'created_at' => $time,
+                          'updated_at' => $time,
+                        ]);
+                      }
+                      if ($member->upline->upline->upline->upline->upline->upline->upline->upline) {
+                        if ($member->upline->upline->upline->upline->upline->upline->upline->upline->activated_at && $member->upline->upline->upline->upline->upline->upline->upline->upline->deleted_at == null) {
+                          array_push($bonus, [
+                            'description' => "Lvl. 7 1% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
+                            'debit' => 0,
+                            'credit' => $member->contract->sixth_level_benefits,
+                            'user_id' => $member->upline->upline->upline->upline->upline->upline->upline->upline->id,
+                            'created_at' => $time,
+                            'updated_at' => $time,
+                          ]);
+
+                          array_push($turnover, [
+                            'user_id' => $member->upline->upline->upline->upline->upline->upline->upline->upline->id,
+                            'value' => $member->contract->value,
+                            'downline_id' => $member->id,
+                            'created_at' => $time,
+                            'updated_at' => $time,
+                          ]);
+                        }
+                        if ($member->upline->upline->upline->upline->upline->upline->upline->upline->upline) {
+                          if ($member->upline->upline->upline->upline->upline->upline->upline->upline->upline->activated_at && $member->upline->upline->upline->upline->upline->upline->upline->upline->upline->deleted_at == null) {
+                            array_push($bonus, [
+                              'description' => "Lvl. 8 0.5% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
+                              'debit' => 0,
+                              'credit' => $member->contract->eighth_level_benefits,
+                              'user_id' => $member->upline->upline->upline->upline->upline->upline->upline->upline->upline->id,
+                              'created_at' => $time,
+                              'updated_at' => $time,
+                            ]);
+
+                            array_push($turnover, [
+                              'user_id' => $member->upline->upline->upline->upline->upline->upline->upline->upline->upline->id,
+                              'value' => $member->contract->value,
+                              'downline_id' => $member->id,
+                              'created_at' => $time,
+                              'updated_at' => $time,
+                            ]);
+                          }
+                          if ($member->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline) {
+                            if ($member->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->activated_at && $member->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->deleted_at == null) {
+                              array_push($bonus, [
+                                'description' => "Lvl. 9 0.5% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
+                                'debit' => 0,
+                                'credit' => $member->contract->ninth_level_benefits,
+                                'user_id' => $member->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->id,
+                                'created_at' => $time,
+                                'updated_at' => $time,
+                              ]);
+
+                              array_push($turnover, [
+                                'user_id' => $member->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->id,
+                                'value' => $member->contract->value,
+                                'downline_id' => $member->id,
+                                'created_at' => $time,
+                                'updated_at' => $time,
+                              ]);
+                            }
+                            if ($member->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline) {
+                              if ($member->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->activated_at && $member->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->deleted_at == null) {
+                                array_push($bonus, [
+                                  'description' => "Lvl. 10 0.5% of " . number_format($member->contract->value) . "  USDT by " . $member->username,
+                                  'debit' => 0,
+                                  'credit' => $member->contract->tenth_level_benefits,
+                                  'user_id' => $member->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->id,
+                                  'created_at' => $time,
+                                  'updated_at' => $time,
+                                ]);
+
+                                array_push($turnover, [
+                                  'user_id' => $member->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->upline->id,
+                                  'value' => $member->contract->value,
+                                  'downline_id' => $member->id,
+                                  'created_at' => $time,
+                                  'updated_at' => $time,
+                                ]);
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
