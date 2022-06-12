@@ -30,13 +30,11 @@ class Withdrawal extends Component
     }
     if (auth()->user()->security) {
       $this->validate([
-        'available' => 'required',
         'amount' => 'required',
         'security' => 'required',
       ]);
     } else {
       $this->validate([
-        'available' => 'required',
         'amount' => 'required',
       ]);
     }
@@ -91,8 +89,8 @@ class Withdrawal extends Component
     DB::transaction(function () {
       $withdrawal = new \App\Models\Withdrawal();
       $withdrawal->wallet = auth()->user()->wallet;
-      $withdrawal->amount = $this->amount;
-      $withdrawal->fee = ($this->amount ?: 0) * 0.1;
+      $withdrawal->amount = $this->amount - 2;
+      $withdrawal->fee = 2;
       $withdrawal->user_id = auth()->id();
       $withdrawal->save();
 
@@ -104,7 +102,7 @@ class Withdrawal extends Component
       $bonus->withdrawal_id = $withdrawal->id;
       $bonus->save();
 
-      if (auth()->user()->available_bonus < 25) {
+      if (auth()->user()->available_contract < 25) {
         User::where('id', auth()->id())->udpdate([
           'activated_at' => null,
         ]);

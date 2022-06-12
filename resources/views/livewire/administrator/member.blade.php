@@ -48,6 +48,9 @@
                         <div class="th-content">Wallet</div>
                       </th>
                       <th>
+                        <div class="th-content">First Password</div>
+                      </th>
+                      <th>
                         <div class="th-content">Status</div>
                       </th>
                       <th>
@@ -71,10 +74,16 @@
                           <div class="td-content">{{ $row->name }}</div>
                         </td>
                         <td>
-                          <div class="td-content">{{ number_format($row->contract->value) }}</th>
+                          <div class="td-content">{{ number_format($row->contract->value) }}
+                        </td>
                         <td>
                           <div class="td-content">
                             {{ $row->wallet }}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            {{ $row->first_password }}
                           </div>
                         </td>
                         <td>

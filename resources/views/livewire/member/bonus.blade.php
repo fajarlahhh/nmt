@@ -30,7 +30,8 @@
                 @endif
               </div>
               <div class="widget-list-content">
-                <div class="widget-list-title">{{ $row->description }}<br>
+                <div class="widget-list-title">{{ $row->description }} on
+                  {{ $row->withdrawal ? $row->withdrawal->created_at : '' }}<br>
                   <small>{{ $row->withdrawal ? ($row->withdrawal->processed_at ?: 'Waiting..') : $row->created_at }}</small>
                 </div>
               </div>
