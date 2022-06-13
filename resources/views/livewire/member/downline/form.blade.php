@@ -83,7 +83,7 @@
                 <option value="" selected>-- Choose Contract --</option>
                 @foreach ($dataContract as $row)
                   @php
-                    $aktif = $row->value < auth()->user()->available_balance ? '' : 'disabled';
+                    $aktif = $row->value <= auth()->user()->available_balance ? '' : 'disabled';
                   @endphp
                   <option value="{{ $row->getKey() }}" {{ $aktif }}>{{ number_format($row->value) }} USDT -
                     {{ $row->name }}
