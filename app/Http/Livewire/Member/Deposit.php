@@ -67,7 +67,7 @@ class Deposit extends Component
         $this->ticket = 1;
       }
 
-      $this->paymentAmount = (float) $this->amount + ($this->ticket * 1 / 1000);
+      $this->paymentAmount = $this->amount + $this->ticket;
 
       $deposit = new \App\Models\Deposit();
       $deposit->user_id = auth()->id();
