@@ -72,9 +72,9 @@ class Deposit extends Component
         $this->paymentAmount = $this->amount + $this->kode;
 
         $ticket = new Ticket();
-        $ticket->amont = $this->amount;
+        $ticket->amount = $this->amount;
         $ticket->kode = $this->kode;
-        $ticket->kode = date('Y-m-d');
+        $ticket->date = date('Y-m-d');
         $ticket->save();
 
         $deposit = new \App\Models\Deposit();
