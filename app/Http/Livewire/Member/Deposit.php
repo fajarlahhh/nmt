@@ -5,12 +5,13 @@ namespace App\Http\Livewire\Member;
 use App\Models\Ticket;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class Deposit extends Component
 {
   use WithPagination;
 
-  public $amount = 0, $deposit, $process, $information;
+  public $amount = 0, $deposit, $process, $information, $kode;
   protected $paginationTheme = 'bootstrap';
 
   public function mount()
@@ -60,20 +61,28 @@ class Deposit extends Component
     }
 
     try {
-      $dataTicket = Ticket::where('date', date('Y-m-d'))->where('amount', $this->amount)->orderBy('created_at', 'desc')->get();
-      if ($dataTicket->count() > 0) {
-        $this->ticket = $dataTicket->first()->kode;
-      } else {
-        $this->ticket = 1;
-      }
+      DB::transaction(function () {
+        $dataTicket = Ticket::where('date', date('Y-m-d'))->where('amount', $this->amount)->orderBy('created_at', 'desc')->get();
+        if ($dataTicket->count() > 0) {
+          $this->kode = $dataTicket->first()->kode;
+        } else {
+          $this->kode = 1;
+        }
 
-      $this->paymentAmount = $this->amount + $this->ticket;
+        $this->paymentAmount = $this->amount + $this->kode;
 
-      $deposit = new \App\Models\Deposit();
-      $deposit->user_id = auth()->id();
-      $deposit->wallet = config('constants.wallet');
-      $deposit->amount = $this->paymentAmount;
-      $deposit->save();
+        $ticket = new Ticket();
+        $ticket->amont = $this->amount;
+        $ticket->kode = $this->kode;
+        $ticket->kode = date('Y-m-d');
+        $ticket->save();
+
+        $deposit = new \App\Models\Deposit();
+        $deposit->user_id = auth()->id();
+        $deposit->wallet = config('constants.wallet');
+        $deposit->amount = $this->paymentAmount;
+        $deposit->save();
+      });
 
       redirect('/deposit');
     } catch (\Exception$e) {
