@@ -88,7 +88,8 @@
               <!-- end title -->
               <!-- begin conversion-rate -->
               <div class="d-flex align-items-center mb-1">
-                <h2 class="mb-0 "><span>{{ auth()->user()->available_balance }}
+                <h2 class="mb-0 "><span data-animation="number"
+                    data-value="{{ auth()->user()->available_balance }}">{{ number_format(auth()->user()->available_balance, 2) }}
                   </span> USDT
                 </h2>
               </div>
