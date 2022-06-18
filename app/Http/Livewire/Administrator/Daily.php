@@ -35,11 +35,6 @@ class Daily extends Main
       return;
     }
 
-    if ($this->today < 1 || $this->today > 5) {
-      session()->flash('danger', '<b>Daily</b><br>You cant do this action in weekend');
-      return;
-    }
-
     DB::transaction(function () {
       $data = new \App\Models\Daily();
       $data->value = $this->amount;
