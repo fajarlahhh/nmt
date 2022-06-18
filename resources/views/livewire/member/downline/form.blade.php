@@ -55,7 +55,7 @@
               <label for="oldPassword" class="form-label">Password</label>
               <input data-toggle="password" data-placement="after" class="form-control" wire:model.defer="password"
                 type="password" />
-              @error('email')
+              @error('password')
                 <span class="text-danger">This field is required</span>
               @enderror
             </div>

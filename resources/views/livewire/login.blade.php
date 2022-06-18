@@ -38,6 +38,9 @@
           <div class="form-group m-b-15">
             <input data-toggle="password" data-placement="after" class="form-control form-control-lg" type="password"
               wire:model.defer="password" placeholder="Password" />
+            @error('password')
+              <span class="text-danger">This field is required</span>
+            @enderror
           </div>
           <div class="login-buttons text-center">
             <button type="submit" class="btn btn-success btn-lg">Sign me in</button>
