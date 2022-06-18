@@ -52,9 +52,9 @@
               @enderror
             </div>
             <div class="form-group mb-2">
-              <label for="oldPassword" class="form-label">Password</label>
-              <input data-toggle="password" data-placement="after" class="form-control" wire:model.defer="password"
-                type="password" />
+              <label for="password" class="form-label">Password</label>
+              <input data-toggle="password" id="password" data-placement="after" class="form-control"
+                wire:model.defer="password" type="password" />
               @error('password')
                 <span class="text-danger">This field is required</span>
               @enderror
