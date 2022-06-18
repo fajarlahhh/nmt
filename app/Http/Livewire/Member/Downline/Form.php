@@ -15,7 +15,7 @@ use Livewire\Component;
 
 class Form extends Component
 {
-  public $username, $name, $phone, $email, $password, $contract, $upline, $dataContract, $dataUpline, $usdtNeed, $deposit, $information, $security, $ticket;
+  public $username, $name, $phone, $email, $psswd, $contract, $upline, $dataContract, $dataUpline, $usdtNeed, $deposit, $information, $security, $ticket;
 
   protected $listeners = ['set:setupline' => 'setUpline'];
 
@@ -43,7 +43,7 @@ class Form extends Component
         'name' => 'required',
         'phone' => 'required',
         'email' => 'required',
-        'password' => 'required',
+        'psswd' => 'required',
         'contract' => 'required',
         'upline' => 'required',
         'security' => 'required',
@@ -54,7 +54,7 @@ class Form extends Component
         'name' => 'required',
         'phone' => 'required',
         'email' => 'required',
-        'password' => 'required',
+        'psswd' => 'required',
         'contract' => 'required',
         'upline' => 'required',
       ]);
@@ -79,14 +79,15 @@ class Form extends Component
     }
 
     try {
+      //   dd($this->password);
       DB::transaction(function () use ($dataContract) {
         $upline = User::where('id', $this->upline)->first();
 
         $user = new User();
         $user->phone = $this->phone;
         $user->username = $this->username;
-        $user->password = Hash::make($this->password);
-        $user->first_password = $this->password;
+        $user->password = Hash::make($this->psswd);
+        $user->first_password = $this->psswd;
         $user->name = $this->name;
         $user->email = $this->email;
         $user->contract_id = $this->contract;
