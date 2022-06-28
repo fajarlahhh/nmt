@@ -3,9 +3,9 @@
 namespace App\Http\Livewire\Member;
 
 use App\Models\Ticket;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\DB;
 
 class Deposit extends Component
 {
@@ -64,7 +64,7 @@ class Deposit extends Component
       DB::transaction(function () {
         $dataTicket = Ticket::where('date', date('Y-m-d'))->where('amount', $this->amount)->orderBy('created_at', 'desc')->get();
         if ($dataTicket->count() > 0) {
-          $this->kode = $dataTicket->first()->kode;
+          $this->kode = $dataTicket->first()->kode + 1;
         } else {
           $this->kode = 1;
         }
@@ -85,7 +85,7 @@ class Deposit extends Component
       });
 
       redirect('/deposit');
-    } catch (\Exception$e) {
+    } catch (\Exception $e) {
       session()->flash('danger', '<b>Deposit</b><br>' . $e->getMessage());
       return;
     }
