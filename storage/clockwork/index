@@ -1,0 +1,4 @@
+1656397993-2771-821428319,1656397990.8255,GET,/,Closure,302,6070.3938007355,request
+1656397997-0176-1068831559,1656397996.9274,GET,/dashboard,"App\Http\Livewire\Member\Dashboard@__invoke",200,922.8298664093,request
+1656397998-2729-1127722639,1656397998.1617,GET,/livewire/livewire.js?id=c69d0f2801c01fcf8166,"Livewire\Controllers\LivewireJavaScriptAssets@source",200,307.9731464386,request
+1656398001-5556-1880666160,1656398001.5,GET,/policy,"\Illuminate\Routing\ViewController",200,134.16194915771,request
