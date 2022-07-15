@@ -48,8 +48,8 @@
                       </div>
                       <div class="form-group mb-2">
                         <label for="amount" class="form-label text-dark">Withdrawal Amount</label>
-                        <input id="amount" type="number" min="0" step="1" autocomplete="off" class="form-control"
-                          wire:model.defer="amount">
+                        <input id="amount" type="number" min="0" step="1" autocomplete="off"
+                          class="form-control" wire:model.defer="amount">
                         @error('amount')
                           <span class="text-danger">This field is required</span>
                         @enderror
